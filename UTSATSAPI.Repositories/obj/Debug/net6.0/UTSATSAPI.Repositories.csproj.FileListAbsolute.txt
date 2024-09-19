@@ -33,3 +33,4 @@ E:\UTSATSAPI\UTSATSAPI.Repositories\obj\Debug\net6.0\UTSATSAPI.Repositories.dll
 E:\UTSATSAPI\UTSATSAPI.Repositories\obj\Debug\net6.0\refint\UTSATSAPI.Repositories.dll
 E:\UTSATSAPI\UTSATSAPI.Repositories\obj\Debug\net6.0\UTSATSAPI.Repositories.pdb
 E:\UTSATSAPI\UTSATSAPI.Repositories\obj\Debug\net6.0\ref\UTSATSAPI.Repositories.dll
+E:\UTSATSAPI\UTSATSAPI.Repositories\obj\Debug\net6.0\UTSATSAPI.Repositories.sourcelink.json

@@ -683,3 +683,4 @@ E:\UTSATSAPI\UTSATSAPI\obj\Release\net6.0\refint\UTSATSAPI.dll
 E:\UTSATSAPI\UTSATSAPI\obj\Release\net6.0\UTSATSAPI.pdb
 E:\UTSATSAPI\UTSATSAPI\obj\Release\net6.0\UTSATSAPI.genruntimeconfig.cache
 E:\UTSATSAPI\UTSATSAPI\obj\Release\net6.0\ref\UTSATSAPI.dll
+E:\UTSATSAPI\UTSATSAPI\obj\Release\net6.0\UTSATSAPI.sourcelink.json

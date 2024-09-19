@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UTSATSAPI.Repositories")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c5798883c8bb0c0c239c0905ef2cc2fbd7c01ea")]
 [assembly: System.Reflection.AssemblyProductAttribute("UTSATSAPI.Repositories")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UTSATSAPI.Repositories")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

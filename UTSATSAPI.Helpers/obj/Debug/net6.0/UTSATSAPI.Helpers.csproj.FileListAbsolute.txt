@@ -29,3 +29,4 @@ E:\UTSATSAPI\UTSATSAPI.Helpers\obj\Debug\net6.0\UTSATSAPI.Helpers.dll
 E:\UTSATSAPI\UTSATSAPI.Helpers\obj\Debug\net6.0\refint\UTSATSAPI.Helpers.dll
 E:\UTSATSAPI\UTSATSAPI.Helpers\obj\Debug\net6.0\UTSATSAPI.Helpers.pdb
 E:\UTSATSAPI\UTSATSAPI.Helpers\obj\Debug\net6.0\ref\UTSATSAPI.Helpers.dll
+E:\UTSATSAPI\UTSATSAPI.Helpers\obj\Debug\net6.0\UTSATSAPI.Helpers.sourcelink.json
