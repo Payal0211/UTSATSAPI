@@ -1,0 +1,112 @@
+﻿<Dictionary>
+  <Objective>
+    <Word>objective</Word>
+    <Word>personal statement</Word>
+    <Word>career objective</Word>
+  </Objective>
+  <ExperienceSummary>
+    <Word>Experience</Word>
+    <Word>Work Experience</Word>
+    <Word>experience summary</Word>
+    <Word>experience details</Word>
+    <Word>Working Experience</Word>
+  </ExperienceSummary>
+  <ProjectExperience>
+    <Word>project</Word>
+    <Word>projects</Word>
+    <Word>project work</Word>
+  </ProjectExperience>
+  <Certification>
+    <Word>certifications</Word>
+    <Word>certification</Word>
+  </Certification>
+  <Education>
+    <Word>education</Word>
+    <Word>academic</Word>
+  </Education>
+  <Achievement>
+    <Word>achievements</Word>
+    <Word>awards</Word>
+  </Achievement>
+  <Handle>
+    <!--<Word>uplers</Word>
+    <Word>linkedin</Word>
+    <Word>facebook</Word>
+    <Word>gmail</Word>
+    <Word>hotmail</Word>
+    <Word>yahoo</Word>
+    <Word>icloud</Word>
+    <Word>outlook</Word>
+    <Word>twitter</Word>
+    <Word>github</Word>-->
+    <Word>.com</Word>
+    <Word>.in</Word>
+    <Word>.org</Word>
+  </Handle>
+  <Languages>
+    <Word>Hindi</Word>
+    <Word>English</Word>
+    <Word>French</Word>
+    <Word>Sanskrit</Word>
+    <Word>German</Word>
+    <Word>Marathi</Word>
+    <Word>Gujarati</Word>
+    <Word>Tamil</Word>
+    <Word>Telugu</Word>
+  </Languages>
+  <Skill>
+    <Word>technical skills</Word>
+    <Word>programming</Word>
+    <Word>programming languages</Word>
+    <Word>programming skills</Word>
+    <Word>Top Skills</Word>
+    <Word>Tech Stack</Word>
+    <Word>Skill Set</Word>
+    <Word>framework</Word>
+    <Word>Database</Word>
+    <Word>Proficiency</Word>
+    <Word>Skill</Word>
+    <Word>Technology</Word>
+    <Word>Technologies</Word>
+    <Word>Provider</Word>
+  </Skill>
+  <Personal>
+    <Word>personal information</Word>
+    <Word>Basic</Word>
+    <Word>Name</Word>
+    <Word>Phone No</Word>
+    <Word>Info</Word>
+  </Personal>
+  <Declaration>
+    <Word>declaration</Word>
+    <Word>statement</Word>
+  </Declaration>
+  <Role>
+    <Word>Role</Word>
+    <Word>Roles</Word>
+  </Role>
+  <Zone>
+    <Word>Time Zone</Word>
+    <Word>UTC</Word>
+  </Zone>
+  <HowSoon>
+    <Word>On-Boarding</Word>
+    <Word>OnBoarding</Word>
+    <Word>On Boarding</Word>
+    <Word>board</Word>
+  </HowSoon>
+  <HowMany>
+    <Word>looking to hire</Word>
+    <Word>hiring</Word>
+  </HowMany>
+  <Tools>
+    <Word>Site</Word>
+    <Word>Tools</Word>
+    <Word>Marketing</Word>
+    <Word>Finance</Word>
+    <Word>Build</Word>
+    <Word>Security</Word>
+    <Word>Version</Word>
+    <Word>Softwares</Word>
+  </Tools>
+</Dictionary>

@@ -1,0 +1,101 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace UTSATSAPI.Models.Models
+{
+    public partial class GenDeal
+    {
+        public long Id { get; set; }
+        public long? DealId { get; set; }
+        public string? DealNumber { get; set; }
+        public string? DealProjectId { get; set; }
+        public string? ProjectId { get; set; }
+        public string? DealName { get; set; }
+        public string? Description { get; set; }
+        public decimal? Amount { get; set; }
+        public decimal? AmountInCompanyCurrency { get; set; }
+        public decimal? ActualCost { get; set; }
+        public int? AmId { get; set; }
+        public long? HubspotOwnerId { get; set; }
+        public string? DealOwner { get; set; }
+        public int? PortalId { get; set; }
+        public string? ClientName { get; set; }
+        public long? ClientId { get; set; }
+        public long? CompanyId { get; set; }
+        public string? EmailId { get; set; }
+        public int? CurrencyId { get; set; }
+        public int? GeoId { get; set; }
+        public int? DealStageId { get; set; }
+        public string? DealStage { get; set; }
+        public int? DealTypeId { get; set; }
+        public string? DealType { get; set; }
+        public int? DealServiceId { get; set; }
+        public string? DealService { get; set; }
+        public string? SubServiceIds { get; set; }
+        public string? SourceId { get; set; }
+        public string? Source { get; set; }
+        public long? CompanyDealId { get; set; }
+        public int? PipelineId { get; set; }
+        public string? Pipeline { get; set; }
+        public decimal? NoofDedicated { get; set; }
+        public string? AssociatedVids { get; set; }
+        public string? AssociatedCompanyIds { get; set; }
+        public string? AssociatedDealIds { get; set; }
+        public string? AssociatedTicketIds { get; set; }
+        public string? CustomerType { get; set; }
+        public string? Country { get; set; }
+        public DateTime? DealDate { get; set; }
+        public int? CreatedById { get; set; }
+        public DateTime? CreatedByDatetime { get; set; }
+        public int? LastModifiedById { get; set; }
+        public DateTime? LastModifiedDatetime { get; set; }
+        public DateTime? CloseDate { get; set; }
+        public string? ClosedLostReason { get; set; }
+        public string? ClosedWonReason { get; set; }
+        public int? LostReasonId { get; set; }
+        public int? HoldReasonId { get; set; }
+        public string? Elite { get; set; }
+        public string? Note { get; set; }
+        public bool? IsContactInserted { get; set; }
+        public bool? IsUpdated { get; set; }
+        public DateTime? LastUpdatedDate { get; set; }
+        public long? RfqId { get; set; }
+        public int? EngageModelId { get; set; }
+        public int? TempEngageModelId { get; set; }
+        public decimal? HsClosedAmountInHomeCurrency { get; set; }
+        public long? HrId { get; set; }
+        public string? SalAchievedMonth { get; set; }
+        public string? BdrMdrName { get; set; }
+        public string? BdrMdrEmail { get; set; }
+        public string? AgreementSignedMonth { get; set; }
+        public string? AgreementSignedWeek { get; set; }
+        public decimal? AmountInHomeCurrency { get; set; }
+        public string? DealSource { get; set; }
+        public string? InterviewDoneMonth { get; set; }
+        public string? InterviewDoneWeek { get; set; }
+        public DateTime? MeetingScheduledDate { get; set; }
+        public string? MeetingScheduledTime { get; set; }
+        public string? FutureProspectMonth { get; set; }
+        public string? MovedToSalesFutureProspectMonth { get; set; }
+        public decimal? Payrate { get; set; }
+        public string? PoolVsOdrSplit { get; set; }
+        public string? DiscoveryCallDoneMonth { get; set; }
+        public string? DiscoveryCallDoneWeek { get; set; }
+        public string? ProfileSharedMonth { get; set; }
+        public string? ProfileSharedWeek { get; set; }
+        public string? DiscoveryCallScheduledMonth { get; set; }
+        public string? ProspectAchievedMonth { get; set; }
+        public string? DiscoveryCallScheduledWeek { get; set; }
+        public string? ProspectAchievedWeek { get; set; }
+        public string? HaveYouUpdateTheUtsSystemWithInterviewScheduled { get; set; }
+        public string? ClosedLostReason1 { get; set; }
+        public string? HaveYouUpdatedTheUtsSystemWithInterviewFeedback { get; set; }
+        public string? SalAchievedWeek { get; set; }
+        public string? SupplyChannel { get; set; }
+        public string? HaveYouUpdatedTheUtsSystemWithProfileFeedback { get; set; }
+        public string? TalentName { get; set; }
+        public string? HiringRequestRaisedMonth { get; set; }
+        public string? HiringRequestRaisedWeek { get; set; }
+        public bool? IsActive { get; set; }
+    }
+}

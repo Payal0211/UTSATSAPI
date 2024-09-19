@@ -1,0 +1,17 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UTSATSAPI.Models.ComplexTypes
+{
+    [Keyless]
+    public class Sproc_Update_Status_For_Reopen_HR_Result
+    {
+        public string? Message { get; set; }
+        public byte? Status { get; set; }
+        public bool? IsReopen { get; set; }
+    }
+}

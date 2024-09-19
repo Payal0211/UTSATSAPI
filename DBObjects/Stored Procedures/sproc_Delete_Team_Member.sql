@@ -1,0 +1,15 @@
+CREATE PROCEDURE [dbo].[sproc_Delete_Team_Member]
+	@TeamID BIGINT	= NULL
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	IF @TeamID > 0
+	BEGIN
+		IF EXISTS (SELECT TOP 1 ID FROM gen_OnBoardClientTeam WITH (NOLOCK) WHERE ID = @TeamID)
+		BEGIN
+			DELETE FROM gen_OnBoardClientTeam WHERE ID = @TeamID
+		END
+	END
+END
+GO

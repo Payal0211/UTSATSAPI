@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "2LKvoyIGM+XlEtx8kvK4uZbZXXyLSWZ+osHrHOo04xk=",
+  "Source": "TalentConnectAdminAPI",
+  "BasePath": "_content/TalentConnectAdminAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

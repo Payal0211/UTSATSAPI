@@ -1,0 +1,104 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>41b7b178-932f-4b34-ba3d-76714fb36817</UserSecretsId>
+		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<Optimize>True</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Common\**" />
+		<Compile Remove="ComplexTypes\**" />
+		<Compile Remove="Interfaces\**" />
+		<Compile Remove="Models\**" />
+		<Compile Remove="Repositories\**" />
+		<Compile Remove="UpChatCalls\**" />
+		<Compile Remove="ViewModel\**" />
+		<Content Remove="Common\**" />
+		<Content Remove="ComplexTypes\**" />
+		<Content Remove="Interfaces\**" />
+		<Content Remove="Models\**" />
+		<Content Remove="Repositories\**" />
+		<Content Remove="UpChatCalls\**" />
+		<Content Remove="ViewModel\**" />
+		<EmbeddedResource Remove="Common\**" />
+		<EmbeddedResource Remove="ComplexTypes\**" />
+		<EmbeddedResource Remove="Interfaces\**" />
+		<EmbeddedResource Remove="Models\**" />
+		<EmbeddedResource Remove="Repositories\**" />
+		<EmbeddedResource Remove="UpChatCalls\**" />
+		<EmbeddedResource Remove="ViewModel\**" />
+		<None Remove="Common\**" />
+		<None Remove="ComplexTypes\**" />
+		<None Remove="Interfaces\**" />
+		<None Remove="Models\**" />
+		<None Remove="Repositories\**" />
+		<None Remove="UpChatCalls\**" />
+		<None Remove="ViewModel\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Controllers\TalentReplacementControllerOld.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+		<PackageReference Include="AWSSDK.S3" Version="3.7.306.2" />
+		<PackageReference Include="ClosedXML" Version="0.101.0" />
+		<PackageReference Include="DevExpress.Data" Version="22.1.6" />
+		<PackageReference Include="ElmahCore" Version="2.1.2" />
+		<PackageReference Include="FluentValidation" Version="11.4.0" />
+		<PackageReference Include="Google.Apis.Auth.AspNetCore3" Version="1.59.0" />
+		<PackageReference Include="Google.Apis.Drive.v3" Version="1.59.0.2922" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
+		<PackageReference Include="RestSharp" Version="110.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Media\Images\" />
+		<Folder Include="Media\JDParsing\JDFiles\" />
+		<Folder Include="Media\UserProfileImage\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\UTSATSAPI.Helpers\UTSATSAPI.Helpers.csproj" />
+		<ProjectReference Include="..\UTSATSAPI.Models\UTSATSAPI.Models.csproj" />
+		<ProjectReference Include="..\UTSATSAPI.Repositories\UTSATSAPI.Repositories.csproj" />
+	</ItemGroup>
+
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/avro-avsc.json" />
+		</VisualStudio>
+	</ProjectExtensions>
+
+</Project>

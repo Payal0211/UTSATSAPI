@@ -1,0 +1,17 @@
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\bin\Release\net6.0\TalentConnectAdminAPI.Repositories.deps.json
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\bin\Release\net6.0\TalentConnectAdminAPI.Repositories.dll
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\bin\Release\net6.0\TalentConnectAdminAPI.Repositories.pdb
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\bin\Release\net6.0\TalentConnectAdminAPI.Helpers.dll
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\bin\Release\net6.0\TalentConnectAdminAPI.Models.dll
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\bin\Release\net6.0\TalentConnectAdminAPI.Helpers.pdb
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\bin\Release\net6.0\TalentConnectAdminAPI.Models.pdb
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.csproj.AssemblyReference.cache
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.AssemblyInfoInputs.cache
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.AssemblyInfo.cs
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.csproj.CoreCompileInputs.cache
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.csproj.CopyComplete
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.dll
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\refint\TalentConnectAdminAPI.Repositories.dll
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\TalentConnectAdminAPI.Repositories.pdb
+D:\TFSProjects\UTS\TalentConnectAdminAPI.Repositories\obj\Release\net6.0\ref\TalentConnectAdminAPI.Repositories.dll

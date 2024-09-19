@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/ProjectEvaluation
+/.vs/TalentConnectAPI
+/TalentConnectAdminAPI/bin/Release/net6.0
+/TalentConnectAdminAPI/Media/JDParsing/JDFiles
+/TalentConnectAdminAPI.Models/obj/Release/net6.0
+/TalentConnectClient/Media/JDParsing
+/.vs/UTS_Admin_Client/v17
+/TalentConnectChat/bin/Debug/net6.0
+/TalentConnectAdminAPI.Helpers/obj/Release/net6.0
+/TalentConnectAdminAPI/obj/Release/net6.0

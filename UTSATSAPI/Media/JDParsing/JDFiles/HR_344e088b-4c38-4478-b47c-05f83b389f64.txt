@@ -1,0 +1,7 @@
+Roles and Responsibilities: 
+
+ ["Developing and maintaining WordPress websites","Managing projects and ensuring timely delivery","Collaborating with other team members to design and implement new features","Troubleshooting and debugging WordPress issues","Keeping up to date with the latest trends and technologies in WordPress development"] 
+
+ Requirements: 
+
+ ["Minimum 12 years of experience in WordPress development","Strong knowledge of project management","Experience with Shopify","Familiarity with Symphony and Wix is a plus","Ability to work remotely with a flexible schedule"]
