@@ -6,9 +6,7 @@ using UTSATSAPI.Models.Generic;
 using UTSATSAPI.Models.Models;
 using UTSATSAPI.Repositories.Infrastructure.Repositories;
 using UTSATSAPI.Repositories.Interfaces;
-using UTSATSAPI.Repositories.Interfaces.UpChat;
 using UTSATSAPI.Repositories.Repositories;
-using UTSATSAPI.Repositories.Repositories.UpChat;
 
 namespace UTSATSAPI.Repositories.Infrastructure.ServiceExtension
 {
@@ -17,7 +15,7 @@ namespace UTSATSAPI.Repositories.Infrastructure.ServiceExtension
         public static IServiceCollection AddDIServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHttpClient();
-            services.AddTransient<ICommonInterface, CommonRepository>();
+            //services.AddTransient<ICommonInterface, CommonRepository>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUniversalProcRunner, UniversalProcRunnerRepository>();
 
@@ -274,45 +272,45 @@ namespace UTSATSAPI.Repositories.Infrastructure.ServiceExtension
             services.AddScoped<IUsrUserTypeRepository, UsrUserTypeRepository>();
             //services.AddScoped<IUsrUserTypeAndRoleDetailRepository, UsrUserTypeAndRoleDetailRepository>();
             
-            services.AddScoped<IContactRepository, ContactRepository>();
-            services.AddScoped<IHubSpotRepository, HubSpotRepository>();
+            //services.AddScoped<IContactRepository, ContactRepository>();
+            //services.AddScoped<IHubSpotRepository, HubSpotRepository>();
             services.AddScoped<IStoreAPIUrlRepository, StoreAPIUrlRepository>();
 
             return services;
         }
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
-            services.AddScoped<IAdminUserLogin, AdminUserRepository>();
-            services.AddScoped<IClient, ClientRepository>();
-            services.AddScoped<IIncentiveReport, IncentiveReportRepository>();
-            services.AddScoped<IIncentiveTarget, IncentiveTargetRepository>();
-            services.AddScoped<IDeals, DealListRepository>();
-            services.AddScoped<IAMAssignmentRules, AMAssigmentRulesRepository>();
-            services.AddScoped<ITalentReplacement, TalentReplacementRepository>();
-            services.AddScoped<IUserTeam, UserTeamRepository>();
-            services.AddScoped<IReport, ReportsRepository>();
-            services.AddScoped<ISLAReport, SLAReportRepository>();
-            services.AddScoped<ICompany, CompanyRepository>();
-            services.AddScoped<IInterviewToSuccess, InterviewToSuccessRepository>();
-            services.AddScoped<IChannel, ChannelRepository>();
-            services.AddScoped<IUser, UserRepository>();
-            services.AddScoped<IUpChatCall, UpChatCallRepository>();
-            services.AddScoped<IUsers, UsersRepository>();
-            services.AddScoped<ITalent, TalentRepository>();
-            services.AddScoped<IJDParse, JDParseRepository>();
-            services.AddScoped<IIncentive, IncentiveRepository>();
-            services.AddScoped<IHRInterviewerDetail, HRInterviewerRepository>();
-            services.AddScoped<IInterviewer, InterviewerRepository>();
-            services.AddScoped<IEmail, UpchatEmailRepository>();
-            services.AddScoped<IOnboard, OnBoardRepository>();
-            services.AddScoped<IAMAssignment, AMAssigmentRepository>();
-            services.AddScoped<IEngagement, EngagementRepository>();
-            services.AddScoped<IMasters, MastersRepositories>();
-            services.AddScoped<IHRAcceptance, HRAacceptanceRepository>();
-            services.AddScoped<IHubSpotCompany, HubSpotCompanyRepository>();
-            services.AddScoped<IHiringRequest, HiringRequestRepository>();
-            services.AddScoped<IChatGPTResponse, ChatGPTRepository>();
-            services.AddScoped<ISchedular, SchedularRepository>();
+            //services.AddScoped<IAdminUserLogin, AdminUserRepository>();
+            //services.AddScoped<IClient, ClientRepository>();
+            //services.AddScoped<IIncentiveReport, IncentiveReportRepository>();
+            //services.AddScoped<IIncentiveTarget, IncentiveTargetRepository>();
+            //services.AddScoped<IDeals, DealListRepository>();
+            //services.AddScoped<IAMAssignmentRules, AMAssigmentRulesRepository>();
+            //services.AddScoped<ITalentReplacement, TalentReplacementRepository>();
+            //services.AddScoped<IUserTeam, UserTeamRepository>();
+            //services.AddScoped<IReport, ReportsRepository>();
+            //services.AddScoped<ISLAReport, SLAReportRepository>();
+            //services.AddScoped<ICompany, CompanyRepository>();
+            //services.AddScoped<IInterviewToSuccess, InterviewToSuccessRepository>();
+            //services.AddScoped<IChannel, ChannelRepository>();
+            //services.AddScoped<IUser, UserRepository>();
+            //services.AddScoped<IUpChatCall, UpChatCallRepository>();
+            //services.AddScoped<IUsers, UsersRepository>();
+            //services.AddScoped<ITalent, TalentRepository>();
+            //services.AddScoped<IJDParse, JDParseRepository>();
+            //services.AddScoped<IIncentive, IncentiveRepository>();
+            //services.AddScoped<IHRInterviewerDetail, HRInterviewerRepository>();
+            //services.AddScoped<IInterviewer, InterviewerRepository>();
+            //services.AddScoped<IEmail, UpchatEmailRepository>();
+            //services.AddScoped<IOnboard, OnBoardRepository>();
+            //services.AddScoped<IAMAssignment, AMAssigmentRepository>();
+            //services.AddScoped<IEngagement, EngagementRepository>();
+            //services.AddScoped<IMasters, MastersRepositories>();
+            //services.AddScoped<IHRAcceptance, HRAacceptanceRepository>();
+            //services.AddScoped<IHubSpotCompany, HubSpotCompanyRepository>();
+            //services.AddScoped<IHiringRequest, HiringRequestRepository>();
+            //services.AddScoped<IChatGPTResponse, ChatGPTRepository>();
+            //services.AddScoped<ISchedular, SchedularRepository>();
         }
     }
 }

@@ -35,175 +35,175 @@ namespace UTSATSAPI.Controllers
 
         #region Public Methods
         //[ApiKey]
-        [HttpPost("EditHRThroughATS")]
-        public async Task<ObjectResult> EditHRThroughATS(ATSHiringReqeustModel model)
-        {
-            long APIRecordInsertedID = 0;
-            string Message = "";
-            try
-            {
-                #region Validation
-                if (model == null)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "Request object is empty" });
-                }
-                if (model.HrId == 0 || model.HrId == null)
-                {
-                    return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "Please pass proper HrId" });
-                }
-                #endregion
+        //[HttpPost("EditHRThroughATS")]
+        //public async Task<ObjectResult> EditHRThroughATS(ATSHiringReqeustModel model)
+        //{
+        //    long APIRecordInsertedID = 0;
+        //    string Message = "";
+        //    try
+        //    {
+        //        #region Validation
+        //        if (model == null)
+        //        {
+        //            return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "Request object is empty" });
+        //        }
+        //        if (model.HrId == 0 || model.HrId == null)
+        //        {
+        //            return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "Please pass proper HrId" });
+        //        }
+        //        #endregion
 
-                #region Add record in gen_UtsAts_Records
-                string EditHRJsonData = JsonConvert.SerializeObject(model);
-                GenUtsAtsApiRecord utsAtsApi_Records = new()
-                {
-                    FromApiUrl = "ATS Edit HR",
-                    ToApiUrl = _configuration["ProjectURL"].ToString() + "EditHRThroughATS",
-                    PayloadToSend = EditHRJsonData,
-                    CreatedById = 0,
-                    CreatedByDateTime = DateTime.Now,
-                    HrId = model.HrId
-                };
+        //        #region Add record in gen_UtsAts_Records
+        //        string EditHRJsonData = JsonConvert.SerializeObject(model);
+        //        GenUtsAtsApiRecord utsAtsApi_Records = new()
+        //        {
+        //            FromApiUrl = "ATS Edit HR",
+        //            ToApiUrl = _configuration["ProjectURL"].ToString() + "EditHRThroughATS",
+        //            PayloadToSend = EditHRJsonData,
+        //            CreatedById = 0,
+        //            CreatedByDateTime = DateTime.Now,
+        //            HrId = model.HrId
+        //        };
 
-                APIRecordInsertedID = InsertUtsAtsApiDetails(utsAtsApi_Records);
-                #endregion
+        //        APIRecordInsertedID = InsertUtsAtsApiDetails(utsAtsApi_Records);
+        //        #endregion
 
-                #region Download file from AWS Server & upload to UTS server
-                try
-                {
-                    if (!string.IsNullOrEmpty(model.JDFile_ATSURL))
-                    {
-                        string BucketName = _configuration["BucketName"].ToString();
-                        string KeyName = _configuration["KeyName"].ToString();
-                        string AccessKey = _configuration["AccessKey"].ToString();
-                        string SecretKey = _configuration["SecretKey"].ToString();
+        //        #region Download file from AWS Server & upload to UTS server
+        //        try
+        //        {
+        //            if (!string.IsNullOrEmpty(model.JDFile_ATSURL))
+        //            {
+        //                string BucketName = _configuration["BucketName"].ToString();
+        //                string KeyName = _configuration["KeyName"].ToString();
+        //                string AccessKey = _configuration["AccessKey"].ToString();
+        //                string SecretKey = _configuration["SecretKey"].ToString();
 
-                        string fileName = Path.GetFileName(model.JDFile_ATSURL);
+        //                string fileName = Path.GetFileName(model.JDFile_ATSURL);
 
-                        var credentials = new Amazon.Runtime.BasicAWSCredentials(AccessKey, SecretKey);
+        //                var credentials = new Amazon.Runtime.BasicAWSCredentials(AccessKey, SecretKey);
 
-                        using (var client = new AmazonS3Client(credentials, RegionEndpoint.USEast1)) // Replace YOUR_REGION with the appropriate AWS region
-                        {
-                            var getObjectRequest = new GetObjectRequest
-                            {
-                                BucketName = BucketName,
-                                Key = KeyName + fileName
-                            };
+        //                using (var client = new AmazonS3Client(credentials, RegionEndpoint.USEast1)) // Replace YOUR_REGION with the appropriate AWS region
+        //                {
+        //                    var getObjectRequest = new GetObjectRequest
+        //                    {
+        //                        BucketName = BucketName,
+        //                        Key = KeyName + fileName
+        //                    };
 
-                            using (GetObjectResponse response = await client.GetObjectAsync(getObjectRequest))
-                            {
-                                string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
-                                // Create a FileStream to write the file to the UTS server
-                                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                                {
-                                    // Copy the file from S3 to the UTS server
-                                    await response.ResponseStream.CopyToAsync(fileStream);
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (AmazonS3Exception ex)
-                {
-                    Message += "[Error downloading file:" + ex.Message.ToString() + "]";
-                    UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
-                }
-                catch (Exception ex)
-                {
-                    Message += "[" + ex.Message.ToString() + "]";
-                    UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
-                }
-                #endregion
+        //                    using (GetObjectResponse response = await client.GetObjectAsync(getObjectRequest))
+        //                    {
+        //                        string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
+        //                        // Create a FileStream to write the file to the UTS server
+        //                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //                        {
+        //                            // Copy the file from S3 to the UTS server
+        //                            await response.ResponseStream.CopyToAsync(fileStream);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        catch (AmazonS3Exception ex)
+        //        {
+        //            Message += "[Error downloading file:" + ex.Message.ToString() + "]";
+        //            UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Message += "[" + ex.Message.ToString() + "]";
+        //            UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+        //        }
+        //        #endregion
 
-                #region SP call
+        //        #region SP call
 
-                string strCompensationOption = null;
-                string strCandidateIndustry = null;
+        //        string strCompensationOption = null;
+        //        string strCandidateIndustry = null;
 
-                if (model.VitalInformation != null)
-                {
-                    if (model.VitalInformation.CompensationOption != null && model.VitalInformation.CompensationOption.Any())
-                    {
-                        strCompensationOption = string.Join('^', model.VitalInformation.CompensationOption);
-                    }
-                    if (model.VitalInformation.CandidateIndustry != null && model.VitalInformation.CandidateIndustry.Any())
-                    {
-                        strCandidateIndustry = string.Join('^', model.VitalInformation.CandidateIndustry);
-                    }
-                }
+        //        if (model.VitalInformation != null)
+        //        {
+        //            if (model.VitalInformation.CompensationOption != null && model.VitalInformation.CompensationOption.Any())
+        //            {
+        //                strCompensationOption = string.Join('^', model.VitalInformation.CompensationOption);
+        //            }
+        //            if (model.VitalInformation.CandidateIndustry != null && model.VitalInformation.CandidateIndustry.Any())
+        //            {
+        //                strCandidateIndustry = string.Join('^', model.VitalInformation.CandidateIndustry);
+        //            }
+        //        }
 
-                object[] param = new object[]
-                {
-                       model?.HrId,
-                       model?.ContactId,
-                       model?.Availability,
-                       model?.ContractDuration,
-                       model?.Currency,
-                       model?.AdhocBudgetCost,
-                       model?.MinimumBudget,
-                       model?.MaximumBudget,
-                       model?.IsConfidentialBudget,
-                       model?.ModeOfWorkingId,
-                       model?.City,
-                       model?.Country,
-                       model?.JDFilename,
-                       model?.JDURL,
-                       model?.YearOfExp,
-                       model?.NoofTalents,
-                       model?.TimezoneId,
-                       model?.TimeZoneFromTime,
-                       model?.TimeZoneEndTime,
-                       model?.HowSoon,
-                       model?.PartialEngagementTypeID,
-                       model?.NoofHoursworking,
-                       model?.DurationType,
-                       model?.HrTitle,
-                       model?.RoleAndResponsibilites,
-                       model?.Requirements,
-                       model?.JobDescription,
-                       model?.MustHaveSkills,
-                       model?.GoodToHaveSkills,
-                       model?.IsHrfocused,
-                       model?.ATS_PayPerHire?.IsHRTypeDP,
-                       model?.ATS_PayPerHire?.DpPercentage,
-                       model?.ATS_PayPerHire?.NRMargin,
-                       model?.ATS_PayPerHire?.IsTransparentPricing,
-                       model?.ATS_PayPerHire?.HrTypePricingId,
-                       model?.ATS_PayPerHire?.PayrollTypeId,
-                       model?.ATS_PayPerHire?.PayrollPartnerName,
-                       model?.ATS_PayPerCredit?.IsVettedProfile,
-                       model?.ATS_PayPerCredit?.IsHiringLimited,
-                       model?.LastModifiedById,
-                       model?.ATS_PayPerCredit?.JobTypeId,
-                       strCompensationOption,
-                       strCandidateIndustry,
-                       model?.VitalInformation?.HasPeopleManagementExp,
-                       model?.VitalInformation?.Prerequisites,
-                       model?.JobLocation,
-                       model?.FrequencyOfficeVisitID,
-                       model?.IsOpenToWorkNearByCities,
-                       model?.NearByCities,
-                       model?.ATS_JobLocationID,
-                       model?.ATS_NearByCities,
-                };
+        //        object[] param = new object[]
+        //        {
+        //               model?.HrId,
+        //               model?.ContactId,
+        //               model?.Availability,
+        //               model?.ContractDuration,
+        //               model?.Currency,
+        //               model?.AdhocBudgetCost,
+        //               model?.MinimumBudget,
+        //               model?.MaximumBudget,
+        //               model?.IsConfidentialBudget,
+        //               model?.ModeOfWorkingId,
+        //               model?.City,
+        //               model?.Country,
+        //               model?.JDFilename,
+        //               model?.JDURL,
+        //               model?.YearOfExp,
+        //               model?.NoofTalents,
+        //               model?.TimezoneId,
+        //               model?.TimeZoneFromTime,
+        //               model?.TimeZoneEndTime,
+        //               model?.HowSoon,
+        //               model?.PartialEngagementTypeID,
+        //               model?.NoofHoursworking,
+        //               model?.DurationType,
+        //               model?.HrTitle,
+        //               model?.RoleAndResponsibilites,
+        //               model?.Requirements,
+        //               model?.JobDescription,
+        //               model?.MustHaveSkills,
+        //               model?.GoodToHaveSkills,
+        //               model?.IsHrfocused,
+        //               model?.ATS_PayPerHire?.IsHRTypeDP,
+        //               model?.ATS_PayPerHire?.DpPercentage,
+        //               model?.ATS_PayPerHire?.NRMargin,
+        //               model?.ATS_PayPerHire?.IsTransparentPricing,
+        //               model?.ATS_PayPerHire?.HrTypePricingId,
+        //               model?.ATS_PayPerHire?.PayrollTypeId,
+        //               model?.ATS_PayPerHire?.PayrollPartnerName,
+        //               model?.ATS_PayPerCredit?.IsVettedProfile,
+        //               model?.ATS_PayPerCredit?.IsHiringLimited,
+        //               model?.LastModifiedById,
+        //               model?.ATS_PayPerCredit?.JobTypeId,
+        //               strCompensationOption,
+        //               strCandidateIndustry,
+        //               model?.VitalInformation?.HasPeopleManagementExp,
+        //               model?.VitalInformation?.Prerequisites,
+        //               model?.JobLocation,
+        //               model?.FrequencyOfficeVisitID,
+        //               model?.IsOpenToWorkNearByCities,
+        //               model?.NearByCities,
+        //               model?.ATS_JobLocationID,
+        //               model?.ATS_NearByCities,
+        //        };
 
-                string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                _db.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTSAdmin_EditHrByATS, paramString));
+        //        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+        //        _db.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTSAdmin_EditHrByATS, paramString));
 
-                #endregion
+        //        #endregion
 
-                Message += "[Hiring request updated successfully by ATS]";
-                UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
-                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
-            }
-            catch (Exception ex)
-            {
-                Message += "[" + ex.Message.ToString() + "]";
-                UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
-                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
-                throw;
-            }
-        }
+        //        Message += "[Hiring request updated successfully by ATS]";
+        //        UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+        //        return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Message += "[" + ex.Message.ToString() + "]";
+        //        UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+        //        return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
+        //        throw;
+        //    }
+        //}
 
         [HttpPost("TransferFileFromAWSToUTSServer")]
         public async Task<ObjectResult> TransferFileFromAWSToUTSServer([FromBody] FilePath file)

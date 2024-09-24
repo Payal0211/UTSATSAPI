@@ -45,10 +45,10 @@ namespace UTSATSAPI.Config
             SendEmails sendEmails = new SendEmails();
             var result = JsonSerializer.Serialize(errorResponse);
 
-            EmailBinder binder = new EmailBinder(_configuration, null);
-            List<string> toemail = new List<string>() { "anit.s@uplers.in" };
-            List<string> toemailname = new List<string>() { "anits" };
-            binder.BindEmailForError(toemail, toemailname, "Exception Email", "<b> [ Error ] </b><br>" + result);
+            //EmailBinder binder = new EmailBinder(_configuration, null);
+            //List<string> toemail = new List<string>() { "anit.s@uplers.in" };
+            //List<string> toemailname = new List<string>() { "anits" };
+            //binder.BindEmailForError(toemail, toemailname, "Exception Email", "<b> [ Error ] </b><br>" + result);
 
         }
 

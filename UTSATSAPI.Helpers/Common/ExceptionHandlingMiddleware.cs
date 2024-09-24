@@ -65,10 +65,10 @@ namespace UTSATSAPI.Helpers.Common
             SendEmails sendEmails = new SendEmails();
             var result = JsonSerializer.Serialize(errorResponse);
 
-            EmailBinder binder = new EmailBinder(_configuration,null);
-            List<string> toemail = new List<string>() { "parth.mehta@uplers.in" , "himani.s@uplers.in" };
-            List<string> toemailname = new List<string>() { "ParthMehta" , "Himani" };
-            binder.BindEmailForError(toemail, toemailname, "Exception Email", "<b> [ Error ] </b><br>" + result);
+            //EmailBinder binder = new EmailBinder(_configuration,null);
+            //List<string> toemail = new List<string>() { "parth.mehta@uplers.in" , "himani.s@uplers.in" };
+            //List<string> toemailname = new List<string>() { "ParthMehta" , "Himani" };
+            //binder.BindEmailForError(toemail, toemailname, "Exception Email", "<b> [ Error ] </b><br>" + result);
             
             await context.Response.WriteAsync(result);
         }

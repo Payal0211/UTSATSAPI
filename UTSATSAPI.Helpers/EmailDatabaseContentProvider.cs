@@ -19,229 +19,229 @@
         }
         #endregion
 
-        public EmailForBookTimeSlotModel GetEmailForBookTimeSlotModel(long talentId, long InvoiceId = 0, long OnboardID = 0, bool replacement = false, long HRID = 0, long contactid = 0, long shortlistedid = 0)
-        {
-            EmailForBookTimeSlotModel emailForBookTimeSlotModel = new EmailForBookTimeSlotModel();
-            if (talentId > 0)
-            {
-                GenTalent gen_Talent = _talentConnectAdminDBContext.GenTalents.AsNoTracking().FirstOrDefault(x => x.Id == talentId);
-                //_talentConnectAdminDBContext.Entry(gen_Talent).Reload();
-                if (gen_Talent != null)
-                {
-                    emailForBookTimeSlotModel.TalentName = gen_Talent.Name;
-                    emailForBookTimeSlotModel.TalentFirstName = gen_Talent.FirstName;
-                    emailForBookTimeSlotModel.TalentLastName = gen_Talent.LastName;
-                    emailForBookTimeSlotModel.TalentEmail = gen_Talent.EmailId;
-                    emailForBookTimeSlotModel.Designation = gen_Talent.Designation;
-                    emailForBookTimeSlotModel.RoleID = gen_Talent.RoleId;
-                    emailForBookTimeSlotModel.finalCost = gen_Talent.FinalCost;
-                    emailForBookTimeSlotModel.CurrentCTC = gen_Talent.CurrentCtc;
-                    emailForBookTimeSlotModel.yearsofExperience = gen_Talent.TotalExpYears;
-                    emailForBookTimeSlotModel.TypeofDeveloper = gen_Talent.TypeofDeveloper;
-                    //emailForBookTimeSlotModel.IsTalentNotificationSend = gen_Talent.IsTalentNotificationSend ?? false;
-                    emailForBookTimeSlotModel.IsTalentNotificationSend = false;
-                    emailForBookTimeSlotModel.IsResetPasswordForTalent = gen_Talent.IsResetPassword ?? false;
+        //public EmailForBookTimeSlotModel GetEmailForBookTimeSlotModel(long talentId, long InvoiceId = 0, long OnboardID = 0, bool replacement = false, long HRID = 0, long contactid = 0, long shortlistedid = 0)
+        //{
+        //    EmailForBookTimeSlotModel emailForBookTimeSlotModel = new EmailForBookTimeSlotModel();
+        //    if (talentId > 0)
+        //    {
+        //        GenTalent gen_Talent = _talentConnectAdminDBContext.GenTalents.AsNoTracking().FirstOrDefault(x => x.Id == talentId);
+        //        //_talentConnectAdminDBContext.Entry(gen_Talent).Reload();
+        //        if (gen_Talent != null)
+        //        {
+        //            emailForBookTimeSlotModel.TalentName = gen_Talent.Name;
+        //            emailForBookTimeSlotModel.TalentFirstName = gen_Talent.FirstName;
+        //            emailForBookTimeSlotModel.TalentLastName = gen_Talent.LastName;
+        //            emailForBookTimeSlotModel.TalentEmail = gen_Talent.EmailId;
+        //            emailForBookTimeSlotModel.Designation = gen_Talent.Designation;
+        //            emailForBookTimeSlotModel.RoleID = gen_Talent.RoleId;
+        //            emailForBookTimeSlotModel.finalCost = gen_Talent.FinalCost;
+        //            emailForBookTimeSlotModel.CurrentCTC = gen_Talent.CurrentCtc;
+        //            emailForBookTimeSlotModel.yearsofExperience = gen_Talent.TotalExpYears;
+        //            emailForBookTimeSlotModel.TypeofDeveloper = gen_Talent.TypeofDeveloper;
+        //            //emailForBookTimeSlotModel.IsTalentNotificationSend = gen_Talent.IsTalentNotificationSend ?? false;
+        //            emailForBookTimeSlotModel.IsTalentNotificationSend = false;
+        //            emailForBookTimeSlotModel.IsResetPasswordForTalent = gen_Talent.IsResetPassword ?? false;
 
-                    PrgTalentRole roles = _talentConnectAdminDBContext.PrgTalentRoles.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.RoleId);
-                    //_talentConnectAdminDBContext.Entry(roles).Reload();
+        //            PrgTalentRole roles = _talentConnectAdminDBContext.PrgTalentRoles.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.RoleId);
+        //            //_talentConnectAdminDBContext.Entry(roles).Reload();
 
-                    if (roles != null)
-                    {
-                        emailForBookTimeSlotModel.TalentRole = roles.TalentRole;
-                    }
+        //            if (roles != null)
+        //            {
+        //                emailForBookTimeSlotModel.TalentRole = roles.TalentRole;
+        //            }
 
-                    PrgTalentStatusAfterClientSelection talentStatus_AfterClientSelection = _talentConnectAdminDBContext.PrgTalentStatusAfterClientSelections.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.TalentStatusIdAfterClientSelection);
-                    //_talentConnectAdminDBContext.Entry(talentStatus_AfterClientSelection).Reload();
+        //            PrgTalentStatusAfterClientSelection talentStatus_AfterClientSelection = _talentConnectAdminDBContext.PrgTalentStatusAfterClientSelections.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.TalentStatusIdAfterClientSelection);
+        //            //_talentConnectAdminDBContext.Entry(talentStatus_AfterClientSelection).Reload();
 
-                    if (talentStatus_AfterClientSelection != null)
-                    {
-                        emailForBookTimeSlotModel.talentStatusAfterClientSelection = talentStatus_AfterClientSelection.TalentStatus;
-                    }
+        //            if (talentStatus_AfterClientSelection != null)
+        //            {
+        //                emailForBookTimeSlotModel.talentStatusAfterClientSelection = talentStatus_AfterClientSelection.TalentStatus;
+        //            }
 
-                    PrgTalentType Type = _talentConnectAdminDBContext.PrgTalentTypes.AsNoTracking().Where(x => x.Id == gen_Talent.TalentTypeId).FirstOrDefault();
-                    //_talentConnectAdminDBContext.Entry(Type).Reload();
-                    emailForBookTimeSlotModel.TalentType = Type != null ? Type.TalentType : string.Empty;
-                }
-            }
-            if (HRID > 0)
-            {
-                GenSalesHiringRequest salesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == HRID);
-                //_talentConnectAdminDBContext.Entry(salesHiringRequest).Reload();
-                if (salesHiringRequest != null)
-                {
-                    var userobject = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId);
-                    if (userobject != null)
-                    {
-                        emailForBookTimeSlotModel.HRSalesPersonID = userobject.Id;
-                        emailForBookTimeSlotModel.salesName = userobject.FullName;
-                        emailForBookTimeSlotModel.salesemailid = userobject.EmailId;
-                    }
-                    emailForBookTimeSlotModel.HR_Number = salesHiringRequest.HrNumber;
-                    emailForBookTimeSlotModel.position = salesHiringRequest.RequestForTalent;
-                    emailForBookTimeSlotModel.IsManaged = salesHiringRequest.IsManaged;
-                    emailForBookTimeSlotModel.IsAdHoc = salesHiringRequest.IsAdHocHr;
-                    emailForBookTimeSlotModel.DPPercentage = salesHiringRequest.Dppercentage;
-                    emailForBookTimeSlotModel.Discovery_Call = salesHiringRequest.DiscoveryCall;
+        //            PrgTalentType Type = _talentConnectAdminDBContext.PrgTalentTypes.AsNoTracking().Where(x => x.Id == gen_Talent.TalentTypeId).FirstOrDefault();
+        //            //_talentConnectAdminDBContext.Entry(Type).Reload();
+        //            emailForBookTimeSlotModel.TalentType = Type != null ? Type.TalentType : string.Empty;
+        //        }
+        //    }
+        //    if (HRID > 0)
+        //    {
+        //        GenSalesHiringRequest salesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == HRID);
+        //        //_talentConnectAdminDBContext.Entry(salesHiringRequest).Reload();
+        //        if (salesHiringRequest != null)
+        //        {
+        //            var userobject = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId);
+        //            if (userobject != null)
+        //            {
+        //                emailForBookTimeSlotModel.HRSalesPersonID = userobject.Id;
+        //                emailForBookTimeSlotModel.salesName = userobject.FullName;
+        //                emailForBookTimeSlotModel.salesemailid = userobject.EmailId;
+        //            }
+        //            emailForBookTimeSlotModel.HR_Number = salesHiringRequest.HrNumber;
+        //            emailForBookTimeSlotModel.position = salesHiringRequest.RequestForTalent;
+        //            emailForBookTimeSlotModel.IsManaged = salesHiringRequest.IsManaged;
+        //            emailForBookTimeSlotModel.IsAdHoc = salesHiringRequest.IsAdHocHr;
+        //            emailForBookTimeSlotModel.DPPercentage = salesHiringRequest.Dppercentage;
+        //            emailForBookTimeSlotModel.Discovery_Call = salesHiringRequest.DiscoveryCall;
 
-                    SalesUserId = salesHiringRequest.SalesUserId.Value;
+        //            SalesUserId = salesHiringRequest.SalesUserId.Value;
 
-                    //new status change
-                    Sproc_UTS_Get_HRStatus_Result result = _talentConnectAdminDBContext.Set<Sproc_UTS_Get_HRStatus_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTS_Get_HRStatus, salesHiringRequest.Id)).AsEnumerable().FirstOrDefault();
-                    if (result != null)
-                    {
-                        emailForBookTimeSlotModel.HRStatus = result.HRStatus;
-                    }
-                }
+        //            //new status change
+        //            Sproc_UTS_Get_HRStatus_Result result = _talentConnectAdminDBContext.Set<Sproc_UTS_Get_HRStatus_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTS_Get_HRStatus, salesHiringRequest.Id)).AsEnumerable().FirstOrDefault();
+        //            if (result != null)
+        //            {
+        //                emailForBookTimeSlotModel.HRStatus = result.HRStatus;
+        //            }
+        //        }
 
-                GenContact contact = null;
+        //        GenContact contact = null;
 
-                if (salesHiringRequest != null)
-                    contact = _talentConnectAdminDBContext.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.ContactId);
-                //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //        if (salesHiringRequest != null)
+        //            contact = _talentConnectAdminDBContext.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.ContactId);
+        //        //_talentConnectAdminDBContext.Entry(contact).Reload();
 
-                if (contact != null)
-                {
-                    emailForBookTimeSlotModel.clientName = contact.FullName;
-                    emailForBookTimeSlotModel.Username = contact.EmailId;
-                    emailForBookTimeSlotModel.ClientEmail = contact.EmailId;
-                    //emailForBookTimeSlotModel.Password = string.Format("{0}@123", contact.FirstName.ToLower());
-                    emailForBookTimeSlotModel.Password = "Uplers@123";
-                    emailForBookTimeSlotModel.IsResetPassword = Convert.ToBoolean(contact.IsResetPassword);
-                    //emailForBookTimeSlotModel.IsClientNotificationSend = contact.IsClientNotificationSend;
-                    emailForBookTimeSlotModel.IsClientNotificationSend = false;
+        //        if (contact != null)
+        //        {
+        //            emailForBookTimeSlotModel.clientName = contact.FullName;
+        //            emailForBookTimeSlotModel.Username = contact.EmailId;
+        //            emailForBookTimeSlotModel.ClientEmail = contact.EmailId;
+        //            //emailForBookTimeSlotModel.Password = string.Format("{0}@123", contact.FirstName.ToLower());
+        //            emailForBookTimeSlotModel.Password = "Uplers@123";
+        //            emailForBookTimeSlotModel.IsResetPassword = Convert.ToBoolean(contact.IsResetPassword);
+        //            //emailForBookTimeSlotModel.IsClientNotificationSend = contact.IsClientNotificationSend;
+        //            emailForBookTimeSlotModel.IsClientNotificationSend = false;
 
-                    GenCompany company = _talentConnectAdminDBContext.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
-                    //_talentConnectAdminDBContext.Entry(company).Reload();
-                    if (company != null)
-                    {
-                        emailForBookTimeSlotModel.CompanyName = company.Company;
-                        var AM_SalesPerson = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == company.AmSalesPersonId).FirstOrDefault();
-                        if (AM_SalesPerson != null)
-                        {
-                            emailForBookTimeSlotModel.AM_SalesPersonID = AM_SalesPerson.Id;
-                            emailForBookTimeSlotModel.AM_SalesPersonName = AM_SalesPerson.FullName;
-                            emailForBookTimeSlotModel.AM_SalesPersonEmailID = AM_SalesPerson.EmailId;
-                        }
-                        var NBD_SalesPerson = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == company.NbdSalesPersonId).FirstOrDefault();
-                        if (NBD_SalesPerson != null)
-                        {
-                            emailForBookTimeSlotModel.NBD_SalesPersonID = NBD_SalesPerson.Id;
-                            emailForBookTimeSlotModel.NBD_SalesPersonName = NBD_SalesPerson.FullName;
-                            emailForBookTimeSlotModel.NBD_SalesPersonEmailID = NBD_SalesPerson.EmailId;
-                        }
-                        UsrUserHierarchy usr_UserHierarchy = new UsrUserHierarchy();
-                        usr_UserHierarchy = _talentConnectAdminDBContext.UsrUserHierarchies.Where(x => x.UserId == company.AmSalesPersonId).FirstOrDefault();
+        //            GenCompany company = _talentConnectAdminDBContext.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
+        //            //_talentConnectAdminDBContext.Entry(company).Reload();
+        //            if (company != null)
+        //            {
+        //                emailForBookTimeSlotModel.CompanyName = company.Company;
+        //                var AM_SalesPerson = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == company.AmSalesPersonId).FirstOrDefault();
+        //                if (AM_SalesPerson != null)
+        //                {
+        //                    emailForBookTimeSlotModel.AM_SalesPersonID = AM_SalesPerson.Id;
+        //                    emailForBookTimeSlotModel.AM_SalesPersonName = AM_SalesPerson.FullName;
+        //                    emailForBookTimeSlotModel.AM_SalesPersonEmailID = AM_SalesPerson.EmailId;
+        //                }
+        //                var NBD_SalesPerson = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == company.NbdSalesPersonId).FirstOrDefault();
+        //                if (NBD_SalesPerson != null)
+        //                {
+        //                    emailForBookTimeSlotModel.NBD_SalesPersonID = NBD_SalesPerson.Id;
+        //                    emailForBookTimeSlotModel.NBD_SalesPersonName = NBD_SalesPerson.FullName;
+        //                    emailForBookTimeSlotModel.NBD_SalesPersonEmailID = NBD_SalesPerson.EmailId;
+        //                }
+        //                UsrUserHierarchy usr_UserHierarchy = new UsrUserHierarchy();
+        //                usr_UserHierarchy = _talentConnectAdminDBContext.UsrUserHierarchies.Where(x => x.UserId == company.AmSalesPersonId).FirstOrDefault();
 
-                        if (usr_UserHierarchy != null)
-                        {
-                            var AM_AssignedSalesManager = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == usr_UserHierarchy.ParentId).FirstOrDefault();
-                        }
-                    }
-                }
-            }
-            if (talentId > 0 && HRID > 0)
-            {
-                GenContactTalentPriority ContactTalentPriority = _talentConnectAdminDBContext.GenContactTalentPriorities.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId && x.HiringRequestId == HRID);
-                //_talentConnectAdminDBContext.Entry(ContactTalentPriority).Reload();
-                if (ContactTalentPriority != null)
-                {
-                    emailForBookTimeSlotModel.priority = ContactTalentPriority.TalentPriority;
-                }
-                GenTalentPointofContact talentPointofContact = _talentConnectAdminDBContext.GenTalentPointofContacts.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId);
-                //_talentConnectAdminDBContext.Entry(talentPointofContact).Reload();
-                if (talentPointofContact != null)
-                {
-                    UsrUser Userdetail = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == talentPointofContact.UserId);
-                    //_talentConnectAdminDBContext.Entry(Userdetail).Reload();
-                    if (Userdetail != null)
-                    {
-                        emailForBookTimeSlotModel.TalentSuccessEmail = Userdetail.EmailId;
-                    }
-                }
-            }
-            if (contactid > 0)
-            {
-                GenContact contact = _talentConnectAdminDBContext.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == contactid);
-                //_talentConnectAdminDBContext.Entry(contact).Reload();
-                if (contact != null)
-                {
-                    emailForBookTimeSlotModel.clientName = contact.FullName;
-                    emailForBookTimeSlotModel.Username = contact.EmailId;
-                    emailForBookTimeSlotModel.ClientEmail = contact.EmailId;
-                    //emailForBookTimeSlotModel.Password = string.Format("{0}@123", contact.FirstName.ToLower());
-                    emailForBookTimeSlotModel.Password = "Uplers@123";
-                    emailForBookTimeSlotModel.IsResetPassword = Convert.ToBoolean(contact.IsResetPassword);
-                    //emailForBookTimeSlotModel.IsClientNotificationSend = contact.IsClientNotificationSend;
-                    emailForBookTimeSlotModel.IsClientNotificationSend = false;
-                }
-                GenCompany company = _talentConnectAdminDBContext.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
-                //_talentConnectAdminDBContext.Entry(company).Reload();
-                emailForBookTimeSlotModel.CompanyName = company.Company;
+        //                if (usr_UserHierarchy != null)
+        //                {
+        //                    var AM_AssignedSalesManager = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == usr_UserHierarchy.ParentId).FirstOrDefault();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    if (talentId > 0 && HRID > 0)
+        //    {
+        //        GenContactTalentPriority ContactTalentPriority = _talentConnectAdminDBContext.GenContactTalentPriorities.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId && x.HiringRequestId == HRID);
+        //        //_talentConnectAdminDBContext.Entry(ContactTalentPriority).Reload();
+        //        if (ContactTalentPriority != null)
+        //        {
+        //            emailForBookTimeSlotModel.priority = ContactTalentPriority.TalentPriority;
+        //        }
+        //        GenTalentPointofContact talentPointofContact = _talentConnectAdminDBContext.GenTalentPointofContacts.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId);
+        //        //_talentConnectAdminDBContext.Entry(talentPointofContact).Reload();
+        //        if (talentPointofContact != null)
+        //        {
+        //            UsrUser Userdetail = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == talentPointofContact.UserId);
+        //            //_talentConnectAdminDBContext.Entry(Userdetail).Reload();
+        //            if (Userdetail != null)
+        //            {
+        //                emailForBookTimeSlotModel.TalentSuccessEmail = Userdetail.EmailId;
+        //            }
+        //        }
+        //    }
+        //    if (contactid > 0)
+        //    {
+        //        GenContact contact = _talentConnectAdminDBContext.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == contactid);
+        //        //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //        if (contact != null)
+        //        {
+        //            emailForBookTimeSlotModel.clientName = contact.FullName;
+        //            emailForBookTimeSlotModel.Username = contact.EmailId;
+        //            emailForBookTimeSlotModel.ClientEmail = contact.EmailId;
+        //            //emailForBookTimeSlotModel.Password = string.Format("{0}@123", contact.FirstName.ToLower());
+        //            emailForBookTimeSlotModel.Password = "Uplers@123";
+        //            emailForBookTimeSlotModel.IsResetPassword = Convert.ToBoolean(contact.IsResetPassword);
+        //            //emailForBookTimeSlotModel.IsClientNotificationSend = contact.IsClientNotificationSend;
+        //            emailForBookTimeSlotModel.IsClientNotificationSend = false;
+        //        }
+        //        GenCompany company = _talentConnectAdminDBContext.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
+        //        //_talentConnectAdminDBContext.Entry(company).Reload();
+        //        emailForBookTimeSlotModel.CompanyName = company.Company;
 
-            }
+        //    }
 
-            if (shortlistedid > 0)
-            {
-                List<GenSalesHiringRequestInterviewerDetail> salesHiringRequest_InterviewerDetails = (from shi in _talentConnectAdminDBContext.GenSalesHiringRequestInterviewerDetails.AsNoTracking()
-                                                                                                      join tsi in _talentConnectAdminDBContext.GenTalentSelectedInterviewerDetails.AsNoTracking() on shi.Id equals tsi.InterviewerId
-                                                                                                      where shi.HiringRequestId == HRID && tsi.ShortlistedInterviewId == shortlistedid
-                                                                                                      select shi).ToList();
-                if (salesHiringRequest_InterviewerDetails.Any())
-                {
-                    List<string> InterviewerList = new List<string>();
-                    string InterviewerName;
-                    for (int i = 0; i < salesHiringRequest_InterviewerDetails.Count(); i++)
-                    {
-                        InterviewerName = salesHiringRequest_InterviewerDetails[i].InterviewerName;
-                        if (!string.IsNullOrEmpty(InterviewerName))
-                        {
-                            InterviewerList.Add(InterviewerName);
-                        }
-                    }
-                    emailForBookTimeSlotModel.Interviewer = string.Join(", ", InterviewerList);
-                }
-            }
+        //    if (shortlistedid > 0)
+        //    {
+        //        List<GenSalesHiringRequestInterviewerDetail> salesHiringRequest_InterviewerDetails = (from shi in _talentConnectAdminDBContext.GenSalesHiringRequestInterviewerDetails.AsNoTracking()
+        //                                                                                              join tsi in _talentConnectAdminDBContext.GenTalentSelectedInterviewerDetails.AsNoTracking() on shi.Id equals tsi.InterviewerId
+        //                                                                                              where shi.HiringRequestId == HRID && tsi.ShortlistedInterviewId == shortlistedid
+        //                                                                                              select shi).ToList();
+        //        if (salesHiringRequest_InterviewerDetails.Any())
+        //        {
+        //            List<string> InterviewerList = new List<string>();
+        //            string InterviewerName;
+        //            for (int i = 0; i < salesHiringRequest_InterviewerDetails.Count(); i++)
+        //            {
+        //                InterviewerName = salesHiringRequest_InterviewerDetails[i].InterviewerName;
+        //                if (!string.IsNullOrEmpty(InterviewerName))
+        //                {
+        //                    InterviewerList.Add(InterviewerName);
+        //                }
+        //            }
+        //            emailForBookTimeSlotModel.Interviewer = string.Join(", ", InterviewerList);
+        //        }
+        //    }
 
-            if (InvoiceId > 0 && OnboardID > 0)
-            {
-                var InvoiceDetail = _talentConnectAdminDBContext.GenPayoutInformations.AsNoTracking().FirstOrDefault(x => x.EsalesInvoiceId == InvoiceId && x.OnBoardId == OnboardID);
-                if (InvoiceDetail != null)
-                {
-                    emailForBookTimeSlotModel.InvoiceAmount = InvoiceDetail.EsalesInvoiceAmount ?? 0;
-                    emailForBookTimeSlotModel.InvoiceNumber = InvoiceDetail.EsalesInvoiceNumber;
-                    emailForBookTimeSlotModel.InvoiceCreationDate = InvoiceDetail.EsalesInvoiceDate.HasValue ? InvoiceDetail.EsalesInvoiceDate.ToString() : "";
-                }
-            }
+        //    if (InvoiceId > 0 && OnboardID > 0)
+        //    {
+        //        var InvoiceDetail = _talentConnectAdminDBContext.GenPayoutInformations.AsNoTracking().FirstOrDefault(x => x.EsalesInvoiceId == InvoiceId && x.OnBoardId == OnboardID);
+        //        if (InvoiceDetail != null)
+        //        {
+        //            emailForBookTimeSlotModel.InvoiceAmount = InvoiceDetail.EsalesInvoiceAmount ?? 0;
+        //            emailForBookTimeSlotModel.InvoiceNumber = InvoiceDetail.EsalesInvoiceNumber;
+        //            emailForBookTimeSlotModel.InvoiceCreationDate = InvoiceDetail.EsalesInvoiceDate.HasValue ? InvoiceDetail.EsalesInvoiceDate.ToString() : "";
+        //        }
+        //    }
 
-            var OnBoardDetail = _talentConnectAdminDBContext.GenOnBoardTalents.AsNoTracking().FirstOrDefault(x => x.Id == OnboardID);
-            if (OnBoardDetail != null)
-            {
-                emailForBookTimeSlotModel.EngagementID = OnBoardDetail.EngagemenId;
-                var salesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == OnBoardDetail.HiringRequestId);
-                if (salesHiringRequest != null)
-                {
-                    emailForBookTimeSlotModel.IsManaged = salesHiringRequest.IsManaged;
-                    emailForBookTimeSlotModel.SalesUserName = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).FullName;
-                    emailForBookTimeSlotModel.SalesUseEMail = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).EmailId;
-                }
-                var HRdetail = _talentConnectAdminDBContext.GenSalesHiringRequestDetails.AsNoTracking().FirstOrDefault(x => x.HiringRequestId == OnBoardDetail.HiringRequestId);
-                if (HRdetail != null)
-                {
-                    emailForBookTimeSlotModel.Currancy = HRdetail.Currency;
-                }
-            }
+        //    var OnBoardDetail = _talentConnectAdminDBContext.GenOnBoardTalents.AsNoTracking().FirstOrDefault(x => x.Id == OnboardID);
+        //    if (OnBoardDetail != null)
+        //    {
+        //        emailForBookTimeSlotModel.EngagementID = OnBoardDetail.EngagemenId;
+        //        var salesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == OnBoardDetail.HiringRequestId);
+        //        if (salesHiringRequest != null)
+        //        {
+        //            emailForBookTimeSlotModel.IsManaged = salesHiringRequest.IsManaged;
+        //            emailForBookTimeSlotModel.SalesUserName = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).FullName;
+        //            emailForBookTimeSlotModel.SalesUseEMail = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).EmailId;
+        //        }
+        //        var HRdetail = _talentConnectAdminDBContext.GenSalesHiringRequestDetails.AsNoTracking().FirstOrDefault(x => x.HiringRequestId == OnBoardDetail.HiringRequestId);
+        //        if (HRdetail != null)
+        //        {
+        //            emailForBookTimeSlotModel.Currancy = HRdetail.Currency;
+        //        }
+        //    }
 
-            if (replacement)
-            {
-                var ReplacementDetail = _talentConnectAdminDBContext.GenOnBoardTalentsReplacementDetails.AsNoTracking().FirstOrDefault(x => x.OnboardId == OnboardID && x.OldTalentId == talentId);
-                if (ReplacementDetail != null)
-                {
-                    emailForBookTimeSlotModel.Reason = ReplacementDetail.ReplacementReason;
-                }
-            }
+        //    if (replacement)
+        //    {
+        //        var ReplacementDetail = _talentConnectAdminDBContext.GenOnBoardTalentsReplacementDetails.AsNoTracking().FirstOrDefault(x => x.OnboardId == OnboardID && x.OldTalentId == talentId);
+        //        if (ReplacementDetail != null)
+        //        {
+        //            emailForBookTimeSlotModel.Reason = ReplacementDetail.ReplacementReason;
+        //        }
+        //    }
 
-            return emailForBookTimeSlotModel;
-        }
+        //    return emailForBookTimeSlotModel;
+        //}
 
         public string GetPrgContactTimeZone(string timezone)
         {

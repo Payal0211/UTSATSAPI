@@ -9,7 +9,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UTSATSAPI.Models.ComplexTypes;
 using UTSATSAPI.Models.Models;
-using UTSATSAPI.Models.ViewModels.Request_ResponseModels;
 using static iTextSharp.text.pdf.AcroFields;
 
 namespace UTSATSAPI.Helpers.Common

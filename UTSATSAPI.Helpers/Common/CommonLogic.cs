@@ -422,22 +422,22 @@ namespace UTSATSAPI.Helpers.Common
             return pathToSave;
         }
 
-        public static List<ErrorModel> SerializeErrors(List<FluentValidation.Results.ValidationFailure> validationFailures, string objectName)
-        {
-            List<ErrorModel> errorModels = new List<ErrorModel>();
-            if (validationFailures.Count > 0)
-            {
-                foreach (var error in validationFailures)
-                {
-                    var errorModel = new ErrorModel();
-                    errorModel.ErrorMessage = error.ErrorMessage;
-                    errorModel.FieldName = error.PropertyName;
-                    errorModel.ModuleName = objectName;
-                    errorModels.Add(errorModel);
-                }
-            }
-            return errorModels;
-        }
+        //public static List<ErrorModel> SerializeErrors(List<FluentValidation.Results.ValidationFailure> validationFailures, string objectName)
+        //{
+        //    List<ErrorModel> errorModels = new List<ErrorModel>();
+        //    if (validationFailures.Count > 0)
+        //    {
+        //        foreach (var error in validationFailures)
+        //        {
+        //            var errorModel = new ErrorModel();
+        //            errorModel.ErrorMessage = error.ErrorMessage;
+        //            errorModel.FieldName = error.PropertyName;
+        //            errorModel.ModuleName = objectName;
+        //            errorModels.Add(errorModel);
+        //        }
+        //    }
+        //    return errorModels;
+        //}
 
         public static string GetEmailTemplate(string workingdirname, string foldername, string templatename)
         {
@@ -468,29 +468,29 @@ namespace UTSATSAPI.Helpers.Common
             return dtDateTime;
         }
 
-        public static Meeting HttpCallForZoom(string barrerToken, string jsonrequest)
-        {
-            HttpClient httpClient = new HttpClient();
-            var stringContent = new StringContent(jsonrequest, UnicodeEncoding.UTF8, "application/json");
-            httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + barrerToken);
-            var responseData = httpClient.PostAsync(zoomSettings, stringContent).Result;
-            if (responseData != null)
-            {
-                if (responseData.IsSuccessStatusCode)
-                {
-                    var createdMeeting = JsonConvert.DeserializeObject<Meeting>(responseData.Content.ReadAsStringAsync().Result);
-                    return createdMeeting;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //public static Meeting HttpCallForZoom(string barrerToken, string jsonrequest)
+        //{
+        //    HttpClient httpClient = new HttpClient();
+        //    var stringContent = new StringContent(jsonrequest, UnicodeEncoding.UTF8, "application/json");
+        //    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + barrerToken);
+        //    var responseData = httpClient.PostAsync(zoomSettings, stringContent).Result;
+        //    if (responseData != null)
+        //    {
+        //        if (responseData.IsSuccessStatusCode)
+        //        {
+        //            var createdMeeting = JsonConvert.DeserializeObject<Meeting>(responseData.Content.ReadAsStringAsync().Result);
+        //            return createdMeeting;
+        //        }
+        //        else
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
         public static DateTime ConvertString2DateTimeFormtatAdmin(string DateDetail)
         {
             DateTime dtDateTime = new DateTime();
