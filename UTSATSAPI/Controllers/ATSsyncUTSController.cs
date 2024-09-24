@@ -1,14 +1,20 @@
 ﻿using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Collections;
 using UTSATSAPI.Attributes;
 using UTSATSAPI.Helpers;
 using UTSATSAPI.Helpers.Common;
+using UTSATSAPI.Models.ComplexTypes;
 using UTSATSAPI.Models.Models;
+using UTSATSAPI.Models.ViewModels;
 using UTSATSAPI.Repositories.Interfaces;
+using static UTSATSAPI.Config.HubSpotResponseUTSAdmin;
 
 namespace UTSATSAPI.Controllers
 {
@@ -286,6 +292,168 @@ namespace UTSATSAPI.Controllers
         }
         #endregion
 
+
+        [HttpPost("GetCreditTransaction")]
+        public async Task<IActionResult> GetCreditTransaction()
+        {
+
+            var headers = Request.Headers;
+            string? token = "";
+            bool isUpScreen = false;
+
+            var dict = headers.ToDictionary(kvp => kvp.Key.ToLower(), kvp => kvp.Value);
+            Hashtable htable = new Hashtable(dict);
+            if (!htable.ContainsKey("authorization"))
+            {
+                var JsonString = new
+                {
+                    status = 401,
+                    ErrorMessage = "No Authorization Key found."
+                };
+
+                return Ok(JsonString);
+            }
+
+            token = Convert.ToString(htable["authorization"]);
+
+            if (token != _configuration["ATSAPIKeyForUnlock"].ToString())
+            {
+                var JsonString = new
+                {
+                    status = 401,
+                    ErrorMessage = "Invalid Token."
+                };
+
+                return Ok(JsonString);
+            }
+
+            string responseMessage = "";
+
+            using (StreamReader reader = new StreamReader(Request.Body))
+            {
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+                string xxjson = await reader.ReadToEndAsync();
+
+                // Process xxjson if needed
+                long id = await SaveAPILogs(xxjson, isUpScreen, Request.GetDisplayUrl());
+
+                CreditTransactionPayloadFromATS json = JsonConvert.DeserializeObject<CreditTransactionPayloadFromATS>(xxjson);
+                if (json != null)
+                {
+                    object[] param = new object[]
+                    {
+                       json.company_id,
+                       json.contact_id,
+                       json.hr_id,
+                       json.atstalent_id,
+                       json.transaction_type,
+                       json.credit_type,
+                       json.credit_used,
+                       json.credit_amount,
+                       json.credit_currency,
+                       json.action_type,
+                       json.balance_credit,
+                       json.user_id,
+                       json.transactiondoneby,
+                       json.transaction_date,
+                       "set",
+                       0,
+                       "",
+                       json.order_amount,
+                       json.payment_provider,
+                       json.payment_status,
+                       json.payer_name,
+                       json.payer_email,
+                       json.payer_id,
+                       json.order_comments
+                    };
+
+                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                    var data = _uniProcRunner.Sproc_Add_Company_Transactions_With_ATS(paramString);
+
+                    if (data != null)
+                    {
+                        int statusCode = 200; // responseMessage == "success" ? 200 : 400;
+                        responseMessage = "success";
+                        var response = new
+                        {
+                            status = statusCode,
+                            detail = data
+                        };
+                        await UpdateAPILogs(responseMessage, id);
+                        return Ok(response);
+                    }
+                }                
+            }
+
+            Sproc_Add_Company_Transactions_With_ATS_Result sproc_Add_Company_Transactions_With_ATS = new Sproc_Add_Company_Transactions_With_ATS_Result();
+            var response1 = new
+            {
+                status = 400,
+                detail = sproc_Add_Company_Transactions_With_ATS
+            };
+            // Your other code logic here
+
+            return Ok(response1); // Or return appropriate IActionResult
+        }
+
+        private async Task<long> SaveAPILogs(string json, bool isUpScreen, string toUrl)
+        {
+            try
+            {
+                string url = isUpScreen ? "UpScreen" : "ATS";
+                GenAtsupscreenApiRecordsClientPortal utsAtsApi_Records = new GenAtsupscreenApiRecordsClientPortal();
+                utsAtsApi_Records.FromApiUrl = url;
+                utsAtsApi_Records.ToApiUrl = toUrl;
+                utsAtsApi_Records.PayloadToSend = json;
+                utsAtsApi_Records.CreatedById = 1;
+
+                long APIRecordInsertedID = await InsertUtsAtsUnlockTalentApiDetails(utsAtsApi_Records);
+
+                return APIRecordInsertedID;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        private async Task UpdateAPILogs(string response, long id)
+        {
+            try
+            {
+                await UpdateUtsAtsApiUnlockTalentDetails(response, id);
+            }
+            catch
+            {
+
+            }
+        }
+        public async Task<long> InsertUtsAtsUnlockTalentApiDetails(GenAtsupscreenApiRecordsClientPortal gen_UtsAtsApi_Records)
+        {
+            GenAtsupscreenApiRecordsClientPortal utsAtsApi_Records = new GenAtsupscreenApiRecordsClientPortal();
+
+            utsAtsApi_Records.FromApiUrl = gen_UtsAtsApi_Records.FromApiUrl;
+            utsAtsApi_Records.ToApiUrl = gen_UtsAtsApi_Records.ToApiUrl;    //Here API URL of ATS will come.
+            utsAtsApi_Records.PayloadToSend = gen_UtsAtsApi_Records.PayloadToSend;
+            utsAtsApi_Records.CreatedById = gen_UtsAtsApi_Records.CreatedById;
+            utsAtsApi_Records.CreatedByDateTime = DateTime.Now;
+            await _db.GenAtsupscreenApiRecordsClientPortals.AddAsync(utsAtsApi_Records);
+            _db.SaveChangesAsync();
+
+            return utsAtsApi_Records.Id;
+        }
+        public async Task<bool> UpdateUtsAtsApiUnlockTalentDetails(string responseJson, long APIRecordInsertedID)
+        {
+            GenAtsupscreenApiRecordsClientPortal utsAtsApi_Records = await _db.GenAtsupscreenApiRecordsClientPortals.Where(x => x.Id == APIRecordInsertedID).FirstOrDefaultAsync();
+            if (utsAtsApi_Records != null)
+            {
+                utsAtsApi_Records.ResponseReceived = responseJson;
+                _db.GenAtsupscreenApiRecordsClientPortals.Update(utsAtsApi_Records);
+                _db.SaveChangesAsync();
+            }
+
+            return true;
+        }
         public class FilePath
         {
             public string FileName { get; set; }

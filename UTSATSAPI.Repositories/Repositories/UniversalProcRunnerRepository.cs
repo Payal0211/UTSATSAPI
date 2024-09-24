@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Net;
+using UTSATSAPI.Helpers;
 using UTSATSAPI.Helpers.Common;
 using UTSATSAPI.Models.ComplexTypes;
 using UTSATSAPI.Models.Models;
@@ -134,6 +135,11 @@ namespace UTSATSAPI.Repositories.Repositories
                 db.GenUtsadminReactPayloads.Add(genUtsadminReactPayload);
                 db.SaveChanges();
             }
+        }
+
+        public Task<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS(string param)
+        {
+            return db.Set<Sproc_Add_Company_Transactions_With_ATS_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Add_Company_Transactions_With_ATS, param)).FirstOrDefaultAsync();
         }
         #endregion
     }

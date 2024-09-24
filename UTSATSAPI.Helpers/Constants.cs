@@ -10,6 +10,7 @@
             #region Email
             public static string Sproc_EmailHRTypeChanged = "Sproc_EmailHRTypeChanged";
             public static string Sproc_Get_Candidate_Details_For_Job = "Sproc_Get_Candidate_Details_For_Job";
+            public static string Sproc_Add_Company_Transactions_With_ATS = "Sproc_Add_Company_Transactions_With_ATS";
             #endregion
 
             #region Schedular
