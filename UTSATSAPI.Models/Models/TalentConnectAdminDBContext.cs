@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using UTSATSAPI.Models.ComplexTypes;
-using UTSATSAPI.Models.ComplexTypes.UpChat;
 using UTSATSAPI.Models.ViewModels;
 
 namespace UTSATSAPI.Models.Models
