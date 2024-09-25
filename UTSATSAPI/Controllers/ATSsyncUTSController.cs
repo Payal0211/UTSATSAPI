@@ -575,17 +575,16 @@ namespace UTSATSAPI.Controllers
                        json.hr_id,
                        json.atstalent_id,
                        json.transaction_type,
-                       json.credit_type,
-                       json.credit_used,
+                       //json.credit_type,
+                       json.freecredit_used,
+                       json.paidcredit_used,
                        json.credit_amount,
                        json.credit_currency,
                        json.action_type,
                        json.balance_credit,
-                       json.user_id,
+                       json.employee_id,
                        json.transactiondoneby,
                        json.transaction_date,
-                       "set",
-                       0,
                        "",
                        json.order_amount,
                        json.payment_provider,
@@ -593,7 +592,9 @@ namespace UTSATSAPI.Controllers
                        json.payer_name,
                        json.payer_email,
                        json.payer_id,
-                       json.order_comments
+                       json.order_comments,
+                       json.invoice_url,
+                       json.invoice_name
                     };
 
                     string paramString = CommonLogic.ConvertToParamStringWithNull(param);
