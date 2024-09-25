@@ -8,7 +8,9 @@
         public static class ProcConstant
         {
             #region ATS-UTS sync process
+            public static string Sproc_UTSAdmin_EditHrByATS = "Sproc_UTSAdmin_EditHrByATS";
             public static string Sproc_UTS_AddEdit_ATSHR = "Sproc_UTS_AddEdit_ATSHR";
+            public static string Sproc_HR_EditPOC = "Sproc_HR_EditPOC";
             public static string Sproc_HR_POC_ClientPortal = "Sproc_HR_POC_ClientPortal";
             #endregion
 

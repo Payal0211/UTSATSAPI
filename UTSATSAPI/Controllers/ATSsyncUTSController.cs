@@ -70,7 +70,7 @@ namespace UTSATSAPI.Controllers
                     HrId = model.HrId
                 };
 
-                APIRecordInsertedID = InsertUtsAtsApiDetails(utsAtsApi_Records);
+                APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
 
                 #region Download file from AWS Server & upload to UTS server
@@ -111,12 +111,12 @@ namespace UTSATSAPI.Controllers
                 catch (AmazonS3Exception ex)
                 {
                     Message += "[Error downloading file:" + ex.Message.ToString() + "]";
-                    UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 catch (Exception ex)
                 {
                     Message += "[" + ex.Message.ToString() + "]";
-                    UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 #endregion
 
@@ -198,15 +198,15 @@ namespace UTSATSAPI.Controllers
                 #endregion
 
                 Message += "[Hiring request updated successfully by ATS]";
-                UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
             }
             catch (Exception ex)
             {
                 Message += "[" + ex.Message.ToString() + "]";
-                UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
-                throw;
+                throw;          
             }
         }
 
@@ -236,7 +236,7 @@ namespace UTSATSAPI.Controllers
                     HrId = model.hiring_request_id
                 };
 
-                APIRecordInsertedID = InsertUtsAtsApiDetails(utsAtsApi_Records);
+                APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
 
                 #region Download file from AWS Server & upload to UTS server
@@ -277,12 +277,12 @@ namespace UTSATSAPI.Controllers
                 catch (AmazonS3Exception ex)
                 {
                     Message += "[Error downloading file:" + ex.Message.ToString() + "]";
-                    UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 catch (Exception ex)
                 {
                     Message += "[" + ex.Message.ToString() + "]";
-                    UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 #endregion
 
@@ -440,7 +440,7 @@ namespace UTSATSAPI.Controllers
                 }
                 #endregion
 
-                UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
 
                 HRUpdateReponse hRUpdateReponse = new HRUpdateReponse();
                 hRUpdateReponse.hiring_request_id = model?.hiring_request_id;
@@ -451,7 +451,7 @@ namespace UTSATSAPI.Controllers
             catch (Exception ex)
             {
                 Message += string.Format("[{0}]", ex.Message.ToString());
-                UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
                 throw;
             }
@@ -508,36 +508,6 @@ namespace UTSATSAPI.Controllers
         }
 
         #endregion
-
-        #region Private
-        private long InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records)
-        {
-            GenUtsAtsApiRecord utsAtsApi_Records = new GenUtsAtsApiRecord();
-
-            utsAtsApi_Records.FromApiUrl = gen_UtsAtsApi_Records.FromApiUrl;
-            utsAtsApi_Records.ToApiUrl = gen_UtsAtsApi_Records.ToApiUrl;    //Here API URL of ATS will come.
-            utsAtsApi_Records.PayloadToSend = gen_UtsAtsApi_Records.PayloadToSend;
-            utsAtsApi_Records.CreatedById = gen_UtsAtsApi_Records.CreatedById;
-            utsAtsApi_Records.CreatedByDateTime = DateTime.Now;
-            utsAtsApi_Records.HrId = gen_UtsAtsApi_Records.HrId;
-            _db.GenUtsAtsApiRecords.Add(utsAtsApi_Records);
-            _db.SaveChanges();
-
-            return utsAtsApi_Records.Id;
-        }
-        private void UpdateUtsAtsApiDetails(long APIRecordInsertedID, string Message)
-        {
-            #region Update record in gen_UtsAts_Records
-            GenUtsAtsApiRecord utsAtsApi_Records = _db.GenUtsAtsApiRecords.Where(x => x.Id == APIRecordInsertedID).FirstOrDefault();
-            if (utsAtsApi_Records != null)
-            {
-                utsAtsApi_Records.ResponseReceived = Message;
-                CommonLogic.DBOperator(_db, utsAtsApi_Records, EntityState.Modified);
-            }
-            #endregion
-        }
-        #endregion
-
 
         [HttpPost("GetCreditTransaction")]
         public async Task<IActionResult> GetCreditTransaction()
@@ -615,7 +585,7 @@ namespace UTSATSAPI.Controllers
                     };
 
                     string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                    var data = _uniProcRunner.Sproc_Add_Company_Transactions_With_ATS(paramString);
+                    var data = _iATSsyncUTS.Sproc_Add_Company_Transactions_With_ATS(paramString);
 
                     if (data != null)
                     {
