@@ -169,4 +169,9 @@
         public long? hiring_request_id { get; set; }
         public string? response_messages { get; set; }
     }
+
+    public class FilePath
+    {
+        public string FileName { get; set; }
+    }
 }

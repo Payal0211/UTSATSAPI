@@ -40,6 +40,9 @@ namespace UTSATSAPI.Controllers
         #endregion
 
         #region Public Methods
+
+        #region Add/Edit HR
+
         [HttpPost("EditHRThroughATS")]
         public async Task<ObjectResult> EditHRThroughATS(ATSHiringReqeustModel1 model)
         {
@@ -506,6 +509,15 @@ namespace UTSATSAPI.Controllers
             }
             return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = "successfully trasfer file" });
         }
+        #endregion
+
+        #region Add/Edit Company
+
+        #endregion
+
+        #region CreditTransaction
+
+        #endregion
 
         #endregion
 
@@ -672,10 +684,7 @@ namespace UTSATSAPI.Controllers
 
             return true;
         }
-        public class FilePath
-        {
-            public string FileName { get; set; }
-        }
+        
 
     }
 }
