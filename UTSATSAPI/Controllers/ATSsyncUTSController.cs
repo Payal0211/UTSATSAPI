@@ -428,6 +428,7 @@ namespace UTSATSAPI.Controllers
 
             }
         }
+        [HttpPost("InsertUtsAtsUnlockTalentApiDetails")]
         public async Task<long> InsertUtsAtsUnlockTalentApiDetails(GenAtsupscreenApiRecordsClientPortal gen_UtsAtsApi_Records)
         {
             GenAtsupscreenApiRecordsClientPortal utsAtsApi_Records = new GenAtsupscreenApiRecordsClientPortal();
@@ -442,6 +443,7 @@ namespace UTSATSAPI.Controllers
 
             return utsAtsApi_Records.Id;
         }
+        [HttpPost("UpdateUtsAtsApiUnlockTalentDetails")]
         public async Task<bool> UpdateUtsAtsApiUnlockTalentDetails(string responseJson, long APIRecordInsertedID)
         {
             GenAtsupscreenApiRecordsClientPortal utsAtsApi_Records = await _db.GenAtsupscreenApiRecordsClientPortals.Where(x => x.Id == APIRecordInsertedID).FirstOrDefaultAsync();

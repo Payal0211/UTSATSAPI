@@ -166,15 +166,15 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-if (!app.Environment.IsProduction())
-{
+//if (!app.Environment.IsProduction())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.ValidatorUrl(null);
     });
     app.UseDeveloperExceptionPage();
-}
+//}
 
 //app.UseMiddleware<RequestLoggingMiddleware>();
 
@@ -189,7 +189,7 @@ app.UseCors(builder =>
 //app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseElmah();
+//app.UseElmah();
 app.MapControllers();
 app.UseStaticFiles();
 
@@ -198,7 +198,7 @@ app.UseMiddleware<JwtMiddleware>();
 
 // Websocket configuration
 app.UseWebSockets();
-app.UseMiddleware<CustomWebSocketMiddleware>();
+//app.UseMiddleware<CustomWebSocketMiddleware>();
 
 app.UseFileServer(new FileServerOptions()
 {
