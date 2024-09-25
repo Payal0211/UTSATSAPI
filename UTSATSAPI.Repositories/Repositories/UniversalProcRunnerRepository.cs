@@ -136,11 +136,6 @@ namespace UTSATSAPI.Repositories.Repositories
                 db.SaveChanges();
             }
         }
-
-        public Task<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS(string param)
-        {
-            return db.Set<Sproc_Add_Company_Transactions_With_ATS_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Add_Company_Transactions_With_ATS, param)).FirstOrDefaultAsync();
-        }
         #endregion
     }
 }

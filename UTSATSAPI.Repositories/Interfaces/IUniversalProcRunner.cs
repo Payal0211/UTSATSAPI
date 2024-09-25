@@ -8,6 +8,5 @@ namespace UTSATSAPI.Repositories.Interfaces
         public object Manipulation(string proName, object[] args);
         public object ManipulationWithNULL(string proName, object[] args);
         public void InsertReactPayload(GenUtsadminReactPayload genUtsadminReactPayload);
-        Task<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS(string param);
     }
 }

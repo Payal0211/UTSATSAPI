@@ -31,9 +31,19 @@ namespace UTSATSAPI.Repositories.Repositories
         {
             db.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_HR_POC_ClientPortal, param));
         }
+
+        public Sproc_UTS_AddEdit_ATSHR_Result Sproc_UTS_AddEdit_ATSHR(string param)
+        {
+            return db.Set<Sproc_UTS_AddEdit_ATSHR_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_UTS_AddEdit_ATSHR, param)).AsEnumerable().FirstOrDefault();
+        }
+
+        public Task<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS(string param)
+        {
+            return db.Set<Sproc_Add_Company_Transactions_With_ATS_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Add_Company_Transactions_With_ATS, param)).FirstOrDefaultAsync();
+        }
         #endregion
 
-        #region UtsAts logs
+        #region Maintain UtsAts logs
         public long InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records)
         {
             GenUtsAtsApiRecord utsAtsApi_Records = new GenUtsAtsApiRecord();
