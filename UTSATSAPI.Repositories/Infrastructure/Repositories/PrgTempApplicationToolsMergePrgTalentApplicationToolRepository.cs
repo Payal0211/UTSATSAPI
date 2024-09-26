@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgTempApplicationToolsMergePrgTalentApplicationToolRepository : GenericRepository<PrgTempApplicationToolsMergePrgTalentApplicationTool>, IPrgTempApplicationToolsMergePrgTalentApplicationToolRepository
 {
-public PrgTempApplicationToolsMergePrgTalentApplicationToolRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgTempApplicationToolsMergePrgTalentApplicationToolRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

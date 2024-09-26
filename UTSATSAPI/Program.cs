@@ -124,12 +124,12 @@ builder.Services
             // Once a user is authenticated, the OAuth2 token info is stored in cookies.
             o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         })
-        .AddCookie()
-        .AddGoogleOpenIdConnect(options =>
-        {
-            options.ClientId = configuration["GoogleAppClientID"];
-            options.ClientSecret = configuration["GoogleAppClientSecret"];
-        });
+        .AddCookie();
+        //.AddGoogleOpenIdConnect(options =>
+        //{
+        //    options.ClientId = configuration["GoogleAppClientID"];
+        //    options.ClientSecret = configuration["GoogleAppClientSecret"];
+        //});
 
 builder.Services.AddSwaggerGen(x =>
 {

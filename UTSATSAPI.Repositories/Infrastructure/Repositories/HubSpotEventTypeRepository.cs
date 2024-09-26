@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class HubSpotEventTypeRepository : GenericRepository<HubSpotEventType>, IHubSpotEventTypeRepository
 {
-public HubSpotEventTypeRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public HubSpotEventTypeRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

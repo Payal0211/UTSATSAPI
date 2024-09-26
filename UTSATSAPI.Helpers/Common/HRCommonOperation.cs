@@ -7,15 +7,15 @@ namespace UTSATSAPI.Helpers.Common
 {
     public class HRCommonOperation
     {
-        TalentConnectAdminDBContext _DBContext;
+        UTSATSAPIDBConnection _DBContext;
         //public static string PerMonth = " / Month";
         public static string Transparent_HRType = "( Transparent )";
         public static string NonTransparent_HRType = "( Non Transparent )";
 
         #region Constructor
-        public HRCommonOperation(TalentConnectAdminDBContext talentConnectAdminDBContext)
+        public HRCommonOperation(UTSATSAPIDBConnection UTSATSAPIDBConnection)
         {
-            _DBContext = talentConnectAdminDBContext;
+            _DBContext = UTSATSAPIDBConnection;
         }
         #endregion
         //public PayPerHireModel GetTransparentModelData(GenSalesHiringRequest SalesHiringRequest, GenSalesHiringRequestDetail SalesHiringRequestDetail, PrgHiringTypePricing getprgHiringTypePricing, PrgPayrollType GetprgPayrollType, string CompanyName)

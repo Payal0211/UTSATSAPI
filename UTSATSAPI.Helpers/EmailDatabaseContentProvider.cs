@@ -8,14 +8,14 @@
     public class EmailDatabaseContentProvider
     {
         #region Variables
-        private static TalentConnectAdminDBContext _talentConnectAdminDBContext;
+        private static UTSATSAPIDBConnection _UTSATSAPIDBConnection;
         public long SalesUserId = 0;
         #endregion
 
         #region Constrcutor
-        public EmailDatabaseContentProvider(TalentConnectAdminDBContext talentConnectAdminDBContext)
+        public EmailDatabaseContentProvider(UTSATSAPIDBConnection UTSATSAPIDBConnection)
         {
-            _talentConnectAdminDBContext = talentConnectAdminDBContext;
+            _UTSATSAPIDBConnection = UTSATSAPIDBConnection;
         }
         #endregion
 
@@ -24,8 +24,8 @@
         //    EmailForBookTimeSlotModel emailForBookTimeSlotModel = new EmailForBookTimeSlotModel();
         //    if (talentId > 0)
         //    {
-        //        GenTalent gen_Talent = _talentConnectAdminDBContext.GenTalents.AsNoTracking().FirstOrDefault(x => x.Id == talentId);
-        //        //_talentConnectAdminDBContext.Entry(gen_Talent).Reload();
+        //        GenTalent gen_Talent = _UTSATSAPIDBConnection.GenTalents.AsNoTracking().FirstOrDefault(x => x.Id == talentId);
+        //        //_UTSATSAPIDBConnection.Entry(gen_Talent).Reload();
         //        if (gen_Talent != null)
         //        {
         //            emailForBookTimeSlotModel.TalentName = gen_Talent.Name;
@@ -42,34 +42,34 @@
         //            emailForBookTimeSlotModel.IsTalentNotificationSend = false;
         //            emailForBookTimeSlotModel.IsResetPasswordForTalent = gen_Talent.IsResetPassword ?? false;
 
-        //            PrgTalentRole roles = _talentConnectAdminDBContext.PrgTalentRoles.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.RoleId);
-        //            //_talentConnectAdminDBContext.Entry(roles).Reload();
+        //            PrgTalentRole roles = _UTSATSAPIDBConnection.PrgTalentRoles.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.RoleId);
+        //            //_UTSATSAPIDBConnection.Entry(roles).Reload();
 
         //            if (roles != null)
         //            {
         //                emailForBookTimeSlotModel.TalentRole = roles.TalentRole;
         //            }
 
-        //            PrgTalentStatusAfterClientSelection talentStatus_AfterClientSelection = _talentConnectAdminDBContext.PrgTalentStatusAfterClientSelections.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.TalentStatusIdAfterClientSelection);
-        //            //_talentConnectAdminDBContext.Entry(talentStatus_AfterClientSelection).Reload();
+        //            PrgTalentStatusAfterClientSelection talentStatus_AfterClientSelection = _UTSATSAPIDBConnection.PrgTalentStatusAfterClientSelections.AsNoTracking().FirstOrDefault(x => x.Id == gen_Talent.TalentStatusIdAfterClientSelection);
+        //            //_UTSATSAPIDBConnection.Entry(talentStatus_AfterClientSelection).Reload();
 
         //            if (talentStatus_AfterClientSelection != null)
         //            {
         //                emailForBookTimeSlotModel.talentStatusAfterClientSelection = talentStatus_AfterClientSelection.TalentStatus;
         //            }
 
-        //            PrgTalentType Type = _talentConnectAdminDBContext.PrgTalentTypes.AsNoTracking().Where(x => x.Id == gen_Talent.TalentTypeId).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(Type).Reload();
+        //            PrgTalentType Type = _UTSATSAPIDBConnection.PrgTalentTypes.AsNoTracking().Where(x => x.Id == gen_Talent.TalentTypeId).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(Type).Reload();
         //            emailForBookTimeSlotModel.TalentType = Type != null ? Type.TalentType : string.Empty;
         //        }
         //    }
         //    if (HRID > 0)
         //    {
-        //        GenSalesHiringRequest salesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == HRID);
-        //        //_talentConnectAdminDBContext.Entry(salesHiringRequest).Reload();
+        //        GenSalesHiringRequest salesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == HRID);
+        //        //_UTSATSAPIDBConnection.Entry(salesHiringRequest).Reload();
         //        if (salesHiringRequest != null)
         //        {
-        //            var userobject = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId);
+        //            var userobject = _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId);
         //            if (userobject != null)
         //            {
         //                emailForBookTimeSlotModel.HRSalesPersonID = userobject.Id;
@@ -86,7 +86,7 @@
         //            SalesUserId = salesHiringRequest.SalesUserId.Value;
 
         //            //new status change
-        //            Sproc_UTS_Get_HRStatus_Result result = _talentConnectAdminDBContext.Set<Sproc_UTS_Get_HRStatus_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTS_Get_HRStatus, salesHiringRequest.Id)).AsEnumerable().FirstOrDefault();
+        //            Sproc_UTS_Get_HRStatus_Result result = _UTSATSAPIDBConnection.Set<Sproc_UTS_Get_HRStatus_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTS_Get_HRStatus, salesHiringRequest.Id)).AsEnumerable().FirstOrDefault();
         //            if (result != null)
         //            {
         //                emailForBookTimeSlotModel.HRStatus = result.HRStatus;
@@ -96,8 +96,8 @@
         //        GenContact contact = null;
 
         //        if (salesHiringRequest != null)
-        //            contact = _talentConnectAdminDBContext.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.ContactId);
-        //        //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //            contact = _UTSATSAPIDBConnection.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == salesHiringRequest.ContactId);
+        //        //_UTSATSAPIDBConnection.Entry(contact).Reload();
 
         //        if (contact != null)
         //        {
@@ -110,19 +110,19 @@
         //            //emailForBookTimeSlotModel.IsClientNotificationSend = contact.IsClientNotificationSend;
         //            emailForBookTimeSlotModel.IsClientNotificationSend = false;
 
-        //            GenCompany company = _talentConnectAdminDBContext.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
-        //            //_talentConnectAdminDBContext.Entry(company).Reload();
+        //            GenCompany company = _UTSATSAPIDBConnection.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
+        //            //_UTSATSAPIDBConnection.Entry(company).Reload();
         //            if (company != null)
         //            {
         //                emailForBookTimeSlotModel.CompanyName = company.Company;
-        //                var AM_SalesPerson = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == company.AmSalesPersonId).FirstOrDefault();
+        //                var AM_SalesPerson = _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().Where(x => x.Id == company.AmSalesPersonId).FirstOrDefault();
         //                if (AM_SalesPerson != null)
         //                {
         //                    emailForBookTimeSlotModel.AM_SalesPersonID = AM_SalesPerson.Id;
         //                    emailForBookTimeSlotModel.AM_SalesPersonName = AM_SalesPerson.FullName;
         //                    emailForBookTimeSlotModel.AM_SalesPersonEmailID = AM_SalesPerson.EmailId;
         //                }
-        //                var NBD_SalesPerson = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == company.NbdSalesPersonId).FirstOrDefault();
+        //                var NBD_SalesPerson = _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().Where(x => x.Id == company.NbdSalesPersonId).FirstOrDefault();
         //                if (NBD_SalesPerson != null)
         //                {
         //                    emailForBookTimeSlotModel.NBD_SalesPersonID = NBD_SalesPerson.Id;
@@ -130,29 +130,29 @@
         //                    emailForBookTimeSlotModel.NBD_SalesPersonEmailID = NBD_SalesPerson.EmailId;
         //                }
         //                UsrUserHierarchy usr_UserHierarchy = new UsrUserHierarchy();
-        //                usr_UserHierarchy = _talentConnectAdminDBContext.UsrUserHierarchies.Where(x => x.UserId == company.AmSalesPersonId).FirstOrDefault();
+        //                usr_UserHierarchy = _UTSATSAPIDBConnection.UsrUserHierarchies.Where(x => x.UserId == company.AmSalesPersonId).FirstOrDefault();
 
         //                if (usr_UserHierarchy != null)
         //                {
-        //                    var AM_AssignedSalesManager = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().Where(x => x.Id == usr_UserHierarchy.ParentId).FirstOrDefault();
+        //                    var AM_AssignedSalesManager = _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().Where(x => x.Id == usr_UserHierarchy.ParentId).FirstOrDefault();
         //                }
         //            }
         //        }
         //    }
         //    if (talentId > 0 && HRID > 0)
         //    {
-        //        GenContactTalentPriority ContactTalentPriority = _talentConnectAdminDBContext.GenContactTalentPriorities.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId && x.HiringRequestId == HRID);
-        //        //_talentConnectAdminDBContext.Entry(ContactTalentPriority).Reload();
+        //        GenContactTalentPriority ContactTalentPriority = _UTSATSAPIDBConnection.GenContactTalentPriorities.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId && x.HiringRequestId == HRID);
+        //        //_UTSATSAPIDBConnection.Entry(ContactTalentPriority).Reload();
         //        if (ContactTalentPriority != null)
         //        {
         //            emailForBookTimeSlotModel.priority = ContactTalentPriority.TalentPriority;
         //        }
-        //        GenTalentPointofContact talentPointofContact = _talentConnectAdminDBContext.GenTalentPointofContacts.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId);
-        //        //_talentConnectAdminDBContext.Entry(talentPointofContact).Reload();
+        //        GenTalentPointofContact talentPointofContact = _UTSATSAPIDBConnection.GenTalentPointofContacts.AsNoTracking().FirstOrDefault(x => x.TalentId == talentId);
+        //        //_UTSATSAPIDBConnection.Entry(talentPointofContact).Reload();
         //        if (talentPointofContact != null)
         //        {
-        //            UsrUser Userdetail = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == talentPointofContact.UserId);
-        //            //_talentConnectAdminDBContext.Entry(Userdetail).Reload();
+        //            UsrUser Userdetail = _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == talentPointofContact.UserId);
+        //            //_UTSATSAPIDBConnection.Entry(Userdetail).Reload();
         //            if (Userdetail != null)
         //            {
         //                emailForBookTimeSlotModel.TalentSuccessEmail = Userdetail.EmailId;
@@ -161,8 +161,8 @@
         //    }
         //    if (contactid > 0)
         //    {
-        //        GenContact contact = _talentConnectAdminDBContext.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == contactid);
-        //        //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //        GenContact contact = _UTSATSAPIDBConnection.GenContacts.AsNoTracking().FirstOrDefault(x => x.Id == contactid);
+        //        //_UTSATSAPIDBConnection.Entry(contact).Reload();
         //        if (contact != null)
         //        {
         //            emailForBookTimeSlotModel.clientName = contact.FullName;
@@ -174,16 +174,16 @@
         //            //emailForBookTimeSlotModel.IsClientNotificationSend = contact.IsClientNotificationSend;
         //            emailForBookTimeSlotModel.IsClientNotificationSend = false;
         //        }
-        //        GenCompany company = _talentConnectAdminDBContext.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
-        //        //_talentConnectAdminDBContext.Entry(company).Reload();
+        //        GenCompany company = _UTSATSAPIDBConnection.GenCompanies.AsNoTracking().FirstOrDefault(x => x.Id == contact.CompanyId);
+        //        //_UTSATSAPIDBConnection.Entry(company).Reload();
         //        emailForBookTimeSlotModel.CompanyName = company.Company;
 
         //    }
 
         //    if (shortlistedid > 0)
         //    {
-        //        List<GenSalesHiringRequestInterviewerDetail> salesHiringRequest_InterviewerDetails = (from shi in _talentConnectAdminDBContext.GenSalesHiringRequestInterviewerDetails.AsNoTracking()
-        //                                                                                              join tsi in _talentConnectAdminDBContext.GenTalentSelectedInterviewerDetails.AsNoTracking() on shi.Id equals tsi.InterviewerId
+        //        List<GenSalesHiringRequestInterviewerDetail> salesHiringRequest_InterviewerDetails = (from shi in _UTSATSAPIDBConnection.GenSalesHiringRequestInterviewerDetails.AsNoTracking()
+        //                                                                                              join tsi in _UTSATSAPIDBConnection.GenTalentSelectedInterviewerDetails.AsNoTracking() on shi.Id equals tsi.InterviewerId
         //                                                                                              where shi.HiringRequestId == HRID && tsi.ShortlistedInterviewId == shortlistedid
         //                                                                                              select shi).ToList();
         //        if (salesHiringRequest_InterviewerDetails.Any())
@@ -204,7 +204,7 @@
 
         //    if (InvoiceId > 0 && OnboardID > 0)
         //    {
-        //        var InvoiceDetail = _talentConnectAdminDBContext.GenPayoutInformations.AsNoTracking().FirstOrDefault(x => x.EsalesInvoiceId == InvoiceId && x.OnBoardId == OnboardID);
+        //        var InvoiceDetail = _UTSATSAPIDBConnection.GenPayoutInformations.AsNoTracking().FirstOrDefault(x => x.EsalesInvoiceId == InvoiceId && x.OnBoardId == OnboardID);
         //        if (InvoiceDetail != null)
         //        {
         //            emailForBookTimeSlotModel.InvoiceAmount = InvoiceDetail.EsalesInvoiceAmount ?? 0;
@@ -213,18 +213,18 @@
         //        }
         //    }
 
-        //    var OnBoardDetail = _talentConnectAdminDBContext.GenOnBoardTalents.AsNoTracking().FirstOrDefault(x => x.Id == OnboardID);
+        //    var OnBoardDetail = _UTSATSAPIDBConnection.GenOnBoardTalents.AsNoTracking().FirstOrDefault(x => x.Id == OnboardID);
         //    if (OnBoardDetail != null)
         //    {
         //        emailForBookTimeSlotModel.EngagementID = OnBoardDetail.EngagemenId;
-        //        var salesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == OnBoardDetail.HiringRequestId);
+        //        var salesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.AsNoTracking().FirstOrDefault(x => x.Id == OnBoardDetail.HiringRequestId);
         //        if (salesHiringRequest != null)
         //        {
         //            emailForBookTimeSlotModel.IsManaged = salesHiringRequest.IsManaged;
-        //            emailForBookTimeSlotModel.SalesUserName = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).FullName;
-        //            emailForBookTimeSlotModel.SalesUseEMail = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).EmailId;
+        //            emailForBookTimeSlotModel.SalesUserName = _UTSATSAPIDBConnection.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).FullName;
+        //            emailForBookTimeSlotModel.SalesUseEMail = _UTSATSAPIDBConnection.UsrUsers.FirstOrDefault(x => x.Id == salesHiringRequest.SalesUserId).EmailId;
         //        }
-        //        var HRdetail = _talentConnectAdminDBContext.GenSalesHiringRequestDetails.AsNoTracking().FirstOrDefault(x => x.HiringRequestId == OnBoardDetail.HiringRequestId);
+        //        var HRdetail = _UTSATSAPIDBConnection.GenSalesHiringRequestDetails.AsNoTracking().FirstOrDefault(x => x.HiringRequestId == OnBoardDetail.HiringRequestId);
         //        if (HRdetail != null)
         //        {
         //            emailForBookTimeSlotModel.Currancy = HRdetail.Currency;
@@ -233,7 +233,7 @@
 
         //    if (replacement)
         //    {
-        //        var ReplacementDetail = _talentConnectAdminDBContext.GenOnBoardTalentsReplacementDetails.AsNoTracking().FirstOrDefault(x => x.OnboardId == OnboardID && x.OldTalentId == talentId);
+        //        var ReplacementDetail = _UTSATSAPIDBConnection.GenOnBoardTalentsReplacementDetails.AsNoTracking().FirstOrDefault(x => x.OnboardId == OnboardID && x.OldTalentId == talentId);
         //        if (ReplacementDetail != null)
         //        {
         //            emailForBookTimeSlotModel.Reason = ReplacementDetail.ReplacementReason;
@@ -247,7 +247,7 @@
         {
             string Description = string.Empty;
 
-            PrgContactTimeZone prgContactTimeZone = _talentConnectAdminDBContext.PrgContactTimeZones.AsNoTracking().FirstOrDefault(x => x.TimeZoneTitle == timezone && x.IsActive == true);
+            PrgContactTimeZone prgContactTimeZone = _UTSATSAPIDBConnection.PrgContactTimeZones.AsNoTracking().FirstOrDefault(x => x.TimeZoneTitle == timezone && x.IsActive == true);
 
             if (prgContactTimeZone != null)
             {
@@ -264,17 +264,17 @@
 
             if (SalesUserId > 0)
             {
-                UsrUserHierarchy _objUserHierarchy = _talentConnectAdminDBContext.UsrUserHierarchies.AsNoTracking().Where(x => x.UserId == SalesUserId).FirstOrDefault();
-                //_talentConnectAdminDBContext.Entry(_objUserHierarchy).Reload();
+                UsrUserHierarchy _objUserHierarchy = _UTSATSAPIDBConnection.UsrUserHierarchies.AsNoTracking().Where(x => x.UserId == SalesUserId).FirstOrDefault();
+                //_UTSATSAPIDBConnection.Entry(_objUserHierarchy).Reload();
                 if (_objUserHierarchy != null)
                 {
-                    var result = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == _objUserHierarchy.ParentId);
+                    var result = _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == _objUserHierarchy.ParentId);
                     SalesLeadEmailId = result != null ? result.EmailId : String.Empty;
                 }
             }
 
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "EmailId" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "EmailId" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 if (SalesLeadEmailId != "")
@@ -288,7 +288,7 @@
 
         public PrgTalentRejectReason GetPrgTalentRejectReason(int id)
         {
-            var reason = _talentConnectAdminDBContext.PrgTalentRejectReasons.Where(x => x.Id == id).FirstOrDefault();
+            var reason = _UTSATSAPIDBConnection.PrgTalentRejectReasons.Where(x => x.Id == id).FirstOrDefault();
             return reason;
         }
         public string GetCCEmailNameValues()
@@ -298,18 +298,18 @@
 
             if (SalesUserId > 0)
             {
-                UsrUserHierarchy _objUserHierarchy = _talentConnectAdminDBContext.UsrUserHierarchies.AsNoTracking().Where(x => x.UserId == SalesUserId).FirstOrDefault();
-                //_talentConnectAdminDBContext.Entry(_objUserHierarchy).Reload();
+                UsrUserHierarchy _objUserHierarchy = _UTSATSAPIDBConnection.UsrUserHierarchies.AsNoTracking().Where(x => x.UserId == SalesUserId).FirstOrDefault();
+                //_UTSATSAPIDBConnection.Entry(_objUserHierarchy).Reload();
                 if (_objUserHierarchy != null)
                 {
-                    var result = _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == _objUserHierarchy.ParentId);
+                    var result = _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == _objUserHierarchy.ParentId);
                     SalesLeadName = result != null ? result.FullName : string.Empty;
                 }
             }
 
 
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "Name" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "Name" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 if (SalesLeadName != "")
@@ -324,8 +324,8 @@
         public string GetCCEmailIdValues(string emailType = "AdhocCCEmailIds")
         {
             string CCEmailIds = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == emailType && x.IsActive == true).FirstOrDefault();
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == emailType && x.IsActive == true).FirstOrDefault();
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailIds = "," + _objSystemConfigurationName.Value;
@@ -337,8 +337,8 @@
         public string GetCCEmailNameValues(string emailType = "AdhocCCEmailName")
         {
             string CCEmailNames = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == emailType && x.IsActive == true).FirstOrDefault();
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == emailType && x.IsActive == true).FirstOrDefault();
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailNames = "," + _objSystemConfigurationName.Value;
@@ -349,19 +349,19 @@
 
         public List<GenContactPointofContact> getPointOfContact(long? contactid)
         {
-            return _talentConnectAdminDBContext.GenContactPointofContacts.AsNoTracking().Where(x => x.ContactId == contactid).OrderBy(x => x.Id).ToList();
+            return _UTSATSAPIDBConnection.GenContactPointofContacts.AsNoTracking().Where(x => x.ContactId == contactid).OrderBy(x => x.Id).ToList();
         }
 
         public UsrUser getUserObject(long userid)
         {
-            return _talentConnectAdminDBContext.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == userid);
+            return _UTSATSAPIDBConnection.UsrUsers.AsNoTracking().FirstOrDefault(x => x.Id == userid);
         }
 
         public static string GetAdHocCCEmailIdValues()
         {
             string CCEmailIds = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "AdhocCCEmailIds" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "AdhocCCEmailIds" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailIds = "," + _objSystemConfigurationName.Value;
@@ -374,8 +374,8 @@
         public static string GetAdHocCCEmailNameValues()
         {
             string CCEmailNames = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "AdhocCCEmailName" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "AdhocCCEmailName" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailNames = "," + _objSystemConfigurationName.Value;
@@ -387,8 +387,8 @@
         public static string GetSMCCEmailNameValues()
         {
             string CCEmailNames = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "SMCCEmailNames" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "SMCCEmailNames" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailNames = "," + _objSystemConfigurationName.Value;
@@ -400,8 +400,8 @@
         public static string GetManagedCCEmailIdValues()
         {
             string CCEmailIds = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "ManagedCCEmailIds" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "ManagedCCEmailIds" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailIds = "," + _objSystemConfigurationName.Value;
@@ -412,8 +412,8 @@
         public static string GetManagedCCEmailNameValues()
         {
             string CCEmailNames = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "ManagedCCEmailNames" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "ManagedCCEmailNames" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailNames = "," + _objSystemConfigurationName.Value;
@@ -425,8 +425,8 @@
         public static string GetSMCCEmailIdValues()
         {
             string SMCCEmailIds = "";
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "SMCCEmailIds" && x.IsActive == true);
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().FirstOrDefault(x => x.Key == "SMCCEmailIds" && x.IsActive == true);
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 SMCCEmailIds = "," + _objSystemConfigurationName.Value;
@@ -439,8 +439,8 @@
         {
             string CCEmailNames = "";
 
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == "HRBuddyName" && x.IsActive == true).FirstOrDefault();
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == "HRBuddyName" && x.IsActive == true).FirstOrDefault();
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailNames = "," + _objSystemConfigurationName.Value;
@@ -453,8 +453,8 @@
             string CCEmailIds = "";
 
 
-            GenSystemConfiguration _objSystemConfigurationName = _talentConnectAdminDBContext.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == "HRBuddyEmail" && x.IsActive == true).FirstOrDefault();
-            //_talentConnectAdminDBContext.Entry(_objSystemConfigurationName).Reload();
+            GenSystemConfiguration _objSystemConfigurationName = _UTSATSAPIDBConnection.GenSystemConfigurations.AsNoTracking().Where(x => x.Key == "HRBuddyEmail" && x.IsActive == true).FirstOrDefault();
+            //_UTSATSAPIDBConnection.Entry(_objSystemConfigurationName).Reload();
             if (_objSystemConfigurationName != null)
             {
                 CCEmailIds = "," + _objSystemConfigurationName.Value;

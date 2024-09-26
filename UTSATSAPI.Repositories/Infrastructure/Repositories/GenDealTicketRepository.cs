@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenDealTicketRepository : GenericRepository<GenDealTicket>, IGenDealTicketRepository
 {
-public GenDealTicketRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenDealTicketRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

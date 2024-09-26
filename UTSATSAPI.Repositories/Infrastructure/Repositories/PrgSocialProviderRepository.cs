@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgSocialProviderRepository : GenericRepository<PrgSocialProvider>, IPrgSocialProviderRepository
 {
-public PrgSocialProviderRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgSocialProviderRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

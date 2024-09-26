@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgDealStatusIdpipelineStageIdRepository : GenericRepository<PrgDealStatusIdpipelineStageId>, IPrgDealStatusIdpipelineStageIdRepository
 {
-public PrgDealStatusIdpipelineStageIdRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgDealStatusIdpipelineStageIdRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

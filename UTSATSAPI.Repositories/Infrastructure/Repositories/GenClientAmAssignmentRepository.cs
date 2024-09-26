@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenClientAmAssignmentRepository : GenericRepository<GenClientAmAssignment>, IGenClientAmAssignmentRepository
 {
-public GenClientAmAssignmentRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenClientAmAssignmentRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

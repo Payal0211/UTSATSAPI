@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenShortlistedTalentRepository : GenericRepository<GenShortlistedTalent>, IGenShortlistedTalentRepository
 {
-public GenShortlistedTalentRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenShortlistedTalentRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

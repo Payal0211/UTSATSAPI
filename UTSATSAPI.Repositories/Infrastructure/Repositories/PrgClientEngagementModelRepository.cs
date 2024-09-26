@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgClientEngagementModelRepository : GenericRepository<PrgClientEngagementModel>, IPrgClientEngagementModelRepository
 {
-public PrgClientEngagementModelRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgClientEngagementModelRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

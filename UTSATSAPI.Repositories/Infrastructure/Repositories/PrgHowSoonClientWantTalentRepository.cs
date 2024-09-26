@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgHowSoonClientWantTalentRepository : GenericRepository<PrgHowSoonClientWantTalent>, IPrgHowSoonClientWantTalentRepository
 {
-public PrgHowSoonClientWantTalentRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgHowSoonClientWantTalentRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

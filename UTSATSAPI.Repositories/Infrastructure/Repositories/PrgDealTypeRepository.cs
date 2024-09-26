@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgDealTypeRepository : GenericRepository<PrgDealType>, IPrgDealTypeRepository
 {
-public PrgDealTypeRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgDealTypeRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgOnBoardPolicyDeviceMasterRepository : GenericRepository<PrgOnBoardPolicyDeviceMaster>, IPrgOnBoardPolicyDeviceMasterRepository
 {
-public PrgOnBoardPolicyDeviceMasterRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgOnBoardPolicyDeviceMasterRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

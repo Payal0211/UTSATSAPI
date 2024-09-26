@@ -24,7 +24,7 @@
     {
         //#region Variables 
         //IConfiguration _configuration;
-        //TalentConnectAdminDBContext _talentConnectAdminDBContext;
+        //UTSATSAPIDBConnection _UTSATSAPIDBConnection;
         //EmailDatabaseContentProvider emailDatabaseContentProvider;
 
         //string ccEmail = string.Empty;
@@ -33,11 +33,11 @@
         //#endregion
 
         //#region Constructor
-        //public EmailBinder(IConfiguration configuration, TalentConnectAdminDBContext talentConnectAdminDBContext)
+        //public EmailBinder(IConfiguration configuration, UTSATSAPIDBConnection UTSATSAPIDBConnection)
         //{
         //    _configuration = configuration;
-        //    _talentConnectAdminDBContext = talentConnectAdminDBContext;
-        //    emailDatabaseContentProvider = new EmailDatabaseContentProvider(_talentConnectAdminDBContext);
+        //    _UTSATSAPIDBConnection = UTSATSAPIDBConnection;
+        //    emailDatabaseContentProvider = new EmailDatabaseContentProvider(_UTSATSAPIDBConnection);
         //    ccEmail = _configuration["app_settings:CCEmailId"] + "," + _configuration["app_settings:CC1EmailId"] + "," + _configuration["app_settings:TSCEmailId"];
         //    ccEmailName = _configuration["app_settings:CCEmailName"] + ',' + _configuration["app_settings:CC1EmailName"] + ',' + _configuration["app_settings:TSCEmailName"];
         //    clientEmailName = _configuration["ClientEmailName"].ToString();
@@ -77,7 +77,7 @@
         //        string CCEMAILNAME = "";
         //        if (PocID != 0)
         //        {
-        //            var varGetUser = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
+        //            var varGetUser = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
         //            if (varGetUser != null)
         //            {
         //                strBccEmail = varGetUser.EmailId;
@@ -91,11 +91,11 @@
         //        }
         //        else
         //        {
-        //            var obj = sproc_Get_ContactPointofContact(paramString); //_talentConnectAdminDBContext.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
+        //            var obj = sproc_Get_ContactPointofContact(paramString); //_UTSATSAPIDBConnection.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
         //            if (obj != null)
         //            {
         //                PocID = obj.User_ID ?? 0;
-        //                var varGetUser = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == obj.User_ID).FirstOrDefault();
+        //                var varGetUser = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == obj.User_ID).FirstOrDefault();
         //                if (varGetUser != null)
         //                {
         //                    strBccEmail = varGetUser.EmailId;
@@ -111,7 +111,7 @@
 
         //        if (PocID > 0)
         //        {
-        //            var usr_user = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
+        //            var usr_user = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
         //            if (usr_user != null)
         //            {
         //                POCContactNo = usr_user.ContactNumber;
@@ -797,8 +797,8 @@
         //        string[] digits_words = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
         //        string[] digits_wordsRoman = { "0th", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th" };
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == hiringRequestId).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == hiringRequestId).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -1006,16 +1006,16 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
         //            nextRound = round + 1;
         //        }
 
-        //        GenTalentSelectedNextRoundInterviewDetail talentSelected_NextRound_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedNextRoundInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestDetailId == HiringRequestDetailID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_NextRound_InterviewDetails).Reload();
+        //        GenTalentSelectedNextRoundInterviewDetail talentSelected_NextRound_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedNextRoundInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestDetailId == HiringRequestDetailID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_NextRound_InterviewDetails).Reload();
 
         //        if (talentSelected_NextRound_InterviewDetails != null)
         //        {
@@ -1184,16 +1184,16 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
         //            nextRound = round + 1;
         //        }
 
-        //        GenTalentSelectedNextRoundInterviewDetail talentSelected_NextRound_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedNextRoundInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestDetailId == HiringRequestDetailID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_NextRound_InterviewDetails).Reload();
+        //        GenTalentSelectedNextRoundInterviewDetail talentSelected_NextRound_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedNextRoundInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestDetailId == HiringRequestDetailID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_NextRound_InterviewDetails).Reload();
         //        if (talentSelected_NextRound_InterviewDetails != null)
         //        {
         //            if (talentSelected_NextRound_InterviewDetails.NextRoundOption == "Append")
@@ -2627,7 +2627,7 @@
         //        List<GenAmnbdAssignmentEmailsendDetail> AMNBD_AssignmentList = new List<GenAmnbdAssignmentEmailsendDetail>();
         //        if (emailDetail.AM_SalesPersonID != 0)
         //        {
-        //            AMNBD_AssignmentList = _talentConnectAdminDBContext.GenAmnbdAssignmentEmailsendDetails.Where(x => x.NeedEmailSend == 1 && x.AmSalesPersonId == emailDetail.AM_SalesPersonID).ToList();
+        //            AMNBD_AssignmentList = _UTSATSAPIDBConnection.GenAmnbdAssignmentEmailsendDetails.Where(x => x.NeedEmailSend == 1 && x.AmSalesPersonId == emailDetail.AM_SalesPersonID).ToList();
         //        }
 
         //        #region Email Content
@@ -2671,18 +2671,18 @@
         //            sbBody.Append(string.Format("<tr><th style='text-align: center;'>HR #</th><th style='text-align: center;'>TR</th><th style='text-align: center;'>Role</th><th style='text-align: center;'>Status</th></tr>"));
         //            foreach (var item in AMNBD_AssignmentList)
         //            {
-        //                GenSalesHiringRequest hiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(x => x.Id == item.HiringRequestId).FirstOrDefault();
-        //                //_talentConnectAdminDBContext.Entry(hiringRequest).Reload();
+        //                GenSalesHiringRequest hiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(x => x.Id == item.HiringRequestId).FirstOrDefault();
+        //                //_UTSATSAPIDBConnection.Entry(hiringRequest).Reload();
         //                if (hiringRequest != null)
         //                {
         //                    HRNo = hiringRequest.HrNumber;
         //                    NoOfTalent = hiringRequest.NoofTalents;
         //                    Role = hiringRequest.RequestForTalent;
-        //                    //HRStatus = _talentConnectAdminDBContext.PrgHiringRequestStatuses.Where(x => x.Id == hiringRequest.StatusId).FirstOrDefault().HiringRequestStatus;
+        //                    //HRStatus = _UTSATSAPIDBConnection.PrgHiringRequestStatuses.Where(x => x.Id == hiringRequest.StatusId).FirstOrDefault().HiringRequestStatus;
 
         //                    if (string.IsNullOrEmpty(emailDetail.HRStatus))
         //                    {
-        //                        HRStatus = _talentConnectAdminDBContext.PrgJobStatusClientPortals.Where(x => x.Id == hiringRequest.JobStatusId).FirstOrDefault().JobStatus;
+        //                        HRStatus = _UTSATSAPIDBConnection.PrgJobStatusClientPortals.Where(x => x.Id == hiringRequest.JobStatusId).FirstOrDefault().JobStatus;
         //                    }
         //                    else
         //                    {
@@ -2767,7 +2767,7 @@
         //        List<GenAmnbdAssignmentEmailsendDetail> AMNBD_AssignmentList = new List<GenAmnbdAssignmentEmailsendDetail>();
         //        if (emailDetail.NBD_SalesPersonID != 0)
         //        {
-        //            AMNBD_AssignmentList = _talentConnectAdminDBContext.GenAmnbdAssignmentEmailsendDetails.Where(x => x.NeedEmailSend == 1 && x.NbdSalesPersonId == emailDetail.NBD_SalesPersonID).ToList();
+        //            AMNBD_AssignmentList = _UTSATSAPIDBConnection.GenAmnbdAssignmentEmailsendDetails.Where(x => x.NeedEmailSend == 1 && x.NbdSalesPersonId == emailDetail.NBD_SalesPersonID).ToList();
         //        }
 
         //        #region Email Content
@@ -2812,19 +2812,19 @@
         //            sbBody.Append(string.Format("<tr><th style='text-align: center;'>HR #</th><th style='text-align: center;'>TR</th><th style='text-align: center;'>Role</th><th style='text-align: center;'>Status</th></tr>"));
         //            foreach (var item in AMNBD_AssignmentList)
         //            {
-        //                GenSalesHiringRequest hiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(x => x.Id == item.HiringRequestId).FirstOrDefault();
-        //                //_talentConnectAdminDBContext.Entry(hiringRequest).Reload();
+        //                GenSalesHiringRequest hiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(x => x.Id == item.HiringRequestId).FirstOrDefault();
+        //                //_UTSATSAPIDBConnection.Entry(hiringRequest).Reload();
         //                if (hiringRequest != null)
         //                {
         //                    HRNo = hiringRequest.HrNumber;
         //                    NoOfTalent = hiringRequest.NoofTalents;
         //                    Role = hiringRequest.RequestForTalent;
-        //                    //HRStatus = _talentConnectAdminDBContext.PrgHiringRequestStatuses.Where(x => x.Id == hiringRequest.StatusId).FirstOrDefault().HiringRequestStatus;
-        //                    //HRStatus = _talentConnectAdminDBContext.PrgHiringRequestStatuses.Where(x => x.Id == hiringRequest.StatusId).FirstOrDefault().HiringRequestStatus;
+        //                    //HRStatus = _UTSATSAPIDBConnection.PrgHiringRequestStatuses.Where(x => x.Id == hiringRequest.StatusId).FirstOrDefault().HiringRequestStatus;
+        //                    //HRStatus = _UTSATSAPIDBConnection.PrgHiringRequestStatuses.Where(x => x.Id == hiringRequest.StatusId).FirstOrDefault().HiringRequestStatus;
 
         //                    if (string.IsNullOrEmpty(emailDetail.HRStatus))
         //                    {
-        //                        HRStatus = _talentConnectAdminDBContext.PrgJobStatusClientPortals.Where(x => x.Id == hiringRequest.JobStatusId).FirstOrDefault().JobStatus;
+        //                        HRStatus = _UTSATSAPIDBConnection.PrgJobStatusClientPortals.Where(x => x.Id == hiringRequest.JobStatusId).FirstOrDefault().JobStatus;
         //                    }
         //                    else
         //                    {
@@ -2889,16 +2889,16 @@
         //}
         //public string SendEmailForChangeAMForCompany(UpdateAMDetails updateAM)
         //{
-        //    string CompanyName = _talentConnectAdminDBContext.GenCompanies.Where(x => x.Id == updateAM.CompanyID).Select(x => x.Company).FirstOrDefault();
+        //    string CompanyName = _UTSATSAPIDBConnection.GenCompanies.Where(x => x.Id == updateAM.CompanyID).Select(x => x.Company).FirstOrDefault();
 
         //    int[] Ids = { (int)updateAM.OldAM_SalesPersonID, (int)updateAM.NewAM_SalesPersonID };
-        //    string NewAMUserName = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == updateAM.NewAM_SalesPersonID).Select(x => x.FullName).FirstOrDefault();
+        //    string NewAMUserName = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == updateAM.NewAM_SalesPersonID).Select(x => x.FullName).FirstOrDefault();
 
         //    int Count = 0;
         //    foreach (int id in Ids)
         //    {
         //        Count++;
-        //        var userdetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == id).Select(x => new
+        //        var userdetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == id).Select(x => new
         //        {
         //            EmailId = x.EmailId,
         //            Name = x.FullName
@@ -3002,13 +3002,13 @@
         //public string SendEmailForChangeAMForPayOut(UpdateAM_Payout updateAM, Sproc_UTS_Get_PayOut_Basic_Information_Result payOutDetails, List<Sproc_Get_Hierarchy_For_Email_Result> oldAMUserHierarchy, List<Sproc_Get_Hierarchy_For_Email_Result> newAMUserHierarchy)
         //{
         //    int[] Ids = { (int)updateAM.OldAMPersonID, (int)updateAM.NewAMPersonID };
-        //    string NewAMUserName = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == updateAM.NewAMPersonID).Select(x => x.FullName).FirstOrDefault();
+        //    string NewAMUserName = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == updateAM.NewAMPersonID).Select(x => x.FullName).FirstOrDefault();
 
         //    int Count = 0;
         //    foreach (int id in Ids)
         //    {
         //        Count++;
-        //        var userdetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == id).Select(x => new
+        //        var userdetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == id).Select(x => new
         //        {
         //            EmailId = x.EmailId,
         //            Name = x.FullName
@@ -3146,7 +3146,7 @@
         //        var dstring = sbBody.ToString();
 
         //        //get AM Details
-        //        var AM_userdetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == payOutDetails.AM_SalesPersonID).Select(x => new
+        //        var AM_userdetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == payOutDetails.AM_SalesPersonID).Select(x => new
         //        {
         //            EmailId = x.EmailId,
         //            Name = x.FullName,
@@ -3154,7 +3154,7 @@
         //        }).FirstOrDefault();
 
         //        //Get TSC Details 
-        //        var TSC_userdetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == payOutDetails.TSC_PersonID).Select(x => new
+        //        var TSC_userdetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == payOutDetails.TSC_PersonID).Select(x => new
         //        {
         //            EmailId = x.EmailId,
         //            Name = x.FullName,
@@ -3265,7 +3265,7 @@
         //                };
         //    string paramasString1 = CommonLogic.ConvertToParamString(param1);
         //    Sproc_EmailHRTypeChanged_Result emailDetail = new Sproc_EmailHRTypeChanged_Result();
-        //    emailDetail = _talentConnectAdminDBContext.Set<Sproc_EmailHRTypeChanged_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_EmailHRTypeChanged, paramasString1)).AsEnumerable().FirstOrDefault();
+        //    emailDetail = _UTSATSAPIDBConnection.Set<Sproc_EmailHRTypeChanged_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_EmailHRTypeChanged, paramasString1)).AsEnumerable().FirstOrDefault();
 
 
         //    //emailDetail = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentId, 0, 0, false, HrID.Value, 0, 0);
@@ -3453,14 +3453,14 @@
         //        StringBuilder sbBody = new StringBuilder();
         //        EmailOperator emailOperator = new EmailOperator(_configuration);
 
-        //        GenSalesHiringRequest salesHiringREquest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(x => x.Id == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(salesHiringREquest).Reload();
+        //        GenSalesHiringRequest salesHiringREquest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(x => x.Id == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(salesHiringREquest).Reload();
         //        string TalentName = "", priority = "";
         //        string HR_Number = "", EngagementID = "", ClientName = "", ReplacetimePeriod = "", salesemailid = "", salesName = "";
         //        if (salesHiringREquest != null)
         //        {
         //            HR_Number = salesHiringREquest.HrNumber;
-        //            var userDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == salesHiringREquest.SalesUserId)
+        //            var userDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == salesHiringREquest.SalesUserId)
         //                .Select(x => new
         //                {
         //                    FullName = x.FullName,
@@ -3470,12 +3470,12 @@
         //            salesName = userDetails.FullName;
         //            salesemailid = userDetails.EmailId;
 
-        //            GenContact contact = _talentConnectAdminDBContext.GenContacts.Where(x => x.Id == salesHiringREquest.ContactId).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //            GenContact contact = _UTSATSAPIDBConnection.GenContacts.Where(x => x.Id == salesHiringREquest.ContactId).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(contact).Reload();
         //            if (contact != null)
         //            {
-        //                GenCompany company = _talentConnectAdminDBContext.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
-        //                //_talentConnectAdminDBContext.Entry(company).Reload();
+        //                GenCompany company = _UTSATSAPIDBConnection.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
+        //                //_UTSATSAPIDBConnection.Entry(company).Reload();
         //                if (company != null)
         //                {
         //                    ClientName = company.Company;
@@ -3483,15 +3483,15 @@
         //            }
         //        }
 
-        //        GenTalent talent = _talentConnectAdminDBContext.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talent).Reload();
-        //        GenOnBoardTalent onBoardTalents = _talentConnectAdminDBContext.GenOnBoardTalents.Where(x => x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(onBoardTalents).Reload();
+        //        GenTalent talent = _UTSATSAPIDBConnection.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talent).Reload();
+        //        GenOnBoardTalent onBoardTalents = _UTSATSAPIDBConnection.GenOnBoardTalents.Where(x => x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(onBoardTalents).Reload();
         //        if (talent != null)
         //        {
         //            TalentName = talent.FirstName;
-        //            GenContactTalentPriority ContactTalentPriority = _talentConnectAdminDBContext.GenContactTalentPriorities.Where(x => x.TalentId == talent.Id && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(ContactTalentPriority).Reload();
+        //            GenContactTalentPriority ContactTalentPriority = _UTSATSAPIDBConnection.GenContactTalentPriorities.Where(x => x.TalentId == talent.Id && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(ContactTalentPriority).Reload();
         //            if (ContactTalentPriority != null)
         //            {
         //                priority = ContactTalentPriority.TalentPriority;
@@ -3576,8 +3576,8 @@
         //    #endregion
 
         //    #region Data Validations
-        //    HiringRequestData = _talentConnectAdminDBContext.GenSalesHiringRequests.FirstOrDefault(x => x.Id == HRID);
-        //    //_talentConnectAdminDBContext.Entry(HiringRequestData).Reload();
+        //    HiringRequestData = _UTSATSAPIDBConnection.GenSalesHiringRequests.FirstOrDefault(x => x.Id == HRID);
+        //    //_UTSATSAPIDBConnection.Entry(HiringRequestData).Reload();
         //    if (HiringRequestData == null)
         //        return "Hiring request data not found.";
 
@@ -3585,8 +3585,8 @@
         //    IsAdhoc = HiringRequestData.IsAdHocHr;
         //    IsManaged = HiringRequestData.IsManaged;
 
-        //    ContactData = _talentConnectAdminDBContext.GenContacts.FirstOrDefault(x => x.Id == ContactID);
-        //    //_talentConnectAdminDBContext.Entry(ContactData).Reload();
+        //    ContactData = _UTSATSAPIDBConnection.GenContacts.FirstOrDefault(x => x.Id == ContactID);
+        //    //_UTSATSAPIDBConnection.Entry(ContactData).Reload();
 
         //    if (ContactID == 0 || ContactData == null)
         //        return "Contact data not found.";
@@ -3594,16 +3594,16 @@
         //    ClientName = ContactData.FullName;
         //    ClientEmail = ContactData.EmailId;
 
-        //    CompanyData = _talentConnectAdminDBContext.GenCompanies.FirstOrDefault(x => x.Id == ContactData.CompanyId);
-        //    //_talentConnectAdminDBContext.Entry(CompanyData).Reload();
+        //    CompanyData = _UTSATSAPIDBConnection.GenCompanies.FirstOrDefault(x => x.Id == ContactData.CompanyId);
+        //    //_UTSATSAPIDBConnection.Entry(CompanyData).Reload();
 
         //    if (CompanyData == null)
         //        return "Company data not found.";
 
         //    CompanyName = CompanyData.Company;
 
-        //    UserData = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == HiringRequestData.SalesUserId);
-        //    _talentConnectAdminDBContext.Entry(UserData).Reload();
+        //    UserData = _UTSATSAPIDBConnection.UsrUsers.FirstOrDefault(x => x.Id == HiringRequestData.SalesUserId);
+        //    _UTSATSAPIDBConnection.Entry(UserData).Reload();
 
         //    if (UserData == null)
         //        return "Sales user data not found.";
@@ -3889,7 +3889,7 @@
         //    try
         //    {
         //        bool emailsent = false;
-        //        var userdetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == UserId).Select(x => new
+        //        var userdetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == UserId).Select(x => new
         //        {
         //            EmailId = x.EmailId,
         //            Name = x.FullName,
@@ -4066,7 +4066,7 @@
 
         ////        string strBccEmail = "", strBccEamilName = "";
         ////        //long PocID = 0;
-        ////        //var obj = _talentConnectAdminDBContext.sproc_Get_ContactPointofContact_Result.FirstOrDefault();
+        ////        //var obj = _UTSATSAPIDBConnection.sproc_Get_ContactPointofContact_Result.FirstOrDefault();
 
         ////        object[] param = new object[]
         ////        {
@@ -4078,7 +4078,7 @@
         ////        string CCEMAILNAME = "";
         ////        if (PocID != 0)
         ////        {
-        ////            var varGetUser = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
+        ////            var varGetUser = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
         ////            if (varGetUser != null)
         ////            {
         ////                strBccEmail = varGetUser.EmailId;
@@ -4092,10 +4092,10 @@
         ////        }
         ////        else
         ////        {
-        ////            var obj = sproc_Get_ContactPointofContact(paramString); //_talentConnectAdminDBContext.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
+        ////            var obj = sproc_Get_ContactPointofContact(paramString); //_UTSATSAPIDBConnection.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
         ////            if (obj != null)
         ////            {
-        ////                var varGetUser = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == obj.User_ID).FirstOrDefault();
+        ////                var varGetUser = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == obj.User_ID).FirstOrDefault();
         ////                if (varGetUser != null)
         ////                {
         ////                    strBccEmail = varGetUser.EmailId;
@@ -4156,27 +4156,27 @@
         //        string Subject = "", BodyCustom = "", SalesPersonName = "", salesPersonEmail = "", companyName = "", ClientName = "", ClientEmail = "";
         //        StringBuilder sbBody = new StringBuilder();
         //        bool IsAdHoc, IsManaged = false;
-        //        GenSalesHiringRequest _SalesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(_SalesHiringRequest).Reload();
+        //        GenSalesHiringRequest _SalesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(_SalesHiringRequest).Reload();
         //        if (_SalesHiringRequest != null)
         //        {
         //            var ContactId = _SalesHiringRequest.ContactId;
-        //            GenContact contact = _talentConnectAdminDBContext.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //            GenContact contact = _UTSATSAPIDBConnection.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(contact).Reload();
         //            if (contact != null)
         //            {
         //                ClientName = contact.FullName;
         //                ClientEmail = contact.EmailId;
-        //                GenCompany company = _talentConnectAdminDBContext.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
-        //                //_talentConnectAdminDBContext.Entry(company).Reload();
+        //                GenCompany company = _UTSATSAPIDBConnection.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
+        //                //_UTSATSAPIDBConnection.Entry(company).Reload();
         //                if (company != null)
         //                {
         //                    companyName = company.Company;
         //                }
         //            }
 
-        //            SalesPersonName = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => x.FullName).FirstOrDefault();
-        //            salesPersonEmail = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => x.EmailId).FirstOrDefault();
+        //            SalesPersonName = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => x.FullName).FirstOrDefault();
+        //            salesPersonEmail = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => x.EmailId).FirstOrDefault();
 
         //            IsAdHoc = _SalesHiringRequest.IsAdHocHr;
         //            IsManaged = _SalesHiringRequest.IsManaged;
@@ -4419,8 +4419,8 @@
         //        string Subject = "", BodyCustom = "", SalesPersonName = "", salesPersonEmail = "", companyName = "", ClientName = "", ClientEmail = "";
         //        StringBuilder sbBody = new StringBuilder();
         //        bool IsAdHoc, IsManaged = false;
-        //        GenSalesHiringRequest _SalesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
-        //        _talentConnectAdminDBContext.Entry(_SalesHiringRequest).Reload();
+        //        GenSalesHiringRequest _SalesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
+        //        _UTSATSAPIDBConnection.Entry(_SalesHiringRequest).Reload();
 
         //        #region Variable
         //        EmailForBookTimeSlotModel emailDetail = new();
@@ -4432,13 +4432,13 @@
         //        {
         //            //get the status of the HR
         //            int hrStatusId = Convert.ToInt32(_SalesHiringRequest.StatusId);
-        //            //PrgHiringRequestStatus prg_HiringRequestStatus = _talentConnectAdminDBContext.PrgHiringRequestStatuses.Where(x => x.Id == hrStatusId).FirstOrDefault();
+        //            //PrgHiringRequestStatus prg_HiringRequestStatus = _UTSATSAPIDBConnection.PrgHiringRequestStatuses.Where(x => x.Id == hrStatusId).FirstOrDefault();
         //            //string hrStatus = prg_HiringRequestStatus.HiringRequestStatus;
 
         //            string hrStatus = string.Empty;
         //            if (string.IsNullOrEmpty(emailDetail.HRStatus))
         //            {
-        //                hrStatus = _talentConnectAdminDBContext.PrgJobStatusClientPortals.Where(x => x.Id == _SalesHiringRequest.JobStatusId).FirstOrDefault().JobStatus;
+        //                hrStatus = _UTSATSAPIDBConnection.PrgJobStatusClientPortals.Where(x => x.Id == _SalesHiringRequest.JobStatusId).FirstOrDefault().JobStatus;
         //            }
         //            else
         //            {
@@ -4451,25 +4451,25 @@
 
         //            if (!isHRCloseCall)
         //            {
-        //                hiredTalentCount = _talentConnectAdminDBContext.GenOnBoardTalents.Where(t => t.HiringRequestId == HRID && t.StatusId == 1).Count();
+        //                hiredTalentCount = _UTSATSAPIDBConnection.GenOnBoardTalents.Where(t => t.HiringRequestId == HRID && t.StatusId == 1).Count();
         //            }
 
         //            var ContactId = _SalesHiringRequest.ContactId;
-        //            GenContact contact = _talentConnectAdminDBContext.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //            GenContact contact = _UTSATSAPIDBConnection.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(contact).Reload();
         //            if (contact != null)
         //            {
         //                ClientName = contact.FullName;
         //                ClientEmail = contact.EmailId;
-        //                GenCompany company = _talentConnectAdminDBContext.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
-        //                //_talentConnectAdminDBContext.Entry(company).Reload();
+        //                GenCompany company = _UTSATSAPIDBConnection.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
+        //                //_UTSATSAPIDBConnection.Entry(company).Reload();
         //                if (company != null)
         //                {
         //                    companyName = company.Company;
         //                }
         //            }
 
-        //            var salesPersonDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
+        //            var salesPersonDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
 
         //            SalesPersonName = salesPersonDetails.FullName;
         //            salesPersonEmail = salesPersonDetails.EmailId;
@@ -4596,8 +4596,8 @@
         //        string Subject = "", BodyCustom = "", SalesPersonName = "", salesPersonEmail = "", companyName = "", ClientName = "", ClientEmail = "";
         //        StringBuilder sbBody = new StringBuilder();
         //        bool IsAdHoc, IsManaged = false;
-        //        GenSalesHiringRequest _SalesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(t => t.Id == hrId).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(_SalesHiringRequest).Reload();
+        //        GenSalesHiringRequest _SalesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(t => t.Id == hrId).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(_SalesHiringRequest).Reload();
 
         //        int hrStatusId = Convert.ToInt32(_SalesHiringRequest.JobStatusId);
 
@@ -4605,21 +4605,21 @@
         //        if (_SalesHiringRequest != null)
         //        {
         //            var ContactId = _SalesHiringRequest.ContactId;
-        //            GenContact contact = _talentConnectAdminDBContext.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //            GenContact contact = _UTSATSAPIDBConnection.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(contact).Reload();
         //            if (contact != null)
         //            {
         //                ClientName = contact.FullName;
         //                ClientEmail = contact.EmailId;
-        //                GenCompany company = _talentConnectAdminDBContext.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
-        //                //_talentConnectAdminDBContext.Entry(company).Reload();
+        //                GenCompany company = _UTSATSAPIDBConnection.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
+        //                //_UTSATSAPIDBConnection.Entry(company).Reload();
         //                if (company != null)
         //                {
         //                    companyName = company.Company;
         //                }
         //            }
 
-        //            var salesPersonDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
+        //            var salesPersonDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
 
         //            if (salesPersonDetails != null)
         //            {
@@ -4965,7 +4965,7 @@
         //        //#region GetNewTSC
         //        //if (TSCUserId != 0)
         //        // {
-        //        //     UsrUser usr = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == TSCUserId).Select(x=>x).FirstOrDefault();
+        //        //     UsrUser usr = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == TSCUserId).Select(x=>x).FirstOrDefault();
         //        //    if (usr != null)
         //        //    {
         //        //        NewTSCUser = usr.FullName;
@@ -5144,7 +5144,7 @@
         //    string TOEMAIL = "";
         //    string TOEMAILNAME = "";
 
-        //    var salesPersonDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == emailDatabaseContentProvider.SalesUserId).FirstOrDefault();
+        //    var salesPersonDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == emailDatabaseContentProvider.SalesUserId).FirstOrDefault();
 
         //    if (salesPersonDetails != null)
         //    {
@@ -5239,13 +5239,13 @@
         //        if (_SalesHiringRequest != null)
         //        {
         //            var ContactId = _SalesHiringRequest.ContactId;
-        //            GenContact contact = _talentConnectAdminDBContext.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
+        //            GenContact contact = _UTSATSAPIDBConnection.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
 
         //            if (contact != null)
         //            {
         //                ClientName = contact.FullName;
         //                ClientEmail = contact.EmailId;
-        //                GenCompany company = _talentConnectAdminDBContext.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
+        //                GenCompany company = _UTSATSAPIDBConnection.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
 
         //                if (company != null)
         //                {
@@ -5258,7 +5258,7 @@
         //                userName = usr.FullName;
         //            }
 
-        //            var salesPersonDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
+        //            var salesPersonDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
 
         //            SalesPersonName = salesPersonDetails.FullName;
         //            salesPersonEmail = salesPersonDetails.EmailId;
@@ -5381,7 +5381,7 @@
         //        string TOEMAIL = "";
         //        string TOEMAILNAME = "";
 
-        //        var UserData = _talentConnectAdminDBContext.UsrUsers.FirstOrDefault(x => x.Id == POCUserID);
+        //        var UserData = _UTSATSAPIDBConnection.UsrUsers.FirstOrDefault(x => x.Id == POCUserID);
         //        if (UserData != null)
         //        {
         //            TOEMAIL = UserData.EmailId;
@@ -5716,7 +5716,7 @@
         //    object[] param = new object[] { HRID };
         //    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
-        //    var candidateList = _talentConnectAdminDBContext.Set<Sproc_Get_Candidate_Details_For_Job_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Get_Candidate_Details_For_Job, paramString)).AsEnumerable().ToList();
+        //    var candidateList = _UTSATSAPIDBConnection.Set<Sproc_Get_Candidate_Details_For_Job_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Get_Candidate_Details_For_Job, paramString)).AsEnumerable().ToList();
 
         //    foreach (var j in candidateList)
         //    {
@@ -5834,7 +5834,7 @@
         //    if (SalesUserID > 0)
         //    {
 
-        //        var varGetUser = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == SalesUserID).FirstOrDefault();
+        //        var varGetUser = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == SalesUserID).FirstOrDefault();
         //        if (varGetUser != null)
         //        {
         //            InternalToEmail = varGetUser.EmailId;
@@ -6250,13 +6250,13 @@
 
         //        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
-        //        var obj = sproc_Get_ContactPointofContact(paramString); //_talentConnectAdminDBContext.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
+        //        var obj = sproc_Get_ContactPointofContact(paramString); //_UTSATSAPIDBConnection.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
         //        if (obj != null)
         //        {
         //            PocID = obj.User_ID ?? 0;
         //            if (PocID > 0)
         //            {
-        //                var usr_user = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
+        //                var usr_user = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
         //                if (usr_user != null)
         //                {
         //                    POCContactNo = usr_user.ContactNumber;
@@ -6268,11 +6268,11 @@
         //        }
         //        #endregion
 
-        //        GenSalesHiringRequest? _SalesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(x => x.Id == hrId).FirstOrDefault();
+        //        GenSalesHiringRequest? _SalesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(x => x.Id == hrId).FirstOrDefault();
 
         //        if (_SalesHiringRequest != null)
         //        {
-        //            var salesPersonDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
+        //            var salesPersonDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
 
         //            SalesPersonName = salesPersonDetails.FullName;
         //            salesPersonEmail = salesPersonDetails.EmailId;
@@ -6301,7 +6301,7 @@
         //                param = new object[] { hrId, i.ATSTalentID };
         //                paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
-        //                var talentNotes = _talentConnectAdminDBContext.Set<Sproc_Fetch_TalentNotesEmailsLog_HRWise_TalentWise_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Fetch_TalentNotesEmailsLog_HRWise_TalentWise, paramString)).AsEnumerable().ToList();
+        //                var talentNotes = _UTSATSAPIDBConnection.Set<Sproc_Fetch_TalentNotesEmailsLog_HRWise_TalentWise_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Fetch_TalentNotesEmailsLog_HRWise_TalentWise, paramString)).AsEnumerable().ToList();
 
         //                foreach (var j in talentNotes)
         //                {
@@ -6315,7 +6315,7 @@
         //                    param = new object[] { Convert.ToString(j.ATSNoteID) };
         //                    paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
-        //                    _talentConnectAdminDBContext.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_AddUpdate_TalentNotesEmailsLog, paramString));
+        //                    _UTSATSAPIDBConnection.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_AddUpdate_TalentNotesEmailsLog, paramString));
         //                }
 
         //                MakeCCDetail ccDetailsTalents = MakeCCEmailDetails(0, false, true, hrId, i.UTSTalentID.Value, false);
@@ -6508,13 +6508,13 @@
 
         //        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
-        //        var obj = sproc_Get_ContactPointofContact(paramString); //_talentConnectAdminDBContext.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
+        //        var obj = sproc_Get_ContactPointofContact(paramString); //_UTSATSAPIDBConnection.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, paramString)).AsEnumerable().FirstOrDefault();
         //        if (obj != null)
         //        {
         //            PocID = obj.User_ID ?? 0;
         //            if (PocID > 0)
         //            {
-        //                var usr_user = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
+        //                var usr_user = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == PocID).FirstOrDefault();
         //                if (usr_user != null)
         //                {
         //                    POCContactNo = usr_user.ContactNumber;
@@ -6544,18 +6544,18 @@
         //        }
 
         //        #region GetLoggedinUserDetails
-        //        var loggedInUserDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == loggedInUserId).FirstOrDefault();
+        //        var loggedInUserDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == loggedInUserId).FirstOrDefault();
         //        if (loggedInUserDetails != null)
         //        {
         //            notesAddedBy = loggedInUserDetails.FullName;
         //        }
         //        #endregion
 
-        //        GenSalesHiringRequest? _SalesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(x => x.Id == hrId).FirstOrDefault();
+        //        GenSalesHiringRequest? _SalesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(x => x.Id == hrId).FirstOrDefault();
 
         //        if (_SalesHiringRequest != null)
         //        {
-        //            var salesPersonDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
+        //            var salesPersonDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).FirstOrDefault();
 
         //            SalesPersonName = salesPersonDetails.FullName;
         //            salesPersonEmail = salesPersonDetails.EmailId;
@@ -7267,8 +7267,8 @@
         //        #endregion
 
         //        GenTalentSelectedInterviewDetail InterviewDetails = new GenTalentSelectedInterviewDetail();
-        //        InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(xy => xy.Id == TalentSelected_InterviewDetails_ID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(InterviewDetails).Reload();
+        //        InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(xy => xy.Id == TalentSelected_InterviewDetails_ID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(InterviewDetails).Reload();
 
         //        string Subject = "";
         //        string BodyCustom = "";
@@ -7802,8 +7802,8 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -8016,8 +8016,8 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -8194,8 +8194,8 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -8379,8 +8379,8 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -8475,8 +8475,8 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -8579,8 +8579,8 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -8676,8 +8676,8 @@
         //        emailDetails = emailDatabaseContentProvider.GetEmailForBookTimeSlotModel(TalentID, 0, 0, false, HiringRequestID, 0, 0);
         //        #endregion
 
-        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _talentConnectAdminDBContext.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentSelected_InterviewDetails).Reload();
+        //        GenTalentSelectedInterviewDetail talentSelected_InterviewDetails = _UTSATSAPIDBConnection.GenTalentSelectedInterviewDetails.Where(x => x.ContactId == Contact_Id && x.TalentId == TalentID && x.HiringRequestId == HiringRequestID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentSelected_InterviewDetails).Reload();
         //        if (talentSelected_InterviewDetails != null)
         //        {
         //            round = Convert.ToInt32(talentSelected_InterviewDetails.InterviewRound);
@@ -10231,16 +10231,16 @@
         //        bool IsresetPassword = false;
         //        string Username = "", Password = "";
 
-        //        GenTalent talent = _talentConnectAdminDBContext.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talent).Reload();
+        //        GenTalent talent = _UTSATSAPIDBConnection.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talent).Reload();
         //        if (talent != null)
         //        {
         //            talentEmail = talent.EmailId;
         //            TalentName = talent.Name;
         //        }
 
-        //        GenContact contact = _talentConnectAdminDBContext.GenContacts.Where(x => x.Id == ClientID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //        GenContact contact = _UTSATSAPIDBConnection.GenContacts.Where(x => x.Id == ClientID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(contact).Reload();
         //        if (contact != null)
         //        {
         //            ClientEmail = contact.EmailId;
@@ -10252,23 +10252,23 @@
 
         //        }
 
-        //        GenOnBoardTalentsReplacementDetail talents_ReplacementDetails = _talentConnectAdminDBContext.GenOnBoardTalentsReplacementDetails.Where(x => x.Id == ReplacementID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talents_ReplacementDetails).Reload();
+        //        GenOnBoardTalentsReplacementDetail talents_ReplacementDetails = _UTSATSAPIDBConnection.GenOnBoardTalentsReplacementDetails.Where(x => x.Id == ReplacementID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talents_ReplacementDetails).Reload();
         //        if (talents_ReplacementDetails != null)
         //        {
         //            var OnboardId = talents_ReplacementDetails.OnboardId;
         //            Last_Working_Day = Convert.ToString(talents_ReplacementDetails.LastWorkingDay);
-        //            GenOnBoardTalent onBoardTalents = _talentConnectAdminDBContext.GenOnBoardTalents.Where(x => x.Id == OnboardId).FirstOrDefault();
+        //            GenOnBoardTalent onBoardTalents = _UTSATSAPIDBConnection.GenOnBoardTalents.Where(x => x.Id == OnboardId).FirstOrDefault();
         //            if (onBoardTalents != null)
         //            {
         //                EngagementID = onBoardTalents.EngagemenId;
         //            }
         //        }
-        //        GenSalesHiringRequest _SalesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(_SalesHiringRequest).Reload();
+        //        GenSalesHiringRequest _SalesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(_SalesHiringRequest).Reload();
         //        if (_SalesHiringRequest != null)
         //        {
-        //            var UsersDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => new
+        //            var UsersDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => new
         //            {
         //                FullName = x.FullName,
         //                EmailId = x.EmailId
@@ -10352,13 +10352,13 @@
         //        bool IsresetPassword = false;
         //        string Username = "", Password = "";
 
-        //        GenTalent talent = _talentConnectAdminDBContext.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talent).Reload();
-        //        GenContact contact = _talentConnectAdminDBContext.GenContacts.Where(x => x.Id == ClientID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(contact).Reload();
+        //        GenTalent talent = _UTSATSAPIDBConnection.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talent).Reload();
+        //        GenContact contact = _UTSATSAPIDBConnection.GenContacts.Where(x => x.Id == ClientID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(contact).Reload();
 
-        //        GenCompany comany = _talentConnectAdminDBContext.GenCompanies.Where(y => y.Id == contact.CompanyId).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(comany).Reload();
+        //        GenCompany comany = _UTSATSAPIDBConnection.GenCompanies.Where(y => y.Id == contact.CompanyId).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(comany).Reload();
         //        if (talent != null)
         //        {
         //            talentEmail = talent.EmailId;
@@ -10378,24 +10378,24 @@
 
         //        }
 
-        //        GenOnBoardTalentsReplacementDetail talents_ReplacementDetails = _talentConnectAdminDBContext.GenOnBoardTalentsReplacementDetails.Where(x => x.Id == ReplacementID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talents_ReplacementDetails).Reload();
+        //        GenOnBoardTalentsReplacementDetail talents_ReplacementDetails = _UTSATSAPIDBConnection.GenOnBoardTalentsReplacementDetails.Where(x => x.Id == ReplacementID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talents_ReplacementDetails).Reload();
         //        if (talents_ReplacementDetails != null)
         //        {
         //            var OnboardId = talents_ReplacementDetails.OnboardId;
         //            Last_Working_Day = Convert.ToString(talents_ReplacementDetails.LastWorkingDay);
-        //            GenOnBoardTalent onBoardTalents = _talentConnectAdminDBContext.GenOnBoardTalents.Where(x => x.Id == OnboardId).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(onBoardTalents).Reload();
+        //            GenOnBoardTalent onBoardTalents = _UTSATSAPIDBConnection.GenOnBoardTalents.Where(x => x.Id == OnboardId).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(onBoardTalents).Reload();
         //            if (onBoardTalents != null)
         //            {
         //                EngagementID = onBoardTalents.EngagemenId;
         //            }
         //        }
-        //        GenSalesHiringRequest _SalesHiringRequest = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(_SalesHiringRequest).Reload();
+        //        GenSalesHiringRequest _SalesHiringRequest = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(t => t.Id == HRID).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(_SalesHiringRequest).Reload();
         //        if (_SalesHiringRequest != null)
         //        {
-        //            var UserDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => new
+        //            var UserDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == _SalesHiringRequest.SalesUserId).Select(x => new
         //            {
         //                FullName = x.FullName,
         //                EmailId = x.EmailId
@@ -10406,12 +10406,12 @@
         //            HR_Number = _SalesHiringRequest.HrNumber;
         //        }
 
-        //        GenTalentPointofContact talentPointofContact = _talentConnectAdminDBContext.GenTalentPointofContacts.Where(x => x.TalentId == TalentID).OrderBy(x => x.Id).FirstOrDefault();
-        //        //_talentConnectAdminDBContext.Entry(talentPointofContact).Reload();
+        //        GenTalentPointofContact talentPointofContact = _UTSATSAPIDBConnection.GenTalentPointofContacts.Where(x => x.TalentId == TalentID).OrderBy(x => x.Id).FirstOrDefault();
+        //        //_UTSATSAPIDBConnection.Entry(talentPointofContact).Reload();
         //        if (talentPointofContact != null)
         //        {
-        //            UsrUser Userdetail = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == talentPointofContact.UserId).FirstOrDefault();
-        //            //_talentConnectAdminDBContext.Entry(Userdetail).Reload();
+        //            UsrUser Userdetail = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == talentPointofContact.UserId).FirstOrDefault();
+        //            //_UTSATSAPIDBConnection.Entry(Userdetail).Reload();
         //            if (Userdetail != null)
         //            {
 
@@ -11114,7 +11114,7 @@
         //}
         //private sproc_Get_ContactPointofContact_Result sproc_Get_ContactPointofContact(string param)
         //{
-        //    return _talentConnectAdminDBContext.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, param)).AsEnumerable().FirstOrDefault();
+        //    return _UTSATSAPIDBConnection.Set<sproc_Get_ContactPointofContact_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_ContactPointofContact, param)).AsEnumerable().FirstOrDefault();
         //}
         //#endregion
         //public class RescheduleInterviewEmailContent
@@ -11130,7 +11130,7 @@
         //}
         //private List<Sproc_Get_Hierarchy_For_Email_Result> GetHierarchyForEmail(string param)
         //{
-        //    return _talentConnectAdminDBContext.Set<Sproc_Get_Hierarchy_For_Email_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Get_Hierarchy_For_Email, param)).ToList();
+        //    return _UTSATSAPIDBConnection.Set<Sproc_Get_Hierarchy_For_Email_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Get_Hierarchy_For_Email, param)).ToList();
         //}
 
         //private MakeCCDetail MakeCCEmailDetails(long UserID, bool IsInternalCCNeeded = false, bool IsMatcherNeeded = false,
@@ -11159,7 +11159,7 @@
         //        {
         //            GetMatcherDataFromATS getMatcherDataFromATS = new GetMatcherDataFromATS();
         //            MatcherUserLists matcherUserLists = new MatcherUserLists();
-        //            var genTalent = _talentConnectAdminDBContext.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
+        //            var genTalent = _UTSATSAPIDBConnection.GenTalents.Where(x => x.Id == TalentID).FirstOrDefault();
         //            if (genTalent != null)
         //            {
         //                getMatcherDataFromATS.HRID = HRID;
@@ -11280,8 +11280,8 @@
         //    utsAtsApi_Records.CreatedByDateTime = DateTime.Now;
         //    utsAtsApi_Records.HrId = gen_UtsAtsApi_Records.HrId;
         //    utsAtsApi_Records.ResponseReceived = gen_UtsAtsApi_Records.ResponseReceived;
-        //    _talentConnectAdminDBContext.GenUtsAtsApiRecords.Add(utsAtsApi_Records);
-        //    _talentConnectAdminDBContext.SaveChanges();
+        //    _UTSATSAPIDBConnection.GenUtsAtsApiRecords.Add(utsAtsApi_Records);
+        //    _UTSATSAPIDBConnection.SaveChanges();
 
         //    return utsAtsApi_Records.Id;
         //}

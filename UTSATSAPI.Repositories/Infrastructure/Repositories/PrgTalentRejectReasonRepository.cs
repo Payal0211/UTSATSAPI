@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgTalentRejectReasonRepository : GenericRepository<PrgTalentRejectReason>, IPrgTalentRejectReasonRepository
 {
-public PrgTalentRejectReasonRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgTalentRejectReasonRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

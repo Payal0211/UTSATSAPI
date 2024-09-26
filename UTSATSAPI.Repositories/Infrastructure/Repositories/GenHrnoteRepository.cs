@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenHrnoteRepository : GenericRepository<GenHrnote>, IGenHrnoteRepository
 {
-public GenHrnoteRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenHrnoteRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

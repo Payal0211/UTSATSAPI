@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgCrmApiDetailRepository : GenericRepository<PrgCrmApiDetail>, IPrgCrmApiDetailRepository
 {
-public PrgCrmApiDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgCrmApiDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

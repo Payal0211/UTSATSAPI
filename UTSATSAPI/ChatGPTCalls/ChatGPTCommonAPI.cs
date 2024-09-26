@@ -13,14 +13,14 @@ namespace UTSATSAPI.ChatGPTCalls
     {
         #region Variables
         private readonly IConfiguration _configuration;
-        private readonly TalentConnectAdminDBContext _talentConnectAdminDBContext;
+        private readonly UTSATSAPIDBConnection _UTSATSAPIDBConnection;
         #endregion
 
         #region Constructors
-        public ChatGPTCommonAPI(IConfiguration configuration, TalentConnectAdminDBContext talentConnectAdminDBContext)
+        public ChatGPTCommonAPI(IConfiguration configuration, UTSATSAPIDBConnection UTSATSAPIDBConnection)
         {
             _configuration = configuration;
-            _talentConnectAdminDBContext = talentConnectAdminDBContext;
+            _UTSATSAPIDBConnection = UTSATSAPIDBConnection;
         }
         #endregion
 

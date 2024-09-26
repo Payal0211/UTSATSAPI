@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class StoreAPIUrlRepository : GenericRepository<StoreApiurl>, IStoreAPIUrlRepository
 {
-public StoreAPIUrlRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public StoreAPIUrlRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

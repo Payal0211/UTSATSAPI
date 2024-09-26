@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenIncSalesIncentiveTargetSummaryRepository : GenericRepository<GenIncSalesIncentiveTargetSummary>, IGenIncSalesIncentiveTargetSummaryRepository
 {
-public GenIncSalesIncentiveTargetSummaryRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenIncSalesIncentiveTargetSummaryRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenContactInterviewFeedbackRepository : GenericRepository<GenContactInterviewFeedback>, IGenContactInterviewFeedbackRepository
 {
-public GenContactInterviewFeedbackRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenContactInterviewFeedbackRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

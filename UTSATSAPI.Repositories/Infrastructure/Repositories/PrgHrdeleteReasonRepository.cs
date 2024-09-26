@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgHrdeleteReasonRepository : GenericRepository<PrgHrdeleteReason>, IPrgHrdeleteReasonRepository
 {
-public PrgHrdeleteReasonRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgHrdeleteReasonRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

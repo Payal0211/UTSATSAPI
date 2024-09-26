@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenTalentSelectedPostAcceptanceDetailRepository : GenericRepository<GenTalentSelectedPostAcceptanceDetail>, IGenTalentSelectedPostAcceptanceDetailRepository
 {
-public GenTalentSelectedPostAcceptanceDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenTalentSelectedPostAcceptanceDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

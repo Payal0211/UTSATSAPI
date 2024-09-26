@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class UsrUserHierarchyRepository : GenericRepository<UsrUserHierarchy>, IUsrUserHierarchyRepository
 {
-public UsrUserHierarchyRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public UsrUserHierarchyRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

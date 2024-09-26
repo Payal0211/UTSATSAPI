@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgCurrencyExchangeRateRepository : GenericRepository<PrgCurrencyExchangeRate>, IPrgCurrencyExchangeRateRepository
 {
-public PrgCurrencyExchangeRateRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgCurrencyExchangeRateRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenInterviewSlotsMasterRepository : GenericRepository<GenInterviewSlotsMaster>, IGenInterviewSlotsMasterRepository
 {
-public GenInterviewSlotsMasterRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenInterviewSlotsMasterRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

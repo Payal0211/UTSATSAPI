@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenClientHappinessSurveyRepository : GenericRepository<GenClientHappinessSurvey>, IGenClientHappinessSurveyRepository
 {
-public GenClientHappinessSurveyRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenClientHappinessSurveyRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

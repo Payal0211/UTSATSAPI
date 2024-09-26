@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgTalentLegalDocumentTypeRepository : GenericRepository<PrgTalentLegalDocumentType>, IPrgTalentLegalDocumentTypeRepository
 {
-public PrgTalentLegalDocumentTypeRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgTalentLegalDocumentTypeRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

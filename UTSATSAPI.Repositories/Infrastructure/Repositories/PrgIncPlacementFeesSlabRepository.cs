@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgIncPlacementFeesSlabRepository : GenericRepository<PrgIncPlacementFeesSlab>, IPrgIncPlacementFeesSlabRepository
 {
-public PrgIncPlacementFeesSlabRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgIncPlacementFeesSlabRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

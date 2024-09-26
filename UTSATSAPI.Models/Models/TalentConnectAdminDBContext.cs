@@ -7,10 +7,10 @@ using UTSATSAPI.Models.ViewModels;
 
 namespace UTSATSAPI.Models.Models
 {
-    public partial class TalentConnectAdminDBContext : DbContext
+    public partial class UTSATSAPIDBConnection : DbContext
     {
 
-        public TalentConnectAdminDBContext(DbContextOptions<TalentConnectAdminDBContext> options)
+        public UTSATSAPIDBConnection(DbContextOptions<UTSATSAPIDBConnection> options)
             : base(options)
         {
         }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenTalentComfortableAreaDetailRepository : GenericRepository<GenTalentComfortableAreaDetail>, IGenTalentComfortableAreaDetailRepository
 {
-public GenTalentComfortableAreaDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenTalentComfortableAreaDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class CustomExceptionRepository : GenericRepository<CustomException>, ICustomExceptionRepository
 {
-public CustomExceptionRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public CustomExceptionRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

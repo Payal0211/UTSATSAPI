@@ -19,11 +19,11 @@ namespace UTSATSAPI.Repositories.Repositories
     public class ATSsyncUTSRepository : IATSsyncUTS
     {
         #region Variables
-        private TalentConnectAdminDBContext db;
+        private UTSATSAPIDBConnection db;
         #endregion
 
         #region Constructor
-        public ATSsyncUTSRepository(TalentConnectAdminDBContext _db)
+        public ATSsyncUTSRepository(UTSATSAPIDBConnection _db)
         {
             this.db = _db; 
         }

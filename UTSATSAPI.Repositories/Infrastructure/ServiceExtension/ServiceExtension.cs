@@ -19,14 +19,14 @@ namespace UTSATSAPI.Repositories.Infrastructure.ServiceExtension
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUniversalProcRunner, UniversalProcRunnerRepository>();
 
-            services.AddDbContextPool<TalentConnectAdminDBContext>(options =>
+            services.AddDbContextPool<UTSATSAPIDBConnection>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("TalentConnectAdminDBConnection"), 
+                options.UseSqlServer(configuration.GetConnectionString("UTSATSAPIDBConnection"), 
                     sqlOptions => sqlOptions.CommandTimeout(120)
                 );
             });
 
-            services.AddDbContext<TalentConnectAdminDBContext>(ServiceLifetime.Scoped);
+            services.AddDbContext<UTSATSAPIDBConnection>(ServiceLifetime.Scoped);
             services.AddDbContext<InMemoryDbContext>(ServiceLifetime.Scoped,ServiceLifetime.Scoped);
             
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -275,6 +275,7 @@ namespace UTSATSAPI.Repositories.Infrastructure.ServiceExtension
             //services.AddScoped<IContactRepository, ContactRepository>();
             //services.AddScoped<IHubSpotRepository, HubSpotRepository>();
             services.AddScoped<IStoreAPIUrlRepository, StoreAPIUrlRepository>();
+            services.AddScoped<IATSsyncUTS, ATSsyncUTSRepository>();
 
             return services;
         }

@@ -24,14 +24,14 @@ namespace UTSATSAPI.Controllers
     public class ATSsyncUTSController : ControllerBase
     {
         #region Variables
-        private readonly TalentConnectAdminDBContext _db;
+        private readonly UTSATSAPIDBConnection _db;
         private readonly IUniversalProcRunner _uniProcRunner;
         private readonly IConfiguration _configuration;
         private readonly IATSsyncUTS _iATSsyncUTS;
         #endregion
 
         #region Constructors
-        public ATSsyncUTSController(TalentConnectAdminDBContext adminDBContext, IUniversalProcRunner uniProcRunner, IConfiguration configuration, IATSsyncUTS iATSsyncUTS)
+        public ATSsyncUTSController(UTSATSAPIDBConnection adminDBContext, IUniversalProcRunner uniProcRunner, IConfiguration configuration, IATSsyncUTS iATSsyncUTS)
         {
             _db = adminDBContext;
             _uniProcRunner = uniProcRunner;

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgClientHappinessSurveyFeedbackOptionRepository : GenericRepository<PrgClientHappinessSurveyFeedbackOption>, IPrgClientHappinessSurveyFeedbackOptionRepository
 {
-public PrgClientHappinessSurveyFeedbackOptionRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgClientHappinessSurveyFeedbackOptionRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

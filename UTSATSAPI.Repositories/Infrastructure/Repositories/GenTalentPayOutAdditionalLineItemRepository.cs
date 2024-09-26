@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenTalentPayOutAdditionalLineItemRepository : GenericRepository<GenTalentPayOutAdditionalLineItem>, IGenTalentPayOutAdditionalLineItemRepository
 {
-public GenTalentPayOutAdditionalLineItemRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenTalentPayOutAdditionalLineItemRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

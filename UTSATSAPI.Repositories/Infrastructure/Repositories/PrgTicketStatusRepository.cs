@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgTicketStatusRepository : GenericRepository<PrgTicketStatus>, IPrgTicketStatusRepository
 {
-public PrgTicketStatusRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgTicketStatusRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

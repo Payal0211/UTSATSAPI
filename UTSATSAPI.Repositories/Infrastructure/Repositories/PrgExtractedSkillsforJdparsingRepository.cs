@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgExtractedSkillsforJdparsingRepository : GenericRepository<PrgExtractedSkillsforJdparsing>, IPrgExtractedSkillsforJdparsingRepository
 {
-public PrgExtractedSkillsforJdparsingRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgExtractedSkillsforJdparsingRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgAmAssignmentRuleRepository : GenericRepository<PrgAmAssignmentRule>, IPrgAmAssignmentRuleRepository
 {
-public PrgAmAssignmentRuleRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgAmAssignmentRuleRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

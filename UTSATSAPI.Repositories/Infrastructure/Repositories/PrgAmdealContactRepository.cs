@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgAmdealContactRepository : GenericRepository<PrgAmdealContact>, IPrgAmdealContactRepository
 {
-public PrgAmdealContactRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgAmdealContactRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -5,7 +5,7 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly TalentConnectAdminDBContext _dbContext;
+        private readonly UTSATSAPIDBConnection _dbContext;
         public IUsrUserRepository usrUsers { get; private set; }
 
         //public ICustomExceptionRepository customExceptions { get; private set; }
@@ -249,7 +249,7 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
         public IUsrUserTypeAndRoleDetailRepository usrUserTypeAndRoleDetails { get; private set; }
         public IStoreAPIUrlRepository storeAPIUrl { get; private set; }
 
-        public UnitOfWork(TalentConnectAdminDBContext dbContext)
+        public UnitOfWork(UTSATSAPIDBConnection dbContext)
         {
             _dbContext = dbContext;
             usrUsers = new UsrUserRepository(_dbContext);

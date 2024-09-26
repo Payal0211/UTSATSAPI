@@ -12,11 +12,11 @@ namespace UTSATSAPI.ATSCalls
 {
     public class ATSCommonAPI
     {
-        private static TalentConnectAdminDBContext context;
+        private static UTSATSAPIDBConnection context;
         private static IConfiguration config;
         private static HttpContext _httpContext;
 
-        public ATSCommonAPI(TalentConnectAdminDBContext _context, IConfiguration _config, HttpContext httpContext)
+        public ATSCommonAPI(UTSATSAPIDBConnection _context, IConfiguration _config, HttpContext httpContext)
         {
             context = _context;
             config = _config;
@@ -77,7 +77,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //}
 
-        //private object GetAllHRDataForAdmin(TalentConnectAdminDBContext tcw, long HiringRequest_ID)
+        //private object GetAllHRDataForAdmin(UTSATSAPIDBConnection tcw, long HiringRequest_ID)
         //{
         //    string HRData = "";
 

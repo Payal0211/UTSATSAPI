@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenUtsOnBoardLineItemRepository : GenericRepository<GenUtsOnBoardLineItem>, IGenUtsOnBoardLineItemRepository
 {
-public GenUtsOnBoardLineItemRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenUtsOnBoardLineItemRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }
