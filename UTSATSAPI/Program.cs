@@ -15,6 +15,7 @@ using UTSATSAPI.Config;
 using UTSATSAPI.Repositories.Infrastructure.ServiceExtension;
 using UTSATSAPI.Repositories.Interfaces;
 using UTSATSAPI.Repositories.Repositories;
+using UTSATSAPI.Middlewares;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -78,34 +79,6 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddSwaggerGen(opt =>
-{
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Talent Connect Admin", Version = "v1" });
-    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "bearer"
-    });
-    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
-});
-
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     options.Secure = CookieSecurePolicy.Always;
@@ -133,6 +106,7 @@ builder.Services
 
 builder.Services.AddSwaggerGen(x =>
 {
+    x.SwaggerDoc("v1", new OpenApiInfo { Title = "UTS - ATS sync", Version = "v1" });
     x.AddSecurityDefinition("X-API-KEY", new OpenApiSecurityScheme
     {
         Name = "X-API-KEY",
@@ -177,7 +151,7 @@ var app = builder.Build();
 //}
 
 //app.UseMiddleware<RequestLoggingMiddleware>();
-
+app.UseMiddleware<ApiKeyMiddleware>();
 app.UseCookiePolicy();
 app.UseCors(builder =>
 {
@@ -189,7 +163,7 @@ app.UseCors(builder =>
 //app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseElmah();
+app.UseElmah();
 app.MapControllers();
 app.UseStaticFiles();
 
