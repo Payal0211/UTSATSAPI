@@ -292,10 +292,15 @@ namespace UTSATSAPI.Controllers
 
                 #region SP call --- Sproc_UTS_AddEdit_ATSHR
 
+                #region convert int to bool
                 bool? is_confidential_budget = null;
                 bool? is_fresher_allowed = null;
                 bool? is_open_to_work_near_by = null;
                 bool? has_people_management_exp = null;
+                bool? is_vetted_profile = null;
+                bool? is_hiring_limited = null;
+                bool? is_transparent = null;
+                bool? is_dp = null;
 
                 if (model?.is_confidential_budget != null)
                 {
@@ -313,6 +318,23 @@ namespace UTSATSAPI.Controllers
                 {
                     has_people_management_exp = model?.vital_information.has_people_management_exp == 1 ? true : false;
                 }
+                if (model?.pay_per_credit?.is_vetted_profile != null)
+                {
+                    is_vetted_profile = model?.pay_per_credit?.is_vetted_profile == 1 ? true : false;
+                }
+                if (model?.pay_per_credit?.is_hiring_limited != null)
+                {
+                    is_hiring_limited = model?.pay_per_credit?.is_hiring_limited == 1 ? true : false;
+                }
+                if (model?.pay_per_hire?.is_transparent != null)
+                {
+                    is_transparent = model?.pay_per_hire?.is_transparent == 1 ? true : false;
+                }
+                if (model?.pay_per_hire?.is_dp != null)
+                {
+                    is_dp = model?.pay_per_hire?.is_dp == 1 ? true : false;
+                }
+                #endregion
 
                 string? strCompensationOption = null;
                 string? strCandidateIndustry = null;
@@ -361,15 +383,15 @@ namespace UTSATSAPI.Controllers
                        model?.must_have_skills,
                        model?.good_to_have_skills,
                        model?.is_hr_focused,
-                       model?.pay_per_hire?.is_dp,
+                       is_dp,
                        model?.pay_per_hire?.dp_margin,
                        model?.pay_per_hire?.nr_margin,
-                       model?.pay_per_hire?.is_transparent,
+                       is_transparent,
                        model?.pay_per_hire?.pricing_id,
                        model?.pay_per_hire?.payroll_type_id,
                        model?.pay_per_hire?.payroll_partner_name,
-                       model?.pay_per_credit?.is_vetted_profile,
-                       model?.pay_per_credit?.is_hiring_limited,
+                       is_vetted_profile,
+                       is_hiring_limited,
                        model?.LastModifiedById,
                        model?.pay_per_credit?.job_type_id,
                        strCompensationOption,
@@ -413,21 +435,36 @@ namespace UTSATSAPI.Controllers
                 {
                     StringBuilder POcDetails = new();
                     string pocDetailsString = string.Empty;
+
+                    bool? show_email = null;
+                    bool? show_contact_number = null;
                     if (model?.job_poc != null && model.job_poc.Any())
                     {
                         param = null;
                         foreach (var item in model.job_poc)
                         {
+                            show_email = null;
+                            show_contact_number = null;
+
+                            if (item?.show_email != null)
+                            {
+                                show_email = item?.show_email == 1 ? true : false;
+                            }
+                            if (item?.show_contact_number != null)
+                            {
+                                show_contact_number = item?.show_contact_number == 1 ? true : false;
+                            }
+
                             //Update contact Number in gen_contact
-                            if (!string.IsNullOrEmpty(item.contact_number) && item.contact_id > 0)
+                            if (!string.IsNullOrEmpty(item?.contact_number) && item.contact_id > 0)
                             {
                                 param = new object[] { item.contact_id, item.contact_number };
                                 _uniProcRunner.ManipulationWithNULL(Constants.ProcConstant.Sproc_HR_EditPOC, param);
                             }
 
-                            POcDetails.Append(item.contact_id + "&");
-                            POcDetails.Append(item.show_email + "&");
-                            POcDetails.Append(item.show_contact_number);
+                            POcDetails.Append(item?.contact_id + "&");
+                            POcDetails.Append(show_email + "&");
+                            POcDetails.Append(show_contact_number);
                             POcDetails.Append("^");
                         }
                         pocDetailsString = POcDetails.ToString();

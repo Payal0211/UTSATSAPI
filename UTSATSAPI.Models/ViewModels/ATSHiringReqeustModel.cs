@@ -116,10 +116,10 @@
 
         //Location Changes
         public string? location { get; set; }//JobLocation
-        public int? frequency_office_visit { get; set; }//FrequencyOfficeVisitID
-        public int? is_open_to_work_near_by { get; set; }//IsOpenToWorkNearByCities   1 or 0
-        public string? near_by_cities { get; set; }//NearByCities
         public long? location_id { get; set; }//ATS_JobLocationID
+        public int? is_open_to_work_near_by { get; set; }//IsOpenToWorkNearByCities   1 or 0
+        public int? frequency_office_visit { get; set; }//FrequencyOfficeVisitID
+        public string? near_by_cities { get; set; }//NearByCities
         public string? ats_near_by_cities { get; set; }//ATS_NearByCities
 
 
@@ -135,18 +135,18 @@
     }
     public class ATS_PayPerHire
     {
-        public bool? is_dp { get; set; } // True or false
+        public int? is_dp { get; set; } // True or false -- int
         public decimal? dp_margin { get; set; } // percentage values if Hr type Dp : true, else 0
         public decimal? nr_margin { get; set; }// percentage values if Hr type Dp : false, else 0 (contractual)
-        public bool? is_transparent { get; set; } // True or false
+        public int? is_transparent { get; set; } // True or false   -- int
         public int? pricing_id { get; set; } //prg_HiringType_Pricing master ID
         public int? payroll_type_id { get; set; }//prg_PayrollType master ID
         public string? payroll_partner_name { get; set; }
     }
     public class ATS_PayPerCredit
     {
-        public bool? is_vetted_profile { get; set; } // True or false
-        public bool? is_hiring_limited { get; set; } // True or false
+        public int? is_vetted_profile { get; set; } // True or false   -- int
+        public int? is_hiring_limited { get; set; } // True or false  --- int
         public int? job_type_id { get; set; }
     }
     public class VitalInformation
@@ -160,8 +160,8 @@
     {
         public long? contact_id { get; set; }
         public string? contact_number { get; set; }
-        public bool? show_email { get; set; }
-        public bool? show_contact_number { get; set; }
+        public int? show_email { get; set; }  // int
+        public int? show_contact_number { get; set; } // int
     }
 
     public class HRUpdateReponse

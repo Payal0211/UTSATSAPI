@@ -84,6 +84,7 @@ namespace UTSATSAPI.Models.ViewModels
     public class SummaryDetails
     {
         public long? company_id { get; set; }
+        public string? company_number { get; set; }
         public string? company_name { get; set; }
         public List<SummaryClientDetails> summary_clients { get; set; }
     }
