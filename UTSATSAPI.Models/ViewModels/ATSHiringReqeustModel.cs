@@ -91,7 +91,7 @@
         public int? is_confidential_budget { get; set; } //1 or 0
         public int? mode_of_working { get; set; }  //1, 2, or 3 as per master id
         public string? jd_filename { get; set; }//HR_b2aa6dd3-edc0-44af-9bba-0832e0ee684c.pdf
-        public string? jd_file_ats_url { get; set; } //ATS Uploded URL_with file name
+        public string? jd_file_aws_url { get; set; } //ATS Uploded URL_with file name
         public string? jd_url { get; set; } //JD url
         public decimal? years_of_exp { get; set; } //6.00 or 2.00 etc
         public int? is_fresher_allowed { get; set; }//1 or 0

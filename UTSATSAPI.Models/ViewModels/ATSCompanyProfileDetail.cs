@@ -23,7 +23,8 @@ namespace UTSATSAPI.Models.ViewModels
         public long? company_id { get; set; }
         public string? company_number { get; set; }
         public string? company_name { get; set; }
-        public string? company_logo { get; set; }
+        public string? company_logo { get; set; } // we will use as company_logo_aws_url
+        //public string? company_logo_aws_url { get; set; }
         public string? website_url { get; set; }
         public string? founded_year { get; set; }
         //public int? company_size { get; set; }
@@ -35,7 +36,7 @@ namespace UTSATSAPI.Models.ViewModels
         public bool? is_self_funded { get; set; }
         public string? linkedin_profile { get; set; }
         public string? teamsize { get; set; }
-        public bool? is_delete_company_logo { get; set; }
+        //public bool? is_delete_company_logo { get; set; }
     }
 
     public class CompanyFundingDetails
@@ -52,7 +53,7 @@ namespace UTSATSAPI.Models.ViewModels
     public class ClientDetails
     {
         public long? client_id { get; set; }
-        public bool? is_primary { get; set; }
+        //public bool? is_primary { get; set; }
         public string? full_Name { get; set; }
         public string? email_Id { get; set; }
         public string? designation { get; set; }

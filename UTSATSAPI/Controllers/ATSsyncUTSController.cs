@@ -246,14 +246,14 @@ namespace UTSATSAPI.Controllers
                 #region Download file from AWS Server & upload to UTS server
                 try
                 {
-                    if (!string.IsNullOrEmpty(model.jd_file_ats_url))
+                    if (!string.IsNullOrEmpty(model.jd_file_aws_url))
                     {
                         string BucketName = _configuration["BucketName"].ToString();
                         string KeyName = _configuration["KeyName"].ToString();
                         string AccessKey = _configuration["AccessKey"].ToString();
                         string SecretKey = _configuration["SecretKey"].ToString();
 
-                        string fileName = Path.GetFileName(model.jd_file_ats_url);
+                        string fileName = Path.GetFileName(model.jd_file_aws_url);
 
                         var credentials = new Amazon.Runtime.BasicAWSCredentials(AccessKey, SecretKey);
 
@@ -366,6 +366,7 @@ namespace UTSATSAPI.Controllers
                        model?.mode_of_working,
                        model?.jd_filename,
                        model?.jd_url,
+                       model?.jd_file_aws_url,
                        model?.years_of_exp,
                        is_fresher_allowed,
                        model?.no_of_talents,
@@ -563,13 +564,14 @@ namespace UTSATSAPI.Controllers
         #region Add/Edit Company
 
         [HttpPost("AddEditCompanyThroughATS")]
-        public async Task<ObjectResult> UpdateCompanyDetails([FromBody] ATSCompanyProfileDetail updateDetails)
+        public async Task<ObjectResult> AddEditCompanyThroughATS([FromBody] ATSCompanyProfileDetail updateDetails)
         {
             try
             {
                 #region Variable
                 long LoggedInUserId = SessionValues.LoginUserId;
                 long? CompanyID = 0;
+                string? CompanyNumber = string.Empty;
                 bool IsNewCompany = false;
                 short? Portal = (short)AppActionDoneBy.ATS;
                 #endregion
@@ -609,24 +611,6 @@ namespace UTSATSAPI.Controllers
                 if (updateDetails.basic_details != null)
                 {
                     string CompanyLogo = null;
-                    if (!string.IsNullOrEmpty(updateDetails.basic_details.company_logo))
-                    {
-                        CompanyLogo = System.IO.Path.GetFileName(updateDetails.basic_details.company_logo);
-                    }
-
-                    updateDetails.basic_details.is_delete_company_logo = updateDetails?.basic_details?.is_delete_company_logo ?? false;
-                    if ((bool)updateDetails.basic_details.is_delete_company_logo)
-                    {
-                        if (!string.IsNullOrEmpty(CompanyLogo))
-                        {
-                            var path = _configuration["AdminProjectURL"].ToString();
-                            string filePath = string.Format(@"{0}/{1}", path, CompanyLogo);
-
-                            if (System.IO.File.Exists(filePath))
-                                System.IO.File.Delete(filePath);
-                        }
-                        CompanyLogo = string.Empty;
-                    }
 
                     object[] param = new object[]
                     {
@@ -647,7 +631,9 @@ namespace UTSATSAPI.Controllers
                             updateDetails?.basic_details?.is_self_funded,
                             Portal,
                             updateDetails?.basic_details?.linkedin_profile,
-                            updateDetails?.basic_details?.teamsize
+                            updateDetails?.basic_details?.teamsize,
+                            updateDetails?.basic_details?.company_number,
+                            updateDetails.basic_details?.company_logo  // company_logo_aws_url , always come aws url from ats
                     };
 
                     string paramString = CommonLogic.ConvertToParamStringWithNull(param);
@@ -657,7 +643,7 @@ namespace UTSATSAPI.Controllers
                     if (result != null && result.CompanyID > 0)
                     {
                         CompanyID = result.CompanyID;
-
+                        CompanyNumber = result.CompanyNumber;
 
                         #region Update Company Details About desc With Unicode Characters
                         if (!string.IsNullOrEmpty(updateDetails?.basic_details?.about_company_desc))
@@ -734,15 +720,14 @@ namespace UTSATSAPI.Controllers
                     {
                         if (!string.IsNullOrEmpty(item))
                         {
-                            string Culture_Image = System.IO.Path.GetFileName(item);
-
                             param = new object[]
                             {
                                 CompanyID,
-                                Culture_Image,
+                                null,
                                 LoggedInUserId,
                                 Portal,
-                                0
+                                0,
+                                item
                             };
                             paramString = CommonLogic.ConvertToParamStringWithNull(param);
                             _iATSsyncUTS.Sproc_Add_Company_CultureandPerksDetails_Result(paramString);
@@ -831,7 +816,7 @@ namespace UTSATSAPI.Controllers
                                  item?.email_Id,
                                  item?.designation,
                                  item?.access_role_id,
-                                 item?.is_primary,
+                                 null,
                                  item?.phone_number,
                                  LoggedInUserId,
                                  Portal,
@@ -922,6 +907,7 @@ namespace UTSATSAPI.Controllers
                 #region return summary object
                 SummaryDetails summary_details = new SummaryDetails();
                 summary_details.company_id = CompanyID;
+                summary_details.company_number = CompanyNumber;
                 summary_details.company_name = updateDetails?.basic_details?.company_name;
                 summary_details.summary_clients = summaryClients;
                 #endregion
