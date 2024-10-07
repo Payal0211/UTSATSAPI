@@ -8,13 +8,13 @@ namespace UTSATSAPI.Models.ViewModels
 {
     public class ATSCompanyProfileDetail
     {
-        public CompanyBasicDetails basic_details { get; set; }
-        public List<CompanyFundingDetails> funding_details { get; set; }
+        public CompanyBasicDetails? basic_details { get; set; }
+        public List<CompanyFundingDetails>? funding_details { get; set; }
         public List<string> culture_details { get; set; }
         public List<string> perk_details { get; set; }
         public List<string> youtube_links { get; set; }
-        public List<ClientDetails> client_details { get; set; }
-        public CompanyEngagementDetails engagement_details { get; set; }
+        public List<ClientDetails>? client_details { get; set; }
+        public CompanyEngagementDetails? engagement_details { get; set; }
         public long? poc_id { get; set; }
     }
 
@@ -33,7 +33,7 @@ namespace UTSATSAPI.Models.ViewModels
         public string? headquaters { get; set; }
         public string? about_company_desc { get; set; }
         public string? culture { get; set; }
-        public bool? is_self_funded { get; set; }
+        public int? is_self_funded { get; set; }
         public string? linkedin_profile { get; set; }
         public string? teamsize { get; set; }
         //public bool? is_delete_company_logo { get; set; }

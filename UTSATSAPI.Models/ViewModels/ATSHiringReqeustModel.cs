@@ -102,16 +102,16 @@
         public string? notice_period { get; set; }//30 Days or 45 Days etc
         public int? partial_engagement_type { get; set; } // 1 or 2
         public int? no_of_hours_working { get; set; } // 45
-        public string? durationType { get; set; } //Short Term
+        public string? duration_type { get; set; } //Short Term
 
         //Debrief Tab
         public string? job_title { get; set; } // php or dotnet etc. any string 
-        public string? RoleAndResponsibilites { get; set; } // any string
-        public string? Requirements { get; set; } // any string
+        //public string? RoleAndResponsibilites { get; set; } // any string
+        //public string? Requirements { get; set; } // any string
         public string? job_desciption { get; set; } // any string
         public string? must_have_skills { get; set; }//"Communication, Computer proficiency, Employee relations, Organizational ability,Bootstrap,Laravel"
         public string? good_to_have_skills { get; set; }//"Communication, Computer proficiency, Employee relations, Organizational ability,Bootstrap,Laravel"
-        public bool? is_hr_focused { get; set; } //true or false
+        public int? is_hr_focused { get; set; } //true or false
         public int? LastModifiedById { get; set; } //ATS login User id
 
         //Location Changes
@@ -128,7 +128,8 @@
         public VitalInformation? vital_information { get; set; }
         public List<POC_Info>? job_poc { get; set; }
 
-        public int? created_by { get; set; }
+        public int? is_pay_per_credit { get; set; }
+        public int? is_pay_per_hire { get; set; }
         public int? updated_by { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }

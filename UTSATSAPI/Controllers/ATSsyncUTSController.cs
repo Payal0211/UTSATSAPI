@@ -233,7 +233,7 @@ namespace UTSATSAPI.Controllers
                 GenUtsAtsApiRecord utsAtsApi_Records = new()
                 {
                     FromApiUrl = "ATS Edit HR",
-                    ToApiUrl = _configuration["ProjectURL"].ToString() + "EditHRThroughATS",
+                    ToApiUrl = _configuration["ProjectURL"].ToString() + "AddEditHRThroughATS",
                     PayloadToSend = EditHRJsonData,
                     CreatedById = 0,
                     CreatedByDateTime = DateTime.Now,
@@ -301,6 +301,7 @@ namespace UTSATSAPI.Controllers
                 bool? is_hiring_limited = null;
                 bool? is_transparent = null;
                 bool? is_dp = null;
+                bool? is_hr_focused = null;
 
                 if (model?.is_confidential_budget != null)
                 {
@@ -333,6 +334,10 @@ namespace UTSATSAPI.Controllers
                 if (model?.pay_per_hire?.is_dp != null)
                 {
                     is_dp = model?.pay_per_hire?.is_dp == 1 ? true : false;
+                }
+                if (model?.is_hr_focused != null)
+                {
+                    is_hr_focused = model?.is_hr_focused == 1 ? true : false;
                 }
                 #endregion
 
@@ -376,14 +381,14 @@ namespace UTSATSAPI.Controllers
                        model?.notice_period,
                        model?.partial_engagement_type,
                        model?.no_of_hours_working,
-                       model?.durationType,
+                       model?.duration_type,
                        model?.job_title,
-                       model?.RoleAndResponsibilites,
-                       model?.Requirements,
+                       null,
+                       null,
                        model?.job_desciption,
                        model?.must_have_skills,
                        model?.good_to_have_skills,
-                       model?.is_hr_focused,
+                       is_hr_focused,
                        is_dp,
                        model?.pay_per_hire?.dp_margin,
                        model?.pay_per_hire?.nr_margin,
@@ -606,11 +611,18 @@ namespace UTSATSAPI.Controllers
 
                 APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
+                bool? is_self_funded = null;
 
                 #region 1) ADD/Update Company & Company Basic Details -- Sproc_Update_Basic_CompanyDetails
                 if (updateDetails.basic_details != null)
                 {
                     string CompanyLogo = null;
+                    CompanyID = updateDetails.basic_details.company_id;
+
+                    if (updateDetails?.basic_details?.is_self_funded != null)
+                    {
+                        is_self_funded = updateDetails?.basic_details?.is_self_funded == 1 ? true : false;
+                    }
 
                     object[] param = new object[]
                     {
@@ -628,7 +640,7 @@ namespace UTSATSAPI.Controllers
                             updateDetails?.basic_details?.culture != null ? null : updateDetails?.basic_details?.culture,
                             LoggedInUserId,
                             CompanyLogo,
-                            updateDetails?.basic_details?.is_self_funded,
+                            is_self_funded,
                             Portal,
                             updateDetails?.basic_details?.linkedin_profile,
                             updateDetails?.basic_details?.teamsize,
@@ -661,8 +673,8 @@ namespace UTSATSAPI.Controllers
                 #endregion
 
                 #region 2) Update Funding Details -- Sproc_Add_Company_Funding_Details
-                bool SelfFunded = updateDetails?.basic_details?.is_self_funded ?? false;
-                if (!SelfFunded && updateDetails?.funding_details != null)
+
+                if (!Convert.ToBoolean(is_self_funded) && updateDetails?.funding_details != null)
                 {
                     //delete existing then insert new entry
                     object[] param = new object[]
@@ -768,7 +780,7 @@ namespace UTSATSAPI.Controllers
                         };
                     string paramString = CommonLogic.ConvertToParamStringWithNull(param);
                     _iATSsyncUTS.Delete_Company_YoutubeDetails(paramString);
-                    
+
                     foreach (var item in updateDetails.youtube_links)
                     {
                         if (!string.IsNullOrEmpty(item))
@@ -858,8 +870,8 @@ namespace UTSATSAPI.Controllers
                         AnotherCompanyTypeID = 2;
                     }
 
-                        object[] param = new object[]
-                        {
+                    object[] param = new object[]
+                    {
                             CompanyID,
                             CompanyTypeID,
                             AnotherCompanyTypeID,
@@ -876,7 +888,7 @@ namespace UTSATSAPI.Controllers
                             updateDetails?.engagement_details?.hiring_type_pricingid,
                             LoggedInUserId,
                             Portal
-                        };
+                    };
                     string paramString = CommonLogic.ConvertToParamStringWithNull(param);
                     _iATSsyncUTS.UpdateCompanyEngagementDetails(paramString);
                 }
@@ -911,6 +923,16 @@ namespace UTSATSAPI.Controllers
                 summary_details.company_name = updateDetails?.basic_details?.company_name;
                 summary_details.summary_clients = summaryClients;
                 #endregion
+
+                try
+                {
+                    string ResponseJsonData = JsonConvert.SerializeObject(summary_details);
+                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, ResponseJsonData);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
 
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = "Successfully Add/Updated Company profile details", Details = summary_details });
             }
