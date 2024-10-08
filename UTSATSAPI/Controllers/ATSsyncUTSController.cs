@@ -385,7 +385,7 @@ namespace UTSATSAPI.Controllers
                        model?.job_title,
                        null,
                        null,
-                       model?.job_desciption,
+                       null,
                        model?.must_have_skills,
                        model?.good_to_have_skills,
                        is_hr_focused,
@@ -861,13 +861,34 @@ namespace UTSATSAPI.Controllers
                     int? CompanyTypeID = null;
                     int? AnotherCompanyTypeID = null;
 
-                    if ((bool)updateDetails?.engagement_details.is_pay_per_hire)
+                    bool? is_post_job = null;
+                    bool? is_profile_view = null;
+                    bool? is_transparent_pricing = null;
+                    bool? is_vetted_profile = null;
+
+                    if (updateDetails?.engagement_details?.is_pay_per_hire == 1)
                     {
                         CompanyTypeID = 1;
                     }
-                    if ((bool)updateDetails?.engagement_details.is_pay_per_credit)
+                    if (updateDetails?.engagement_details?.is_pay_per_credit == 1)
                     {
                         AnotherCompanyTypeID = 2;
+                    }
+                    if (updateDetails?.engagement_details?.is_post_job != null)
+                    {
+                        is_post_job = updateDetails?.engagement_details?.is_post_job == 1 ? true : false;
+                    }
+                    if (updateDetails?.engagement_details?.is_profile_view != null)
+                    {
+                        is_profile_view = updateDetails?.engagement_details?.is_profile_view == 1 ? true : false;
+                    }
+                    if (updateDetails?.engagement_details?.is_transparent_pricing != null)
+                    {
+                        is_transparent_pricing = updateDetails?.engagement_details?.is_transparent_pricing == 1 ? true : false;
+                    }
+                    if (updateDetails?.engagement_details?.is_vetted_profile != null)
+                    {
+                        is_vetted_profile = updateDetails?.engagement_details?.is_vetted_profile == 1 ? true : false;
                     }
 
                     object[] param = new object[]
@@ -875,11 +896,11 @@ namespace UTSATSAPI.Controllers
                             CompanyID,
                             CompanyTypeID,
                             AnotherCompanyTypeID,
-                            updateDetails?.engagement_details?.is_post_job,
-                            updateDetails?.engagement_details?.is_profile_view,
+                            is_post_job,
+                            is_profile_view,
                             updateDetails?.engagement_details?.jp_credit_balance,
-                            updateDetails?.engagement_details?.is_transparent_pricing,
-                            updateDetails?.engagement_details?.is_vetted_profile,
+                            is_transparent_pricing,
+                            is_vetted_profile,
                             updateDetails?.engagement_details?.credit_amount,
                             updateDetails?.engagement_details?.credit_currency,
                             updateDetails?.engagement_details?.job_post_credit,

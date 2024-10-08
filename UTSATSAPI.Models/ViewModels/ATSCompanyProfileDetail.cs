@@ -67,13 +67,13 @@ namespace UTSATSAPI.Models.ViewModels
     {
         //public int? CompanyTypeID { get; set; }
         //public int? AnotherCompanyTypeID { get; set; }
-        public bool? is_pay_per_hire { get; set; }
-        public bool? is_pay_per_credit { get; set; }
-        public bool? is_post_job { get; set; }
-        public bool? is_profile_view { get; set; }
+        public int? is_pay_per_hire { get; set; }
+        public int? is_pay_per_credit { get; set; }
+        public int? is_post_job { get; set; }
+        public int? is_profile_view { get; set; }
         public decimal? jp_credit_balance { get; set; }
-        public bool? is_transparent_pricing { get; set; }
-        public bool? is_vetted_profile { get; set; }
+        public int? is_transparent_pricing { get; set; }
+        public int? is_vetted_profile { get; set; }
         public decimal? credit_amount { get; set; }
         public string? credit_currency { get; set; }
         public int? job_post_credit { get; set; }
