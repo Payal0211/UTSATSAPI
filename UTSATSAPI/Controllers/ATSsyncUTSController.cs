@@ -578,6 +578,7 @@ namespace UTSATSAPI.Controllers
                 long? CompanyID = 0;
                 string? CompanyNumber = string.Empty;
                 bool IsNewCompany = false;
+                bool? is_self_funded = null;
                 short? Portal = (short)AppActionDoneBy.ATS;
                 #endregion
 
@@ -611,7 +612,6 @@ namespace UTSATSAPI.Controllers
 
                 APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
-                bool? is_self_funded = null;
 
                 #region 1) ADD/Update Company & Company Basic Details -- Sproc_Update_Basic_CompanyDetails
                 if (updateDetails.basic_details != null)
