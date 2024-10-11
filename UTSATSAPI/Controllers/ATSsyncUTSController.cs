@@ -101,7 +101,8 @@ namespace UTSATSAPI.Controllers
 
                             using (GetObjectResponse response = await client.GetObjectAsync(getObjectRequest))
                             {
-                                string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
+                                //string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
+                                string filePath = _configuration["AdminProjectURLForUploadPath"].ToString() + "Media/JDParsing/JDFiles/" + fileName;
                                 // Create a FileStream to write the file to the UTS server
                                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                                 {
@@ -267,7 +268,8 @@ namespace UTSATSAPI.Controllers
 
                             using (GetObjectResponse response = await client.GetObjectAsync(getObjectRequest))
                             {
-                                string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
+                                //string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
+                                string filePath = _configuration["AdminProjectURLForUploadPath"].ToString() + "Media/JDParsing/JDFiles/" + fileName;
                                 // Create a FileStream to write the file to the UTS server
                                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                                 {
@@ -418,6 +420,7 @@ namespace UTSATSAPI.Controllers
                 if (result != null && result.HiringRequestID > 0)
                 {
                     model.hiring_request_id = result.HiringRequestID;
+                    model.hr_number = result.HR_Number;
                     if (!string.IsNullOrEmpty(result.ResponseMsg))
                     {
                         Message += string.Format("[{0}]", result.ResponseMsg);
@@ -502,6 +505,7 @@ namespace UTSATSAPI.Controllers
 
                 HRUpdateReponse hRUpdateReponse = new HRUpdateReponse();
                 hRUpdateReponse.hiring_request_id = model?.hiring_request_id;
+                hRUpdateReponse.hr_number = model?.hr_number;
                 hRUpdateReponse.response_messages = Message;
 
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message, Details = hRUpdateReponse });
@@ -544,7 +548,8 @@ namespace UTSATSAPI.Controllers
 
                     using (GetObjectResponse response = await client.GetObjectAsync(getObjectRequest))
                     {
-                        string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
+                        //string filePath = System.IO.Path.Combine("Media/JDParsing/JDFiles", fileName);
+                        string filePath = _configuration["AdminProjectURLForUploadPath"].ToString() + "Media/JDParsing/JDFiles/" + fileName;
                         // Create a FileStream to write the file to the local server
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {

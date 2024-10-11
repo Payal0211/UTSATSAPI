@@ -168,6 +168,7 @@
     public class HRUpdateReponse
     {
         public long? hiring_request_id { get; set; }
+        public string? hr_number { get; set; }
         public string? response_messages { get; set; }
     }
 
