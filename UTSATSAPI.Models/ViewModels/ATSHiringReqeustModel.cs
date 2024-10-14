@@ -112,7 +112,7 @@
         public string? must_have_skills { get; set; }//"Communication, Computer proficiency, Employee relations, Organizational ability,Bootstrap,Laravel"
         public string? good_to_have_skills { get; set; }//"Communication, Computer proficiency, Employee relations, Organizational ability,Bootstrap,Laravel"
         public int? is_hr_focused { get; set; } //true or false
-        public int? LastModifiedById { get; set; } //ATS login User id
+        //public int? LastModifiedById { get; set; } //ATS login User id
 
         //Location Changes
         public string? location { get; set; }//JobLocation
@@ -133,6 +133,7 @@
         public int? updated_by { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
+        public string? ats_logged_in_employee_id { get; set; }
     }
     public class ATS_PayPerHire
     {

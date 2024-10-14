@@ -400,7 +400,7 @@ namespace UTSATSAPI.Controllers
                        model?.pay_per_hire?.payroll_partner_name,
                        is_vetted_profile,
                        is_hiring_limited,
-                       model?.LastModifiedById,
+                       null,
                        model?.pay_per_credit?.job_type_id,
                        strCompensationOption,
                        strCandidateIndustry,
@@ -412,6 +412,9 @@ namespace UTSATSAPI.Controllers
                        model?.near_by_cities,
                        model?.location_id,
                        model?.ats_near_by_cities,
+                       model?.ats_logged_in_employee_id,
+                       model?.created_at,
+                       model?.updated_at
                 };
 
                 string paramString = CommonLogic.ConvertToParamStringWithNull(param);
