@@ -26,7 +26,7 @@ namespace UTSATSAPI.Repositories.Infrastructure.ServiceExtension
                 );
             });
 
-            services.AddDbContext<UTSATSAPIDBConnection>(ServiceLifetime.Scoped);
+            services.AddDbContext<UTSATSAPIDBConnection>(ServiceLifetime.Transient);
             services.AddDbContext<InMemoryDbContext>(ServiceLifetime.Scoped,ServiceLifetime.Scoped);
             
             services.AddTransient<IUnitOfWork, UnitOfWork>();

@@ -36,7 +36,7 @@ namespace UTSATSAPI.Repositories.Interfaces
 
         #endregion
         Task<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS(string param);
-
+        Task<GenSalesHiringRequest> GetHiringRequestbyNumber(string hiringRequestNumber);
 
         #region  Maintain UtsAts logs
         long InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records);

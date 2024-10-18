@@ -158,6 +158,18 @@ namespace UTSATSAPI.Repositories.Repositories
         {
             return db.Set<Sproc_Add_Company_Transactions_With_ATS_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Add_Company_Transactions_With_ATS, param)).FirstOrDefaultAsync();
         }
+
+        public async Task<GenSalesHiringRequest> GetHiringRequestbyNumber(string hiringRequestNumber)
+        {
+            GenSalesHiringRequest genSalesHiringRequest = await db.GenSalesHiringRequests.Where(x => x.HrNumber == hiringRequestNumber).FirstOrDefaultAsync();
+            if (genSalesHiringRequest != null)
+            {
+                db.Entry(genSalesHiringRequest).ReloadAsync();
+            }
+            return genSalesHiringRequest;
+        }
+
+
         #endregion
 
         #region Maintain UtsAts logs
@@ -188,5 +200,6 @@ namespace UTSATSAPI.Repositories.Repositories
             #endregion
         }
         #endregion
+
     }
 }

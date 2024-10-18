@@ -12,6 +12,7 @@
             public static string Sproc_UTS_AddEdit_ATSHR = "Sproc_UTS_AddEdit_ATSHR";
             public static string Sproc_HR_EditPOC = "Sproc_HR_EditPOC";
             public static string Sproc_HR_POC_ClientPortal = "Sproc_HR_POC_ClientPortal";
+            public static string Sproc_RemoveMatchmakeTalentFromUTSViaATS = "Sproc_RemoveMatchmakeTalentFromUTSViaATS";
             #endregion
 
             #region Company profile

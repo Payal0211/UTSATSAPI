@@ -977,6 +977,86 @@ namespace UTSATSAPI.Controllers
 
         #endregion
 
+        #region DeleteTalents
+
+        [HttpPost("RemoveTalentsFromUTSViaATS")]
+        public async Task<ObjectResult> RemoveTalentsFromUTSViaATS(RemoveTalentFromATSViaATS model)
+        {
+            long APIRecordInsertedID = 0;
+            string Message = "";
+            long hrId = 0;
+            try
+            {
+                #region Validation
+                if (model == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "Request object is empty" });
+                }
+                if (string.IsNullOrEmpty(model.HR_Number))
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "Please pass proper HrId" });
+                }
+                #endregion
+
+                #region GetHiringDetails
+                var genSalesHiringRequest = await _iATSsyncUTS.GetHiringRequestbyNumber(model.HR_Number);
+                if (genSalesHiringRequest != null)
+                {
+                    hrId = Convert.ToInt64(genSalesHiringRequest.Id);
+                }
+                #endregion
+
+                #region Add record in gen_UtsAts_Records
+                string EditHRJsonData = JsonConvert.SerializeObject(model);
+                GenUtsAtsApiRecord utsAtsApi_Records = new()
+                {
+                    FromApiUrl = "ATS Delete Talent",
+                    ToApiUrl = Convert.ToString(_configuration["ProjectURL"]) + "RemoveTalentsFromUTSViaATS",
+                    PayloadToSend = EditHRJsonData,
+                    CreatedById = 0,
+                    CreatedByDateTime = DateTime.Now,
+                    HrId = hrId
+                };
+
+                APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
+                #endregion               
+
+                #region SP call
+                
+
+                object[] param = new object[]
+                {
+                       model?.HR_Number,
+                       model?.TalentEmail                       
+                };
+
+                string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                _db.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_RemoveMatchmakeTalentFromUTSViaATS, paramString));
+
+                #endregion
+
+                #region Emails
+
+                EmailBinder emailBinder = new EmailBinder(_configuration, _db);
+                emailBinder.SendEmailForHRDeleteToInternalTeam(genSalesHiringRequest,model?.ActionDoneBy, model?.TalentEmail);
+
+                #endregion
+
+                Message += "[Talent removed successfully by ATS]";
+                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
+            }
+            catch (Exception ex)
+            {
+                Message += "[" + ex.Message.ToString() + "]";
+                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
+                throw;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         [HttpPost("GetCreditTransaction")]

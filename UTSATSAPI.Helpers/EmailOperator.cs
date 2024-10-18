@@ -63,16 +63,9 @@ namespace UTSATSAPI.Helpers
             smtpClientName = _configuration["app_settings:SMTPClientName"].ToString();
             smtpSSLName = Convert.ToBoolean(_configuration["app_settings:SMTPSSLName"].ToString());
             smtpPortName = Convert.ToInt16(_configuration["app_settings:SMTPPortName"].ToString());
-            smtpPasswordNameClientPortal = _configuration["app_settings:SMTPPasswordNameClientPortal"].ToString();
-            smtpEmailNameClientPortal = _configuration["app_settings:SMTPEmailNameClientPortal"].ToString();
-            exceptionEmails = _configuration["app_settings:ExceptionEmailId"].ToString();
-            exceptionEmailNames = _configuration["app_settings:ExceptionEmailName"].ToString();
 
-            AWSEmailFromName = Convert.ToString(_configuration["app_settings:AWSEmailFromName"]);
-            awsAccessKeyId = Convert.ToString(_configuration["app_settings:awsAccessKeyId"]);
-            awsSecretAccessKey = Convert.ToString(_configuration["app_settings:awsSecretAccessKey"]);
-            environment = _configuration["environment"].ToString();
-            configurationSetName = _configuration["configurationSetName"].ToString();
+            exceptionEmails = _configuration["app_settings:ExceptionEmailId"].ToString();
+            exceptionEmailNames = _configuration["app_settings:ExceptionEmailName"].ToString();       
 
             if (ccEmails.Contains(','))
                 ccemailhascomma = true;
@@ -548,6 +541,33 @@ namespace UTSATSAPI.Helpers
         {
             toEmailName = _toEmailName;
         }
+
+        public void SetToEmailWithComma(string toEmailcomma, string toEmailNameComma)
+        {
+            if (!string.IsNullOrEmpty(toEmailcomma) && !string.IsNullOrEmpty(toEmailNameComma))
+            {
+                if (toEmailcomma.Contains(",") && toEmailNameComma.Contains(","))
+                {
+                    toEmail = toEmailcomma.Split(",").ToList();
+                    toEmailName = toEmailNameComma.Split(",").ToList();
+                }
+                else
+                {
+                    if (toEmail == null)
+                    {
+                        toEmail = new List<string>();
+                        toEmailName = new List<string>();
+                    }
+
+                    if (toCCEmail != null)
+                    {
+                        toEmail.Add(toEmailcomma);
+                        toEmailName.Add(toEmailNameComma);
+                    }
+                }
+            }
+        }
+
         public void SetBccEmail(List<string> bccemail)
         {
             toBCCEmail = bccemail;
