@@ -840,8 +840,8 @@ namespace UTSATSAPI.Controllers
                                  item?.phone_number,
                                  LoggedInUserId,
                                  Portal,
-                                 item?.password,
-                                 item?.encrypted_password
+                                 null,
+                                 null
                         };
                         string paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
@@ -906,7 +906,7 @@ namespace UTSATSAPI.Controllers
                             AnotherCompanyTypeID,
                             is_post_job,
                             is_profile_view,
-                            updateDetails?.engagement_details?.jp_credit_balance,
+                            updateDetails?.engagement_details?.free_credit,
                             is_transparent_pricing,
                             is_vetted_profile,
                             updateDetails?.engagement_details?.credit_amount,
