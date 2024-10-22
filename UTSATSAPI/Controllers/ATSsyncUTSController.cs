@@ -932,24 +932,19 @@ namespace UTSATSAPI.Controllers
                 #endregion
 
                 #region 8) Update Company POC Details  -- sproc_UTS_UpdatePOCUserIDsByCompanyID
-                if (updateDetails?.poc_id != null && updateDetails.poc_id > 0)
+                if (!string.IsNullOrEmpty(updateDetails?.poc_id))
                 {
-                    //string PocIdsString = string.Join(",", updateDetails.PocIds);
-                    long PocID = updateDetails.poc_id ?? 0;
-                    if (PocID > 0)
-                    {
-                        object[] param = new object[]
+                    object[] param = new object[]
                             {
                                 CompanyID,
                                 //PocIdsString,
-                                PocID,
+                                updateDetails?.poc_id,
                                 LoggedInUserId,
                                 0,
                                 ""
                              };
-                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                        _iATSsyncUTS.DeleteInsertPOCDetails(paramString);
-                    }
+                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                    _iATSsyncUTS.DeleteInsertPOCDetails(paramString);
                 }
                 #endregion
 

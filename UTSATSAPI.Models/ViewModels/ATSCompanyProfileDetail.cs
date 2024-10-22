@@ -15,7 +15,7 @@ namespace UTSATSAPI.Models.ViewModels
         public List<string> youtube_links { get; set; }
         public List<ClientDetails>? client_details { get; set; }
         public CompanyEngagementDetails? engagement_details { get; set; }
-        public long? poc_id { get; set; }
+        public string? poc_id { get; set; }
     }
 
     public class CompanyBasicDetails
