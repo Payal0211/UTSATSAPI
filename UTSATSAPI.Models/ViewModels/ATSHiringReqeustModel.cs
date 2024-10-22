@@ -133,6 +133,7 @@
         public int? updated_by { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
+        public DateTime? expiry_date { get; set; }
         public string? ats_logged_in_employee_id { get; set; }
     }
     public class ATS_PayPerHire

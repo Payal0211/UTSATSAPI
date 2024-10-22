@@ -53,14 +53,15 @@ namespace UTSATSAPI.Models.ViewModels
     public class ClientDetails
     {
         public long? client_id { get; set; }
-        //public bool? is_primary { get; set; }
         public string? full_Name { get; set; }
         public string? email_Id { get; set; }
         public string? designation { get; set; }
         public string? phone_number { get; set; }
         public int? access_role_id { get; set; }
-        public string? password { get; set; }
-        public string? encrypted_password { get; set; }
+        //public string? en_Id { get; set; }
+        //public bool? is_primary { get; set; }
+        //public string? password { get; set; }
+        //public string? encrypted_password { get; set; }
     }
 
     public class CompanyEngagementDetails
@@ -71,7 +72,7 @@ namespace UTSATSAPI.Models.ViewModels
         public int? is_pay_per_credit { get; set; }
         public int? is_post_job { get; set; }
         public int? is_profile_view { get; set; }
-        public decimal? jp_credit_balance { get; set; }
+        public decimal? free_credit { get; set; } //jp_credit_balance
         public int? is_transparent_pricing { get; set; }
         public int? is_vetted_profile { get; set; }
         public decimal? credit_amount { get; set; }

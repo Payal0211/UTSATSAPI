@@ -588,6 +588,13 @@ namespace UTSATSAPI.Controllers
                 bool IsNewCompany = false;
                 bool? is_self_funded = null;
                 short? Portal = (short)AppActionDoneBy.ATS;
+                int? CompanyTypeID = null;
+                int? AnotherCompanyTypeID = null;
+
+                bool? is_post_job = null;
+                bool? is_profile_view = null;
+                bool? is_transparent_pricing = null;
+                bool? is_vetted_profile = null;
                 #endregion
 
                 #region Validation
@@ -624,15 +631,7 @@ namespace UTSATSAPI.Controllers
                 #region Variable Assignment
 
                 if (updateDetails?.engagement_details != null)
-                {
-
-                    int? CompanyTypeID = null;
-                    int? AnotherCompanyTypeID = null;
-
-                    bool? is_post_job = null;
-                    bool? is_profile_view = null;
-                    bool? is_transparent_pricing = null;
-                    bool? is_vetted_profile = null;
+                {                  
 
                     if (updateDetails?.engagement_details?.is_pay_per_hire == 1)
                     {
@@ -880,8 +879,8 @@ namespace UTSATSAPI.Controllers
                                  item?.phone_number,
                                  LoggedInUserId,
                                  Portal,
-                                 item?.password,
-                                 item?.encrypted_password,
+                                 null,
+                                 null,
                                  CompanyTypeID,
                                  AnotherCompanyTypeID
                         };
@@ -915,7 +914,7 @@ namespace UTSATSAPI.Controllers
                             AnotherCompanyTypeID,
                             is_post_job,
                             is_profile_view,
-                            updateDetails?.engagement_details?.jp_credit_balance,
+                            updateDetails?.engagement_details?.free_credit,
                             is_transparent_pricing,
                             is_vetted_profile,
                             updateDetails?.engagement_details?.credit_amount,
