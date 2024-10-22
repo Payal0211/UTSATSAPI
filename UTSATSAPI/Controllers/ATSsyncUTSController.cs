@@ -936,12 +936,13 @@ namespace UTSATSAPI.Controllers
                 {
                     object[] param = new object[]
                             {
-                                CompanyID,
-                                //PocIdsString,
-                                updateDetails?.poc_id,
+                                CompanyID,                              
+                                0,
                                 LoggedInUserId,
                                 0,
-                                ""
+                                "",
+                                "Add",
+                                updateDetails?.poc_id
                              };
                     string paramString = CommonLogic.ConvertToParamStringWithNull(param);
                     _iATSsyncUTS.DeleteInsertPOCDetails(paramString);
