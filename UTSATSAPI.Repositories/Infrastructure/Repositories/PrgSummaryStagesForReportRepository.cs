@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgSummaryStagesForReportRepository : GenericRepository<PrgSummaryStagesForReport>, IPrgSummaryStagesForReportRepository
 {
-public PrgSummaryStagesForReportRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgSummaryStagesForReportRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

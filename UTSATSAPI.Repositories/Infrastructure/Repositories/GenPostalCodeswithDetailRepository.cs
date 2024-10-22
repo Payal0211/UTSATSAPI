@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenPostalCodeswithDetailRepository : GenericRepository<GenPostalCodeswithDetail>, IGenPostalCodeswithDetailRepository
 {
-public GenPostalCodeswithDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenPostalCodeswithDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

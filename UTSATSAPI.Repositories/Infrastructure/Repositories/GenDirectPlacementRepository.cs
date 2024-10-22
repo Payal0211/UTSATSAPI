@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenDirectPlacementRepository : GenericRepository<GenDirectPlacement>, IGenDirectPlacementRepository
 {
-public GenDirectPlacementRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenDirectPlacementRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

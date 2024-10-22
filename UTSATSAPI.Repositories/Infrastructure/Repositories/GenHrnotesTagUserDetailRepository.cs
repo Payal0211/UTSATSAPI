@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenHrnotesTagUserDetailRepository : GenericRepository<GenHrnotesTagUserDetail>, IGenHrnotesTagUserDetailRepository
 {
-public GenHrnotesTagUserDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenHrnotesTagUserDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

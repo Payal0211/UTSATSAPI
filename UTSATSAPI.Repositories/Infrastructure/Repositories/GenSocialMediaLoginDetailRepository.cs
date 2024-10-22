@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenSocialMediaLoginDetailRepository : GenericRepository<GenSocialMediaLoginDetail>, IGenSocialMediaLoginDetailRepository
 {
-public GenSocialMediaLoginDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenSocialMediaLoginDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

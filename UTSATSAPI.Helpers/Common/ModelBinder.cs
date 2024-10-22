@@ -9,7 +9,7 @@ namespace UTSATSAPI.Helpers.Common
     public static class ModelBinder
     {
         //#region FromOutside-Inside
-        ////public static GenCompany BindCompanyModel(GenCompany base_genCompany, createClientRequest vMClient, int ClientStatusId, TalentConnectAdminDBContext _talentConnectAdminDBContext, long LoggedInUserId = 0, bool isUpdate = false)
+        ////public static GenCompany BindCompanyModel(GenCompany base_genCompany, createClientRequest vMClient, int ClientStatusId, UTSATSAPIDBConnection _UTSATSAPIDBConnection, long LoggedInUserId = 0, bool isUpdate = false)
         ////{
         ////    if (base_genCompany == null)
         ////        base_genCompany = new GenCompany();
@@ -24,7 +24,7 @@ namespace UTSATSAPI.Helpers.Common
         ////    base_genCompany.ClientStatusId = ClientStatusId;
         ////    //base_genCompany.TeamManagement = vMClient.company.teamManagement;
         ////    base_genCompany.LeadType = vMClient.company.LeadType;
-        ////    base_genCompany.GeoId = (!string.IsNullOrEmpty(vMClient.company.location) ? _talentConnectAdminDBContext.PrgGeos.Where(x => x.Geo.Equals(vMClient.company.location)).FirstOrDefault().Id : 0);
+        ////    base_genCompany.GeoId = (!string.IsNullOrEmpty(vMClient.company.location) ? _UTSATSAPIDBConnection.PrgGeos.Where(x => x.Geo.Equals(vMClient.company.location)).FirstOrDefault().Id : 0);
         ////    base_genCompany.AboutCompanyDesc = vMClient.company.AboutCompanyDesc;
 
         ////    base_genCompany.AnotherCompanyTypeId = vMClient.company.AnotherCompanyTypeID;
@@ -303,7 +303,7 @@ namespace UTSATSAPI.Helpers.Common
         //    return genSalesHiringRequest;
         //}
 
-        //public static GenSalesHiringRequestDetail BindgenSalesHiringRequestDetail(GenSalesHiringRequestDetail genSalesHiringRequestDetail, HiringReqeustModel hiringRequest, long hiringrequestId, long LoggedInUserId, TalentConnectAdminDBContext _talentConnectAdminDBContext)
+        //public static GenSalesHiringRequestDetail BindgenSalesHiringRequestDetail(GenSalesHiringRequestDetail genSalesHiringRequestDetail, HiringReqeustModel hiringRequest, long hiringrequestId, long LoggedInUserId, UTSATSAPIDBConnection _UTSATSAPIDBConnection)
         //{
         //    if (genSalesHiringRequestDetail == null)
         //        genSalesHiringRequestDetail = new GenSalesHiringRequestDetail();
@@ -352,7 +352,7 @@ namespace UTSATSAPI.Helpers.Common
         //        genSalesHiringRequestDetail.BudgetTo = 0;
         //    }
 
-        //    var CurrencySign = _talentConnectAdminDBContext.PrgCurrencyExchangeRates.Where(x => x.CurrencyCode == hiringRequest.Currency).Select(x => x.CurrencySign).FirstOrDefault();
+        //    var CurrencySign = _UTSATSAPIDBConnection.PrgCurrencyExchangeRates.Where(x => x.CurrencyCode == hiringRequest.Currency).Select(x => x.CurrencySign).FirstOrDefault();
         //    if (hiringRequest.minimumBudget != null && hiringRequest.minimumBudget != 0 && hiringRequest.maximumBudget != null && hiringRequest.maximumBudget != 0)
         //    {
         //        genSalesHiringRequestDetail.Cost = (!string.IsNullOrEmpty(CurrencySign) ? CurrencySign : "") + hiringRequest.minimumBudget + " to " + (!string.IsNullOrEmpty(CurrencySign) ? CurrencySign : "") + hiringRequest.maximumBudget + " " + hiringRequest.Currency + " / Month";
@@ -377,7 +377,7 @@ namespace UTSATSAPI.Helpers.Common
         //    //genSalesHiringRequestDetail.AddOtherRole = (hiringRequest.otherRole == null) ? string.Empty : hiringRequest.otherRole;
         //    //if (hiringRequest.role == -1)
         //    //{
-        //    //    var roleid = _talentConnectAdminDBContext.PrgTalentRoles.FirstOrDefault(x => x.TalentRole == hiringRequest.otherRole);
+        //    //    var roleid = _UTSATSAPIDBConnection.PrgTalentRoles.FirstOrDefault(x => x.TalentRole == hiringRequest.otherRole);
         //    //    if (roleid != null) { genSalesHiringRequestDetail.RoleId = roleid.Id; } else { genSalesHiringRequestDetail.RoleId = 0; }
         //    //}
         //    //else
@@ -461,7 +461,7 @@ namespace UTSATSAPI.Helpers.Common
         //    // Below code is commneted because now other role is removed from new design
         //    //if (genSalesHiringRequestDetail.role == -1)
         //    //{
-        //    //    var roleid = _talentConnectAdminDBContext.PrgTalentRoles.FirstOrDefault(x => x.TalentRole == hiringRequest.otherRole);
+        //    //    var roleid = _UTSATSAPIDBConnection.PrgTalentRoles.FirstOrDefault(x => x.TalentRole == hiringRequest.otherRole);
         //    //    if (roleid != null) { genSalesHiringRequestDetail.RoleId = roleid.Id; } else { genSalesHiringRequestDetail.RoleId = 0; }
         //    //}
         //    //else

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgCompanyTypeofInterviewerRepository : GenericRepository<PrgCompanyTypeofInterviewer>, IPrgCompanyTypeofInterviewerRepository
 {
-public PrgCompanyTypeofInterviewerRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgCompanyTypeofInterviewerRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

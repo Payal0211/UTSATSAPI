@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UTSATSAPI.Models.ComplexTypes.UpChat
+namespace UTSATSAPI.Models.ComplexTypes
 {
     [Keyless]
-    public class sp_Upchat_GetInActiveHRList_Result
+    public class sproc_UTS_UpdateContactDetails_Result
     {
-        public long? HiringRequestID { get; set; }
+        public long? ContactID { get; set; }
     }
 }

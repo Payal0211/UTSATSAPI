@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using UTSATSAPI.Models.ComplexTypes;
-using UTSATSAPI.Models.ComplexTypes.UpChat;
 using UTSATSAPI.Models.ViewModels;
 
 namespace UTSATSAPI.Models.Models
 {
-    public partial class TalentConnectAdminDBContext : DbContext
+    public partial class UTSATSAPIDBConnection : DbContext
     {
 
-        public TalentConnectAdminDBContext(DbContextOptions<TalentConnectAdminDBContext> options)
+        public UTSATSAPIDBConnection(DbContextOptions<UTSATSAPIDBConnection> options)
             : base(options)
         {
         }
@@ -385,6 +384,8 @@ namespace UTSATSAPI.Models.Models
         public virtual DbSet<UsrUserTypeKeyoutcome> UsrUserTypeKeyoutcomes { get; set; } = null!;
 
         #region All Complex Types
+        public virtual DbSet<Sproc_Update_Basic_CompanyDetails_Result> Sproc_Update_Basic_CompanyDetails_Result { get; set; } = null!;
+        public virtual DbSet<sproc_UTS_UpdateContactDetails_Result> sproc_UTS_UpdateContactDetails_Result { get; set; } = null!;
         public virtual DbSet<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS_Result { get; set; } = null!;
         public virtual DbSet<Sproc_UTS_AddEdit_ATSHR_Result> Sproc_UTS_AddEdit_ATSHR_Result { get; set; } = null!;
 

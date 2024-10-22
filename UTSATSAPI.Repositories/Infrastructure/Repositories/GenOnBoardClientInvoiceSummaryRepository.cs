@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenOnBoardClientInvoiceSummaryRepository : GenericRepository<GenOnBoardClientInvoiceSummary>, IGenOnBoardClientInvoiceSummaryRepository
 {
-public GenOnBoardClientInvoiceSummaryRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenOnBoardClientInvoiceSummaryRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

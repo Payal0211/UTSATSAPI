@@ -328,7 +328,7 @@ namespace UTSATSAPI.Helpers.Common
             }
         }
 
-        public static void DBOperator(TalentConnectAdminDBContext talentConnectContext, object model, EntityState entityState)
+        public static void DBOperator(UTSATSAPIDBConnection talentConnectContext, object model, EntityState entityState)
         {
             try
             {

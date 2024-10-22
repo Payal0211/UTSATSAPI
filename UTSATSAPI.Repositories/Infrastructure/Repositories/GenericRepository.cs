@@ -8,9 +8,9 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly TalentConnectAdminDBContext _dbContext;
+        protected readonly UTSATSAPIDBConnection _dbContext;
         internal DbSet<T> dbSet;
-        protected GenericRepository(TalentConnectAdminDBContext context)
+        protected GenericRepository(UTSATSAPIDBConnection context)
         {
             _dbContext = context ?? throw new ArgumentNullException(nameof(context));
             this.dbSet = _dbContext.Set<T>();

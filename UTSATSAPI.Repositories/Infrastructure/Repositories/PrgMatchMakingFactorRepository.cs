@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgMatchMakingFactorRepository : GenericRepository<PrgMatchMakingFactor>, IPrgMatchMakingFactorRepository
 {
-public PrgMatchMakingFactorRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgMatchMakingFactorRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenMenuMasterRepository : GenericRepository<GenMenuMaster>, IGenMenuMasterRepository
 {
-public GenMenuMasterRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenMenuMasterRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

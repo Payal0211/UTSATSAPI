@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgRolesAndResponsilbityRepository : GenericRepository<PrgRolesAndResponsilbity>, IPrgRolesAndResponsilbityRepository
 {
-public PrgRolesAndResponsilbityRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgRolesAndResponsilbityRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

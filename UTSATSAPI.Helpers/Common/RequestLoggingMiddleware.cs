@@ -25,7 +25,7 @@ namespace UTSATSAPI.Helpers.Common
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext context, TalentConnectAdminDBContext _db)
+        public async Task Invoke(HttpContext context, UTSATSAPIDBConnection _db)
         {
             string strLogRequest = await LogRequest(context);
 

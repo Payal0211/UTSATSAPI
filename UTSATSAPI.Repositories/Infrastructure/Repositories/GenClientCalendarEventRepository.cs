@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenClientCalendarEventRepository : GenericRepository<GenClientCalendarEvent>, IGenClientCalendarEventRepository
 {
-public GenClientCalendarEventRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenClientCalendarEventRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

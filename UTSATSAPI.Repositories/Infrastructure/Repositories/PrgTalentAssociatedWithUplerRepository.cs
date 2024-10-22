@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgTalentAssociatedWithUplerRepository : GenericRepository<PrgTalentAssociatedWithUpler>, IPrgTalentAssociatedWithUplerRepository
 {
-public PrgTalentAssociatedWithUplerRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgTalentAssociatedWithUplerRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

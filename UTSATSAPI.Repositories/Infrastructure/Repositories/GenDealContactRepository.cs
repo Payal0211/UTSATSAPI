@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenDealContactRepository : GenericRepository<GenDealContact>, IGenDealContactRepository
 {
-public GenDealContactRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenDealContactRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

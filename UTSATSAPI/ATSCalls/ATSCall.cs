@@ -16,14 +16,14 @@ namespace UTSATSAPI.ATSCalls
     {
         #region Variables
         private readonly IConfiguration _configuration;
-        private readonly TalentConnectAdminDBContext _talentConnectAdminDBContext;
+        private readonly UTSATSAPIDBConnection _UTSATSAPIDBConnection;
         #endregion
 
         #region Constructors
-        public ATSCall(IConfiguration configuration, TalentConnectAdminDBContext talentConnectAdminDBContext)
+        public ATSCall(IConfiguration configuration, UTSATSAPIDBConnection UTSATSAPIDBConnection)
         {
             _configuration = configuration;
-            _talentConnectAdminDBContext = talentConnectAdminDBContext;
+            _UTSATSAPIDBConnection = UTSATSAPIDBConnection;
         }
         #endregion
 
@@ -91,11 +91,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //        }
 
@@ -110,7 +110,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
 
@@ -122,7 +122,7 @@ namespace UTSATSAPI.ATSCalls
         //    bool isDemoHR = false;
         //    try
         //    {
-        //        Sproc_Identify_HRAssociated_WithDemoAccount_Result? data = _talentConnectAdminDBContext.Set<Sproc_Identify_HRAssociated_WithDemoAccount_Result>().FromSqlRaw(String.Format("{0} {1}",
+        //        Sproc_Identify_HRAssociated_WithDemoAccount_Result? data = _UTSATSAPIDBConnection.Set<Sproc_Identify_HRAssociated_WithDemoAccount_Result>().FromSqlRaw(String.Format("{0} {1}",
         //            Constants.ProcConstant.Sproc_Identify_HRAssociated_WithDemoAccount, hrId.ToString())).AsEnumerable().FirstOrDefault();
 
         //        if (data != null)
@@ -193,11 +193,11 @@ namespace UTSATSAPI.ATSCalls
 
         //            if (responseJObject != null)
         //            {
-        //                GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //                GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //                if (records != null)
         //                {
         //                    records.ResponseReceived = Convert.ToString(responseJObject);
-        //                    CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                    CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //                }
         //            }
 
@@ -229,7 +229,7 @@ namespace UTSATSAPI.ATSCalls
         //                                                    rejectionStage
         //                                    };
         //                                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-        //                                    _talentConnectAdminDBContext.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UpdateRejectionStage, paramString));
+        //                                    _UTSATSAPIDBConnection.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UpdateRejectionStage, paramString));
         //                                }
         //                            }
         //                        }
@@ -252,7 +252,7 @@ namespace UTSATSAPI.ATSCalls
         //        }
         //        catch (Exception ex)
         //        {
-        //            EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //            EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //            emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //        }
         //    }
@@ -275,7 +275,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //        return "";
         //    }
@@ -341,18 +341,18 @@ namespace UTSATSAPI.ATSCalls
 
         //            if (responseJObject != null)
         //            {
-        //                GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //                GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //                if (records != null)
         //                {
         //                    records.ResponseReceived = Convert.ToString(responseJObject);
-        //                    CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                    CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //                }
         //            }
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
 
@@ -429,11 +429,11 @@ namespace UTSATSAPI.ATSCalls
 
         //            #region Update record in gen_UtsAts_Records
 
-        //            utsAtsApi_Records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.Where(x => x.Id == APIRecordInsertedID).FirstOrDefault();
+        //            utsAtsApi_Records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.Where(x => x.Id == APIRecordInsertedID).FirstOrDefault();
         //            if (utsAtsApi_Records != null)
         //            {
         //                utsAtsApi_Records.ResponseReceived = ResponseJson;
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, utsAtsApi_Records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, utsAtsApi_Records, EntityState.Modified);
         //            }
 
         //            #endregion
@@ -458,7 +458,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //        return false;
         //    }
@@ -521,11 +521,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //        }
 
@@ -540,7 +540,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
         //}
@@ -604,11 +604,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //            return true;
         //        }
@@ -617,7 +617,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //        return false;
         //    }
@@ -711,11 +711,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //        }
 
@@ -729,7 +729,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
         //}
@@ -792,11 +792,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //        }
 
@@ -811,7 +811,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
         //}
@@ -873,11 +873,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //        }
 
@@ -892,7 +892,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
         //}
@@ -902,20 +902,20 @@ namespace UTSATSAPI.ATSCalls
 
         //    ContactTalentPriorityResponseModel contactTalentPriorityResponseModel = new ContactTalentPriorityResponseModel();
         //    string TalentStatus = "";
-        //    GenTalent _Talent = _talentConnectAdminDBContext.GenTalents.Where(x => x.Id == UTSTalentID).FirstOrDefault();
+        //    GenTalent _Talent = _UTSATSAPIDBConnection.GenTalents.Where(x => x.Id == UTSTalentID).FirstOrDefault();
 
         //    if (_Talent != null)
         //    {
-        //        var HiringRequestData = _talentConnectAdminDBContext.GenSalesHiringRequests.Where(x => x.Id == HiringRequestID).FirstOrDefault();
-        //        var ContactTalentPriorityDetails = _talentConnectAdminDBContext.GenContactTalentPriorities.Where(x => x.TalentId == _Talent.Id && x.HiringRequestId == HiringRequestData.Id).FirstOrDefault();
-        //        _talentConnectAdminDBContext.Entry(ContactTalentPriorityDetails).Reload();
+        //        var HiringRequestData = _UTSATSAPIDBConnection.GenSalesHiringRequests.Where(x => x.Id == HiringRequestID).FirstOrDefault();
+        //        var ContactTalentPriorityDetails = _UTSATSAPIDBConnection.GenContactTalentPriorities.Where(x => x.TalentId == _Talent.Id && x.HiringRequestId == HiringRequestData.Id).FirstOrDefault();
+        //        _UTSATSAPIDBConnection.Entry(ContactTalentPriorityDetails).Reload();
         //        if (HiringRequestData != null)
         //        {
         //            #region Save Data in model to send reponse to PHP team after serialize                        
         //            contactTalentPriorityResponseModel.HRID = HiringRequestID;
         //            contactTalentPriorityResponseModel.HRStatusID = HiringRequestData.StatusId ?? 0;
 
-        //            var HRStatusData = _talentConnectAdminDBContext.PrgHiringRequestStatuses.Where(x => x.Id == contactTalentPriorityResponseModel.HRStatusID).FirstOrDefault();
+        //            var HRStatusData = _UTSATSAPIDBConnection.PrgHiringRequestStatuses.Where(x => x.Id == contactTalentPriorityResponseModel.HRStatusID).FirstOrDefault();
         //            if (HRStatusData != null)
         //                contactTalentPriorityResponseModel.HRStatus = HRStatusData.HiringRequestStatus;
 
@@ -953,7 +953,7 @@ namespace UTSATSAPI.ATSCalls
         //            {
         //                if (LoggedInUserID > 0)
         //                {
-        //                    UsrUser? userDetails = _talentConnectAdminDBContext.UsrUsers.Where(x => x.Id == LoggedInUserID).FirstOrDefault();
+        //                    UsrUser? userDetails = _UTSATSAPIDBConnection.UsrUsers.Where(x => x.Id == LoggedInUserID).FirstOrDefault();
         //                    if (userDetails != null)
         //                    {
         //                        talentDetail.ActionUserName = userDetails.FullName;
@@ -1027,7 +1027,7 @@ namespace UTSATSAPI.ATSCalls
         //        {
         //            if (CTPdata != null && CTPdata.TalentStatusIdBasedOnHr > 0)
         //            {
-        //                var TalentStatusMasterDetails = _talentConnectAdminDBContext.PrgTalentStatusAfterClientSelections.Where(x => x.Id == CTPdata.TalentStatusIdBasedOnHr).FirstOrDefault();
+        //                var TalentStatusMasterDetails = _UTSATSAPIDBConnection.PrgTalentStatusAfterClientSelections.Where(x => x.Id == CTPdata.TalentStatusIdBasedOnHr).FirstOrDefault();
         //                if (TalentStatusMasterDetails != null)
         //                {
         //                    TalentStatus = TalentStatusMasterDetails.TalentStatus ?? "";
@@ -1039,7 +1039,7 @@ namespace UTSATSAPI.ATSCalls
         //        {
         //            if (CTPdata != null && CTPdata.TalentStatusIdClientPortal > 0)
         //            {
-        //                var TalentStatusMasterDetails = _talentConnectAdminDBContext.PrgTalentStatusClientPortals.Where(x => x.Id == CTPdata.TalentStatusIdClientPortal).FirstOrDefault();
+        //                var TalentStatusMasterDetails = _UTSATSAPIDBConnection.PrgTalentStatusClientPortals.Where(x => x.Id == CTPdata.TalentStatusIdClientPortal).FirstOrDefault();
         //                if (TalentStatusMasterDetails != null)
         //                {
         //                    TalentStatus = TalentStatusMasterDetails.TalentStatus ?? "";
@@ -1113,11 +1113,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //        }
 
@@ -1132,7 +1132,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
 
@@ -1197,18 +1197,18 @@ namespace UTSATSAPI.ATSCalls
 
         //            if (responseJObject != null)
         //            {
-        //                GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //                GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //                if (records != null)
         //                {
         //                    records.ResponseReceived = Convert.ToString(responseJObject);
-        //                    CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                    CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //                }
         //            }
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
 
@@ -1274,18 +1274,18 @@ namespace UTSATSAPI.ATSCalls
 
         //            if (responseJObject != null)
         //            {
-        //                GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //                GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //                if (records != null)
         //                {
         //                    records.ResponseReceived = Convert.ToString(responseJObject);
-        //                    CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                    CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //                }
         //            }
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
 
@@ -1351,11 +1351,11 @@ namespace UTSATSAPI.ATSCalls
 
         //        if (responseJObject != null)
         //        {
-        //            GenUtsAtsApiRecord records = _talentConnectAdminDBContext.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
+        //            GenUtsAtsApiRecord records = _UTSATSAPIDBConnection.GenUtsAtsApiRecords.FirstOrDefault(x => x.Id == APIRecordInsertedID);
         //            if (records != null)
         //            {
         //                records.ResponseReceived = Convert.ToString(responseJObject);
-        //                CommonLogic.DBOperator(_talentConnectAdminDBContext, records, EntityState.Modified);
+        //                CommonLogic.DBOperator(_UTSATSAPIDBConnection, records, EntityState.Modified);
         //            }
         //        }
 
@@ -1370,7 +1370,7 @@ namespace UTSATSAPI.ATSCalls
         //    }
         //    catch (Exception ex)
         //    {
-        //        EmailBinder emailBinder = new EmailBinder(_configuration, _talentConnectAdminDBContext);
+        //        EmailBinder emailBinder = new EmailBinder(_configuration, _UTSATSAPIDBConnection);
         //        emailBinder.sendErrorEmail(apiType, endPoint, payloads, ex.Message.ToString());
         //    }
         //}
@@ -1388,8 +1388,8 @@ namespace UTSATSAPI.ATSCalls
             utsAtsApi_Records.CreatedById = gen_UtsAtsApi_Records.CreatedById;
             utsAtsApi_Records.CreatedByDateTime = DateTime.Now;
             utsAtsApi_Records.HrId = gen_UtsAtsApi_Records.HrId;
-            _talentConnectAdminDBContext.GenUtsAtsApiRecords.Add(utsAtsApi_Records);
-            _talentConnectAdminDBContext.SaveChanges();
+            _UTSATSAPIDBConnection.GenUtsAtsApiRecords.Add(utsAtsApi_Records);
+            _UTSATSAPIDBConnection.SaveChanges();
 
             return utsAtsApi_Records.Id;
         }
@@ -1398,11 +1398,11 @@ namespace UTSATSAPI.ATSCalls
         #region DBCalls
         //public sproc_Get_InterviewRoundDetails_Result sproc_Get_InterviewRoundDetails(string param)
         //{
-        //    return _talentConnectAdminDBContext.Set<sproc_Get_InterviewRoundDetails_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_InterviewRoundDetails, param)).AsEnumerable().FirstOrDefault();
+        //    return _UTSATSAPIDBConnection.Set<sproc_Get_InterviewRoundDetails_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sproc_Get_InterviewRoundDetails, param)).AsEnumerable().FirstOrDefault();
         //}
         //public sp_UTS_get_HRTalentProfileReason_Result sproc_UTS_get_HRTalentProfileReason(string param)
         //{
-        //    return _talentConnectAdminDBContext.Set<sp_UTS_get_HRTalentProfileReason_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sp_UTS_get_HRTalentProfileReason, param)).AsEnumerable().FirstOrDefault();
+        //    return _UTSATSAPIDBConnection.Set<sp_UTS_get_HRTalentProfileReason_Result>().FromSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.sp_UTS_get_HRTalentProfileReason, param)).AsEnumerable().FirstOrDefault();
         //}
         #endregion
     }

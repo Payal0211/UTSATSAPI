@@ -12,12 +12,12 @@ namespace UTSATSAPI.Repositories.Repositories
     public class UniversalProcRunnerRepository : IUniversalProcRunner
     {
         #region Variables
-        private TalentConnectAdminDBContext db;
+        private UTSATSAPIDBConnection db;
         private IConfiguration _configuration;
         #endregion
 
         #region Constructor
-        public UniversalProcRunnerRepository(TalentConnectAdminDBContext _db, IConfiguration configuration)
+        public UniversalProcRunnerRepository(UTSATSAPIDBConnection _db, IConfiguration configuration)
         {
             this.db = _db;
             _configuration = configuration;

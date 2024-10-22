@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgGeoRepository : GenericRepository<PrgGeo>, IPrgGeoRepository
 {
-public PrgGeoRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgGeoRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgCrmApiPartnerRepository : GenericRepository<PrgCrmApiPartner>, IPrgCrmApiPartnerRepository
 {
-public PrgCrmApiPartnerRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgCrmApiPartnerRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

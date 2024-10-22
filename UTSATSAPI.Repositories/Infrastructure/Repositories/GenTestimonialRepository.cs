@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenTestimonialRepository : GenericRepository<GenTestimonial>, IGenTestimonialRepository
 {
-public GenTestimonialRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenTestimonialRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

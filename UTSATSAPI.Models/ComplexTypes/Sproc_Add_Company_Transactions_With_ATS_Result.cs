@@ -10,7 +10,7 @@ namespace UTSATSAPI.Models.ComplexTypes
     [Keyless]
     public class Sproc_Add_Company_Transactions_With_ATS_Result
     {
-        public long? companyid { get; set; }
+        //public long? companyid { get; set; }
         public decimal? credit_balance { get; set; }
         public int? free_credit_balance { get; set; }
         public int? paid_credit_balance { get; set; }

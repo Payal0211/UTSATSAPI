@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenSalesHrJddumpRepository : GenericRepository<GenSalesHrJddump>, IGenSalesHrJddumpRepository
 {
-public GenSalesHrJddumpRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenSalesHrJddumpRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

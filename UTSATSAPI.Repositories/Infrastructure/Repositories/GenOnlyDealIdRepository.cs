@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenOnlyDealIdRepository : GenericRepository<GenOnlyDealId>, IGenOnlyDealIdRepository
 {
-public GenOnlyDealIdRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenOnlyDealIdRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

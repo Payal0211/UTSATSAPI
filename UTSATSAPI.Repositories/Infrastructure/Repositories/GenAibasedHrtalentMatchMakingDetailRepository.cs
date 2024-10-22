@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenAibasedHrtalentMatchMakingDetailRepository : GenericRepository<GenAibasedHrtalentMatchMakingDetail>, IGenAibasedHrtalentMatchMakingDetailRepository
 {
-public GenAibasedHrtalentMatchMakingDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenAibasedHrtalentMatchMakingDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

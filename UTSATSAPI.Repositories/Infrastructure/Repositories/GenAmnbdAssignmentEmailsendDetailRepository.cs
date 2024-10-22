@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenAmnbdAssignmentEmailsendDetailRepository : GenericRepository<GenAmnbdAssignmentEmailsendDetail>, IGenAmnbdAssignmentEmailsendDetailRepository
 {
-public GenAmnbdAssignmentEmailsendDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenAmnbdAssignmentEmailsendDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

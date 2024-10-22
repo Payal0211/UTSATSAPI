@@ -17,14 +17,14 @@ namespace UTSATSAPI.Helpers.Common
     {
         #region Variables
         IConfiguration _configuration;
-        TalentConnectAdminDBContext _talentConnectAdminDBContext;
+        UTSATSAPIDBConnection _UTSATSAPIDBConnection;
         #endregion
 
         #region Constructors
-        public Parser(IConfiguration configuration, TalentConnectAdminDBContext talentConnectAdminDBContext)
+        public Parser(IConfiguration configuration, UTSATSAPIDBConnection UTSATSAPIDBConnection)
         {
             _configuration = configuration;
-            _talentConnectAdminDBContext = talentConnectAdminDBContext;
+            _UTSATSAPIDBConnection = UTSATSAPIDBConnection;
         }
         #endregion
 
@@ -282,7 +282,7 @@ namespace UTSATSAPI.Helpers.Common
         {
             
             List<string> strReturnList = new List<string>();
-            string[] rolesAndResponsilbities = _talentConnectAdminDBContext.PrgRolesAndResponsilbities.Select(p => p.RoleText.ToLower()).ToArray();
+            string[] rolesAndResponsilbities = _UTSATSAPIDBConnection.PrgRolesAndResponsilbities.Select(p => p.RoleText.ToLower()).ToArray();
 
             if (paragraphList != null && paragraphList.Count > 0)
             {
@@ -310,7 +310,7 @@ namespace UTSATSAPI.Helpers.Common
         {
 
             List<string> strReturnList = new List<string>();
-            string[] requirements = _talentConnectAdminDBContext.PrgRequirements.Select(p => p.ReqText.ToLower()).ToArray();
+            string[] requirements = _UTSATSAPIDBConnection.PrgRequirements.Select(p => p.ReqText.ToLower()).ToArray();
 
             if (paragraphList != null && paragraphList.Count > 0)
             {

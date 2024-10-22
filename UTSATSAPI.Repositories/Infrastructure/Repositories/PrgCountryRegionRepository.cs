@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgCountryRegionRepository : GenericRepository<PrgCountryRegion>, IPrgCountryRegionRepository
 {
-public PrgCountryRegionRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgCountryRegionRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

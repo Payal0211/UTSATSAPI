@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgRequirementRepository : GenericRepository<PrgRequirement>, IPrgRequirementRepository
 {
-public PrgRequirementRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgRequirementRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

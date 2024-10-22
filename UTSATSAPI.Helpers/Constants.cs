@@ -12,6 +12,49 @@
             public static string Sproc_UTS_AddEdit_ATSHR = "Sproc_UTS_AddEdit_ATSHR";
             public static string Sproc_HR_EditPOC = "Sproc_HR_EditPOC";
             public static string Sproc_HR_POC_ClientPortal = "Sproc_HR_POC_ClientPortal";
+            public static string Sproc_RemoveMatchmakeTalentFromUTSViaATS = "Sproc_RemoveMatchmakeTalentFromUTSViaATS";
+            #endregion
+
+            #region Company profile
+            public static string Sproc_Get_CompanyDetailsFrom_Prompt = "Sproc_Get_CompanyDetailsFrom_Prompt";
+
+            public static string Sproc_Get_Company_Funding_Details = "Sproc_Get_Company_Funding_Details";
+            public static string Sproc_Add_Company_Funding_Details = "Sproc_Add_Company_Funding_Details";
+            public static string Sproc_Delete_Company_Funding_Details = "Sproc_Delete_Company_Funding_Details";
+
+            public static string Sproc_Get_Company_CultureandPerksDetails = "Sproc_Get_Company_CultureandPerksDetails";
+            public static string Sproc_Add_Company_CultureandPerksDetails = "Sproc_Add_Company_CultureandPerksDetails";
+            public static string Sproc_Delete_Company_CultureandPerksDetails = "Sproc_Delete_Company_CultureandPerksDetails";
+
+            public static string Sproc_Get_Company_PerksDetails = "Sproc_Get_Company_PerksDetails";
+            public static string Sproc_Add_Company_PerksDetails = "Sproc_Add_Company_PerksDetails";
+            public static string Sproc_Delete_Company_PerksDetails = "Sproc_Delete_Company_PerksDetails";
+
+            public static string Sproc_Get_Basic_CompanyDetails = "Sproc_Get_Basic_CompanyDetails";
+            public static string Sproc_Update_Basic_CompanyDetails = "Sproc_Update_Basic_CompanyDetails";
+
+            public static string Sproc_Add_YoutubeLink = "Sproc_Add_YoutubeLink";
+            public static string Sproc_Get_Company_YouTubeDetails = "Sproc_Get_Company_YouTubeDetails";
+            public static string Sproc_Delete_Company_YouTubeDetails = "Sproc_Delete_Company_YouTubeDetails";
+
+            public static string sproc_UTS_GetCompanyEngagementDetails = "sproc_UTS_GetCompanyEngagementDetails";
+            public static string Sproc_Update_Company_EngagementDetails = "Sproc_Update_Company_EngagementDetails";
+
+            public static string sp_UTS_GetPOCUserIDByCompanyID = "sp_UTS_GetPOCUserIDByCompanyID";
+            public static string sproc_UTS_UpdatePOCUserIDsByCompanyID = "sproc_UTS_UpdatePOCUserIDsByCompanyID";
+            public static string sp_UTS_GetPOCUserIDByCompanyID_Edit = "sp_UTS_GetPOCUserIDByCompanyID_Edit";
+
+            public static string sproc_UTS_GetContactDetails = "sproc_UTS_GetContactDetails";
+            public static string sproc_UTS_UpdateContactDetails = "sproc_UTS_UpdateContactDetails";
+
+            public static string Sproc_CompanyDetail_TransferToATS = "Sproc_CompanyDetail_TransferToATS";
+            public static string sproc_Update_Company_Details_From_Scrapping = "sproc_Update_Company_Details_From_Scrapping";
+            public static string Sproc_UTS_GetCompanyWhatsappDetails = "Sproc_UTS_GetCompanyWhatsappDetails";
+            public static string Sproc_UTS_SaveCompanyWhatsappDetails = "Sproc_UTS_SaveCompanyWhatsappDetails";
+            public static string Sproc_UTS_SaveCompanyWhatsappMemberDetails = "Sproc_UTS_SaveCompanyWhatsappMemberDetails";
+
+            public static string Sproc_Update_Company_HiringTypePricing = "Sproc_Update_Company_HiringTypePricing";
+            public static string Sproc_Get_Company_HiringTypePricing = "Sproc_Get_Company_HiringTypePricing";
             #endregion
 
             #region Email

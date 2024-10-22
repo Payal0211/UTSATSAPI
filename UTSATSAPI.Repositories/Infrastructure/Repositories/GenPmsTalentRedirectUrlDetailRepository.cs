@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenPmsTalentRedirectUrlDetailRepository : GenericRepository<GenPmsTalentRedirectUrlDetail>, IGenPmsTalentRedirectUrlDetailRepository
 {
-public GenPmsTalentRedirectUrlDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenPmsTalentRedirectUrlDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

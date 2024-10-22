@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgActionFilterRepository : GenericRepository<PrgActionFilter>, IPrgActionFilterRepository
 {
-public PrgActionFilterRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgActionFilterRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

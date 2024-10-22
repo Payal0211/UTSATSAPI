@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenOnBoardClientLeavePolicyRepository : GenericRepository<GenOnBoardClientLeavePolicy>, IGenOnBoardClientLeavePolicyRepository
 {
-public GenOnBoardClientLeavePolicyRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenOnBoardClientLeavePolicyRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

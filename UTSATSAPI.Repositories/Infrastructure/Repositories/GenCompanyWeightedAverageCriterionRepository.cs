@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenCompanyWeightedAverageCriterionRepository : GenericRepository<GenCompanyWeightedAverageCriterion>, IGenCompanyWeightedAverageCriterionRepository
 {
-public GenCompanyWeightedAverageCriterionRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenCompanyWeightedAverageCriterionRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

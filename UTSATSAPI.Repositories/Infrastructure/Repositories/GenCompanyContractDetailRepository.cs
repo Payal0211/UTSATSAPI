@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenCompanyContractDetailRepository : GenericRepository<GenCompanyContractDetail>, IGenCompanyContractDetailRepository
 {
-public GenCompanyContractDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenCompanyContractDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

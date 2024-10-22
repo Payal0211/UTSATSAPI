@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenSalesHiringRequestHistoryRepository : GenericRepository<GenSalesHiringRequestHistory>, IGenSalesHiringRequestHistoryRepository
 {
-public GenSalesHiringRequestHistoryRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenSalesHiringRequestHistoryRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

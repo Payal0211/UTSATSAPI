@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenTalentAssesmentSkillScoreRepository : GenericRepository<GenTalentAssesmentSkillScore>, IGenTalentAssesmentSkillScoreRepository
 {
-public GenTalentAssesmentSkillScoreRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenTalentAssesmentSkillScoreRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

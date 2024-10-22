@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgPartialEngagementTypeRepository : GenericRepository<PrgPartialEngagementType>, IPrgPartialEngagementTypeRepository
 {
-public PrgPartialEngagementTypeRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgPartialEngagementTypeRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

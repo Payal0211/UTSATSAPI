@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgSlatimeRepository : GenericRepository<PrgSlatime>, IPrgSlatimeRepository
 {
-public PrgSlatimeRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgSlatimeRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

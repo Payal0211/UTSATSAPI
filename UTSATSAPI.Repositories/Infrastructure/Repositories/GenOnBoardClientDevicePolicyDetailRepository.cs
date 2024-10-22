@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenOnBoardClientDevicePolicyDetailRepository : GenericRepository<GenOnBoardClientDevicePolicyDetail>, IGenOnBoardClientDevicePolicyDetailRepository
 {
-public GenOnBoardClientDevicePolicyDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenOnBoardClientDevicePolicyDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class PrgTimeZonePreferenceRepository : GenericRepository<PrgTimeZonePreference>, IPrgTimeZonePreferenceRepository
 {
-public PrgTimeZonePreferenceRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public PrgTimeZonePreferenceRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

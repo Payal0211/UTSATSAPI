@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class UsrUserRoleDetailRepository : GenericRepository<UsrUserRoleDetail>, IUsrUserRoleDetailRepository
 {
-public UsrUserRoleDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public UsrUserRoleDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenBlogRepository : GenericRepository<GenBlog>, IGenBlogRepository
 {
-public GenBlogRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenBlogRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

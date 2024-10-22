@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenTalentPreferableWorkingDetailRepository : GenericRepository<GenTalentPreferableWorkingDetail>, IGenTalentPreferableWorkingDetailRepository
 {
-public GenTalentPreferableWorkingDetailRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenTalentPreferableWorkingDetailRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

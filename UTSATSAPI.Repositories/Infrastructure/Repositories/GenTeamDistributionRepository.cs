@@ -4,6 +4,6 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
 public class GenTeamDistributionRepository : GenericRepository<GenTeamDistribution>, IGenTeamDistributionRepository
 {
-public GenTeamDistributionRepository(TalentConnectAdminDBContext dbContext) : base(dbContext){}
+public GenTeamDistributionRepository(UTSATSAPIDBConnection dbContext) : base(dbContext){}
 }
 }

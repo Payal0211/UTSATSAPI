@@ -6,7 +6,7 @@ namespace UTSATSAPI.Repositories.Infrastructure.Repositories
 {
     public class UsrUserRepository : GenericRepository<UsrUser>, IUsrUserRepository
     {
-        public UsrUserRepository(TalentConnectAdminDBContext dbContext) : base(dbContext)
+        public UsrUserRepository(UTSATSAPIDBConnection dbContext) : base(dbContext)
         {
 
         }

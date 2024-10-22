@@ -16,7 +16,7 @@ namespace UTSATSAPI.Helpers.Common
     {
         #region Variables
         IConfiguration _configuration;
-        TalentConnectAdminDBContext _talentConnectAdminDBContext;
+        UTSATSAPIDBConnection _UTSATSAPIDBConnection;
         private StringBuilder TextBuffer { get; set; }
         private List<FormattedTextChunk> formattedChunks = new List<FormattedTextChunk>();
         
@@ -28,10 +28,10 @@ namespace UTSATSAPI.Helpers.Common
         #endregion
 
         #region Constructors
-        public ParserNew(IConfiguration configuration, TalentConnectAdminDBContext talentConnectAdminDBContext)
+        public ParserNew(IConfiguration configuration, UTSATSAPIDBConnection UTSATSAPIDBConnection)
         {
             _configuration = configuration;
-            _talentConnectAdminDBContext = talentConnectAdminDBContext;
+            _UTSATSAPIDBConnection = UTSATSAPIDBConnection;
         }
         public ParserNew(IConfiguration configuration)
         {
