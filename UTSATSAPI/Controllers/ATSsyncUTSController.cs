@@ -621,6 +621,46 @@ namespace UTSATSAPI.Controllers
                 APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
 
+                #region Variable Assignment
+
+                if (updateDetails?.engagement_details != null)
+                {
+
+                    int? CompanyTypeID = null;
+                    int? AnotherCompanyTypeID = null;
+
+                    bool? is_post_job = null;
+                    bool? is_profile_view = null;
+                    bool? is_transparent_pricing = null;
+                    bool? is_vetted_profile = null;
+
+                    if (updateDetails?.engagement_details?.is_pay_per_hire == 1)
+                    {
+                        CompanyTypeID = 1;
+                    }
+                    if (updateDetails?.engagement_details?.is_pay_per_credit == 1)
+                    {
+                        AnotherCompanyTypeID = 2;
+                    }
+                    if (updateDetails?.engagement_details?.is_post_job != null)
+                    {
+                        is_post_job = updateDetails?.engagement_details?.is_post_job == 1 ? true : false;
+                    }
+                    if (updateDetails?.engagement_details?.is_profile_view != null)
+                    {
+                        is_profile_view = updateDetails?.engagement_details?.is_profile_view == 1 ? true : false;
+                    }
+                    if (updateDetails?.engagement_details?.is_transparent_pricing != null)
+                    {
+                        is_transparent_pricing = updateDetails?.engagement_details?.is_transparent_pricing == 1 ? true : false;
+                    }
+                    if (updateDetails?.engagement_details?.is_vetted_profile != null)
+                    {
+                        is_vetted_profile = updateDetails?.engagement_details?.is_vetted_profile == 1 ? true : false;
+                    }
+                }
+                #endregion
+
                 #region 1) ADD/Update Company & Company Basic Details -- Sproc_Update_Basic_CompanyDetails
                 if (updateDetails.basic_details != null)
                 {
@@ -841,7 +881,9 @@ namespace UTSATSAPI.Controllers
                                  LoggedInUserId,
                                  Portal,
                                  item?.password,
-                                 item?.encrypted_password
+                                 item?.encrypted_password,
+                                 CompanyTypeID,
+                                 AnotherCompanyTypeID
                         };
                         string paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
@@ -866,39 +908,6 @@ namespace UTSATSAPI.Controllers
                 #region 7) Update Company Engengement Details  -- Sproc_Update_Company_EngagementDetails
                 if (updateDetails?.engagement_details != null)
                 {
-                    int? CompanyTypeID = null;
-                    int? AnotherCompanyTypeID = null;
-
-                    bool? is_post_job = null;
-                    bool? is_profile_view = null;
-                    bool? is_transparent_pricing = null;
-                    bool? is_vetted_profile = null;
-
-                    if (updateDetails?.engagement_details?.is_pay_per_hire == 1)
-                    {
-                        CompanyTypeID = 1;
-                    }
-                    if (updateDetails?.engagement_details?.is_pay_per_credit == 1)
-                    {
-                        AnotherCompanyTypeID = 2;
-                    }
-                    if (updateDetails?.engagement_details?.is_post_job != null)
-                    {
-                        is_post_job = updateDetails?.engagement_details?.is_post_job == 1 ? true : false;
-                    }
-                    if (updateDetails?.engagement_details?.is_profile_view != null)
-                    {
-                        is_profile_view = updateDetails?.engagement_details?.is_profile_view == 1 ? true : false;
-                    }
-                    if (updateDetails?.engagement_details?.is_transparent_pricing != null)
-                    {
-                        is_transparent_pricing = updateDetails?.engagement_details?.is_transparent_pricing == 1 ? true : false;
-                    }
-                    if (updateDetails?.engagement_details?.is_vetted_profile != null)
-                    {
-                        is_vetted_profile = updateDetails?.engagement_details?.is_vetted_profile == 1 ? true : false;
-                    }
-
                     object[] param = new object[]
                     {
                             CompanyID,
