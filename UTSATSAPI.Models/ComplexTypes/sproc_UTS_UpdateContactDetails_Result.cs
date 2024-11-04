@@ -11,5 +11,6 @@ namespace UTSATSAPI.Models.ComplexTypes
     public class sproc_UTS_UpdateContactDetails_Result
     {
         public long? ContactID { get; set; }
+        public bool? IsNewClient { get; set; }
     }
 }

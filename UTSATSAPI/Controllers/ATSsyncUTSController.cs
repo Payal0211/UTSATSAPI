@@ -855,13 +855,11 @@ namespace UTSATSAPI.Controllers
                     {
                         #region need to identify it is new client or existing client
 
-                        long? ClientID = 0;
-                        bool IsNewClient = true;
+                        long? ClientID = 0;                       
 
                         if (item.client_id > 0)
                         {
-                            ClientID = item.client_id;
-                            IsNewClient = false;
+                            ClientID = item.client_id;                            
                         }
 
                         #endregion
@@ -892,13 +890,13 @@ namespace UTSATSAPI.Controllers
 
                         #region Summary details
                         SummaryClientDetails summaryClient = new SummaryClientDetails();
-                        if (IsNewClient && result != null && result.ContactID > 0)
+                        if (result != null && result.ContactID > 0)
+                        {
                             summaryClient.client_id = result.ContactID;
-                        else
-                            summaryClient.client_id = ClientID;
-                        summaryClient.client_email = item.email_Id;
-                        summaryClient.is_newly_added = IsNewClient;
-                        summaryClients.Add(summaryClient);
+                            summaryClient.client_email = item?.email_Id;
+                            summaryClient.is_newly_added = result.IsNewClient;
+                            summaryClients.Add(summaryClient);
+                        }
                         #endregion
                     }
                 }
