@@ -430,62 +430,64 @@ namespace UTSATSAPI.Controllers
                     }
                 }
 
-                #region Update Job Description With Unicode Characters
-                if (!string.IsNullOrEmpty(model?.job_desciption))
-                    _iATSsyncUTS.SaveStepInfoWithUnicode(model.hiring_request_id.ToString(), model?.job_desciption);
                 #endregion
 
-                #region Update Prerequisites With Unicode Characters
-                if (!string.IsNullOrEmpty(model?.vital_information?.prerequisites))
-                    _iATSsyncUTS.SaveperquisitesWithUnicode(model.hiring_request_id.ToString(), model?.vital_information?.prerequisites);
-                #endregion
-
-                #endregion
-
-                #region Save HR POC users
-                try
+                if (model.hiring_request_id > 0)
                 {
-                    StringBuilder POcDetails = new();
-                    string pocDetailsString = string.Empty;
+                    #region Update Job Description With Unicode Characters
+                    if (!string.IsNullOrEmpty(model?.job_desciption))
+                        _iATSsyncUTS.SaveStepInfoWithUnicode(model.hiring_request_id.ToString(), model?.job_desciption);
+                    #endregion
 
-                    bool? show_email = null;
-                    bool? show_contact_number = null;
-                    if (model?.job_poc != null && model.job_poc.Any())
+                    #region Update Prerequisites With Unicode Characters
+                    if (!string.IsNullOrEmpty(model?.vital_information?.prerequisites))
+                        _iATSsyncUTS.SaveperquisitesWithUnicode(model.hiring_request_id.ToString(), model?.vital_information?.prerequisites);
+                    #endregion                    
+
+                    #region Save HR POC users
+                    try
                     {
-                        param = null;
-                        foreach (var item in model.job_poc)
+                        StringBuilder POcDetails = new();
+                        string pocDetailsString = string.Empty;
+
+                        bool? show_email = null;
+                        bool? show_contact_number = null;
+                        if (model?.job_poc != null && model.job_poc.Any())
                         {
-                            show_email = null;
-                            show_contact_number = null;
-
-                            if (item?.show_email != null)
+                            param = null;
+                            foreach (var item in model.job_poc)
                             {
-                                show_email = item?.show_email == 1 ? true : false;
-                            }
-                            if (item?.show_contact_number != null)
-                            {
-                                show_contact_number = item?.show_contact_number == 1 ? true : false;
-                            }
+                                show_email = null;
+                                show_contact_number = null;
 
-                            //Update contact Number in gen_contact
-                            if (!string.IsNullOrEmpty(item?.contact_number) && item.contact_id > 0)
-                            {
-                                param = new object[] { item.contact_id, item.contact_number };
-                                _uniProcRunner.ManipulationWithNULL(Constants.ProcConstant.Sproc_HR_EditPOC, param);
-                            }
+                                if (item?.show_email != null)
+                                {
+                                    show_email = item?.show_email == 1 ? true : false;
+                                }
+                                if (item?.show_contact_number != null)
+                                {
+                                    show_contact_number = item?.show_contact_number == 1 ? true : false;
+                                }
 
-                            POcDetails.Append(item?.contact_id + "&");
-                            POcDetails.Append(show_email + "&");
-                            POcDetails.Append(show_contact_number);
-                            POcDetails.Append("^");
+                                //Update contact Number in gen_contact
+                                if (!string.IsNullOrEmpty(item?.contact_number) && item.contact_id > 0)
+                                {
+                                    param = new object[] { item.contact_id, item.contact_number };
+                                    _uniProcRunner.ManipulationWithNULL(Constants.ProcConstant.Sproc_HR_EditPOC, param);
+                                }
+
+                                POcDetails.Append(item?.contact_id + "&");
+                                POcDetails.Append(show_email + "&");
+                                POcDetails.Append(show_contact_number);
+                                POcDetails.Append("^");
+                            }
+                            pocDetailsString = POcDetails.ToString();
                         }
-                        pocDetailsString = POcDetails.ToString();
-                    }
 
-                    if (!string.IsNullOrEmpty(pocDetailsString))
-                    {
-                        object[] pocParam = new object[]
+                        if (!string.IsNullOrEmpty(pocDetailsString))
                         {
+                            object[] pocParam = new object[]
+                            {
                             0,
                             "",
                             model?.hiring_request_id,
@@ -493,16 +495,17 @@ namespace UTSATSAPI.Controllers
                             pocDetailsString,
                             0,
                             true
-                        };
-                        string pocParamString = CommonLogic.ConvertToParamStringWithNull(pocParam);
-                        _iATSsyncUTS.SaveHRPOCDetails(pocParamString);
+                            };
+                            string pocParamString = CommonLogic.ConvertToParamStringWithNull(pocParam);
+                            _iATSsyncUTS.SaveHRPOCDetails(pocParamString);
+                        }
                     }
-                }
-                catch
-                {
+                    catch
+                    {
 
+                    }
+                    #endregion
                 }
-                #endregion
 
                 _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
 
@@ -595,6 +598,9 @@ namespace UTSATSAPI.Controllers
                 bool? is_profile_view = null;
                 bool? is_transparent_pricing = null;
                 bool? is_vetted_profile = null;
+
+                List<SummaryClientDetails> summaryClients = new List<SummaryClientDetails>();
+
                 #endregion
 
                 #region Validation
@@ -719,25 +725,29 @@ namespace UTSATSAPI.Controllers
                 }
                 #endregion
 
-                #region 2) Update Funding Details -- Sproc_Add_Company_Funding_Details
-
-                if (!Convert.ToBoolean(is_self_funded) && updateDetails?.funding_details != null)
+                // If new company is coming for insertion from ATS then stop the insertion else allow.
+                if (CompanyID > 0)
                 {
-                    //delete existing then insert new entry
-                    object[] param = new object[]
+
+                    #region 2) Update Funding Details -- Sproc_Add_Company_Funding_Details
+
+                    if (!Convert.ToBoolean(is_self_funded) && updateDetails?.funding_details != null)
                     {
+                        //delete existing then insert new entry
+                        object[] param = new object[]
+                        {
                             CompanyID,
                             0,
                             LoggedInUserId,
                             Portal,
-                        };
-                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                    _iATSsyncUTS.Delete_Company_Funding_Details(paramString);
+                            };
+                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                        _iATSsyncUTS.Delete_Company_Funding_Details(paramString);
 
-                    foreach (var item in updateDetails.funding_details)
-                    {
-                        param = new object[]
+                        foreach (var item in updateDetails.funding_details)
                         {
+                            param = new object[]
+                            {
                                 CompanyID,
                                 item?.funding_amount,
                                 item?.funding_round,
@@ -749,124 +759,124 @@ namespace UTSATSAPI.Controllers
                                 Portal,
                                 0,
                                 item?.additional_information != null ? null : item?.additional_information
-                        };
-                        paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                        _iATSsyncUTS.Sproc_Add_Company_Funding_Details_Result(paramString);
+                            };
+                            paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                            _iATSsyncUTS.Sproc_Add_Company_Funding_Details_Result(paramString);
 
-                        #region Update AddiInfo With Unicode Characters
-                        if (!string.IsNullOrEmpty(item?.additional_information))
-                            _iATSsyncUTS.SaveAdditionalInfoUnicode(CompanyID ?? 0, item?.additional_information, LoggedInUserId);
-                        #endregion
+                            #region Update AddiInfo With Unicode Characters
+                            if (!string.IsNullOrEmpty(item?.additional_information))
+                                _iATSsyncUTS.SaveAdditionalInfoUnicode(CompanyID ?? 0, item?.additional_information, LoggedInUserId);
+                            #endregion
+                        }
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region 3) Add Culture Image -- Sproc_Add_Company_CultureandPerksDetails
-                if (updateDetails?.culture_details != null)
-                {
-                    //delete existing then insert new entry
-                    object[] param = new object[]
-                            {
+                    #region 3) Add Culture Image -- Sproc_Add_Company_CultureandPerksDetails
+                    if (updateDetails?.culture_details != null)
+                    {
+                        //delete existing then insert new entry
+                        object[] param = new object[]
+                                {
                                 CompanyID,
                                 0,
                                 LoggedInUserId,
                                 Portal
-                            };
-                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                    _iATSsyncUTS.Delete_Company_CultureandPerksDetails(paramString);
+                                };
+                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                        _iATSsyncUTS.Delete_Company_CultureandPerksDetails(paramString);
 
-                    foreach (var item in updateDetails.culture_details)
-                    {
-                        if (!string.IsNullOrEmpty(item))
+                        foreach (var item in updateDetails.culture_details)
                         {
-                            param = new object[]
+                            if (!string.IsNullOrEmpty(item))
                             {
+                                param = new object[]
+                                {
                                 CompanyID,
                                 null,
                                 LoggedInUserId,
                                 Portal,
                                 0,
                                 item
-                            };
-                            paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                            _iATSsyncUTS.Sproc_Add_Company_CultureandPerksDetails_Result(paramString);
+                                };
+                                paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                                _iATSsyncUTS.Sproc_Add_Company_CultureandPerksDetails_Result(paramString);
+                            }
                         }
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region 4) Update Perk Details -- Sproc_Add_Company_PerksDetails
-                if (updateDetails?.perk_details != null && updateDetails.perk_details.Any())
-                {
-                    string PerksString = string.Join(",", updateDetails.perk_details);
-                    if (!string.IsNullOrEmpty(PerksString))
+                    #region 4) Update Perk Details -- Sproc_Add_Company_PerksDetails
+                    if (updateDetails?.perk_details != null && updateDetails.perk_details.Any())
                     {
-                        object[] param = new object[]
+                        string PerksString = string.Join(",", updateDetails.perk_details);
+                        if (!string.IsNullOrEmpty(PerksString))
                         {
+                            object[] param = new object[]
+                            {
                                 CompanyID,
                                 PerksString,
                                 LoggedInUserId,
                                 Portal
-                        };
-                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                        _iATSsyncUTS.Sproc_Add_Company_PerksDetails_Result(paramString);
+                            };
+                            string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                            _iATSsyncUTS.Sproc_Add_Company_PerksDetails_Result(paramString);
+                        }
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region 5) Add YouTube Details -- Sproc_Add_YoutubeLink
-                if (updateDetails?.youtube_links != null)
-                {
-                    //delete existing then insert new entry
-                    object[] param = new object[]
+                    #region 5) Add YouTube Details -- Sproc_Add_YoutubeLink
+                    if (updateDetails?.youtube_links != null)
                     {
+                        //delete existing then insert new entry
+                        object[] param = new object[]
+                        {
                             CompanyID,
                             0,
                             LoggedInUserId,
                             Portal,
-                        };
-                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                    _iATSsyncUTS.Delete_Company_YoutubeDetails(paramString);
+                            };
+                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                        _iATSsyncUTS.Delete_Company_YoutubeDetails(paramString);
 
-                    foreach (var item in updateDetails.youtube_links)
-                    {
-                        if (!string.IsNullOrEmpty(item))
+                        foreach (var item in updateDetails.youtube_links)
                         {
-                            param = new object[]
+                            if (!string.IsNullOrEmpty(item))
                             {
+                                param = new object[]
+                                {
                                 CompanyID,
                                 item,
                                 LoggedInUserId,
                                 Portal,
                                 0
-                            };
-                            paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                            _iATSsyncUTS.Sproc_Add_YoutubeLink(paramString);
+                                };
+                                paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                                _iATSsyncUTS.Sproc_Add_YoutubeLink(paramString);
+                            }
                         }
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region 6) Add/Update Contact(Client) Details  -- sproc_UTS_UpdateContactDetails
-                List<SummaryClientDetails> summaryClients = new List<SummaryClientDetails>();
-                if (updateDetails?.client_details != null)
-                {
-                    foreach (var item in updateDetails.client_details)
+                    #region 6) Add/Update Contact(Client) Details  -- sproc_UTS_UpdateContactDetails
+                    
+                    if (updateDetails?.client_details != null)
                     {
-                        #region need to identify it is new client or existing client
-
-                        long? ClientID = 0;                       
-
-                        if (item.client_id > 0)
+                        foreach (var item in updateDetails.client_details)
                         {
-                            ClientID = item.client_id;                            
-                        }
+                            #region need to identify it is new client or existing client
 
-                        #endregion
+                            long? ClientID = 0;
 
-                        #region SP call : sproc_UTS_UpdateContactDetails
-                        object[] param = new object[]
-                        {
+                            if (item.client_id > 0)
+                            {
+                                ClientID = item.client_id;
+                            }
+
+                            #endregion
+
+                            #region SP call : sproc_UTS_UpdateContactDetails
+                            object[] param = new object[]
+                            {
                                  CompanyID,
                                  ClientID,
                                  item?.full_Name,
@@ -881,32 +891,32 @@ namespace UTSATSAPI.Controllers
                                  null,
                                  CompanyTypeID,
                                  AnotherCompanyTypeID
-                        };
-                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                            };
+                            string paramString = CommonLogic.ConvertToParamStringWithNull(param);
 
-                        sproc_UTS_UpdateContactDetails_Result result = _iATSsyncUTS.UpdateClientDetails(paramString);
+                            sproc_UTS_UpdateContactDetails_Result result = _iATSsyncUTS.UpdateClientDetails(paramString);
 
-                        #endregion
+                            #endregion
 
-                        #region Summary details
-                        SummaryClientDetails summaryClient = new SummaryClientDetails();
-                        if (result != null && result.ContactID > 0)
-                        {
-                            summaryClient.client_id = result.ContactID;
-                            summaryClient.client_email = item?.email_Id;
-                            summaryClient.is_newly_added = result.IsNewClient;
-                            summaryClients.Add(summaryClient);
+                            #region Summary details
+                            SummaryClientDetails summaryClient = new SummaryClientDetails();
+                            if (result != null && result.ContactID > 0)
+                            {
+                                summaryClient.client_id = result.ContactID;
+                                summaryClient.client_email = item?.email_Id;
+                                summaryClient.is_newly_added = result.IsNewClient;
+                                summaryClients.Add(summaryClient);
+                            }
+                            #endregion
                         }
-                        #endregion
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region 7) Update Company Engengement Details  -- Sproc_Update_Company_EngagementDetails
-                if (updateDetails?.engagement_details != null)
-                {
-                    object[] param = new object[]
+                    #region 7) Update Company Engengement Details  -- Sproc_Update_Company_EngagementDetails
+                    if (updateDetails?.engagement_details != null)
                     {
+                        object[] param = new object[]
+                        {
                             CompanyID,
                             CompanyTypeID,
                             AnotherCompanyTypeID,
@@ -923,29 +933,31 @@ namespace UTSATSAPI.Controllers
                             updateDetails?.engagement_details?.hiring_type_pricingid,
                             LoggedInUserId,
                             Portal
-                    };
-                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                    _iATSsyncUTS.UpdateCompanyEngagementDetails(paramString);
-                }
-                #endregion
+                        };
+                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                        _iATSsyncUTS.UpdateCompanyEngagementDetails(paramString);
+                    }
+                    #endregion
 
-                #region 8) Update Company POC Details  -- sproc_UTS_UpdatePOCUserIDsByCompanyID
-                if (!string.IsNullOrEmpty(updateDetails?.poc_id))
-                {
-                    object[] param = new object[]
-                            {
-                                CompanyID,                              
+                    #region 8) Update Company POC Details  -- sproc_UTS_UpdatePOCUserIDsByCompanyID
+                    if (!string.IsNullOrEmpty(updateDetails?.poc_id))
+                    {
+                        object[] param = new object[]
+                                {
+                                CompanyID,
                                 0,
                                 LoggedInUserId,
                                 0,
                                 "",
                                 "Add",
                                 updateDetails?.poc_id
-                             };
-                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                    _iATSsyncUTS.DeleteInsertPOCDetails(paramString);
+                                 };
+                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                        _iATSsyncUTS.DeleteInsertPOCDetails(paramString);
+                    }
+                    #endregion
+
                 }
-                #endregion
 
                 #region return summary object
                 SummaryDetails summary_details = new SummaryDetails();
