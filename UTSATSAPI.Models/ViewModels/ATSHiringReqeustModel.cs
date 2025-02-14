@@ -49,6 +49,8 @@
         public ATS_PayPerHire1? ATS_PayPerHire { get; set; }
         public ATS_PayPerCredit1? ATS_PayPerCredit { get; set; }
         public VitalInformation1? VitalInformation { get; set; }
+        public decimal? MinExpYears { get; set; }
+        public decimal? MaxExpYears { get; set; }
     }
     public class ATS_PayPerHire1
     {
@@ -135,6 +137,8 @@
         public DateTime? updated_at { get; set; }
         public DateTime? expiry_date { get; set; }
         public string? ats_logged_in_employee_id { get; set; }
+        public decimal? MinExpYears { get; set; }
+        public decimal? MaxExpYears { get; set; }
     }
     public class ATS_PayPerHire
     {

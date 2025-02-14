@@ -195,6 +195,8 @@ namespace UTSATSAPI.Controllers
                        model?.NearByCities,
                        model?.ATS_JobLocationID,
                        model?.ATS_NearByCities,
+                       model?.MinExpYears,
+                       model?.MaxExpYears
                 };
 
                 string paramString = CommonLogic.ConvertToParamStringWithNull(param);
@@ -414,19 +416,24 @@ namespace UTSATSAPI.Controllers
                        model?.ats_near_by_cities,
                        model?.ats_logged_in_employee_id,
                        model?.created_at,
-                       model?.updated_at
+                       model?.updated_at,
+                       model?.MinExpYears,
+                       model?.MaxExpYears
                 };
 
                 string paramString = CommonLogic.ConvertToParamStringWithNull(param);
                 Sproc_UTS_AddEdit_ATSHR_Result result = _iATSsyncUTS.Sproc_UTS_AddEdit_ATSHR(paramString);
 
-                if (result != null && result.HiringRequestID > 0)
+                if (result != null)
                 {
                     model.hiring_request_id = result.HiringRequestID;
                     model.hr_number = result.HR_Number;
-                    if (!string.IsNullOrEmpty(result.ResponseMsg))
+                    if (model.hiring_request_id > 0)
                     {
-                        Message += string.Format("[{0}]", result.ResponseMsg);
+                        if (!string.IsNullOrEmpty(result.ResponseMsg))
+                        {
+                            Message += string.Format("[{0}]", result.ResponseMsg);
+                        }
                     }
                 }
 
@@ -705,20 +712,23 @@ namespace UTSATSAPI.Controllers
                     Sproc_Update_Basic_CompanyDetails_Result result =
                     _iATSsyncUTS.UpdateCompanyBasicDetails(paramString);
 
-                    if (result != null && result.CompanyID > 0)
+                    if (result != null)
                     {
                         CompanyID = result.CompanyID;
                         CompanyNumber = result.CompanyNumber;
 
-                        #region Update Company Details About desc With Unicode Characters
-                        if (!string.IsNullOrEmpty(updateDetails?.basic_details?.about_company_desc))
-                            _iATSsyncUTS.SaveCompanyDescUnicode(CompanyID ?? 0, updateDetails?.basic_details?.about_company_desc, LoggedInUserId);
-                        #endregion
+                        if (CompanyID > 0)
+                        {
+                            #region Update Company Details About desc With Unicode Characters
+                            if (!string.IsNullOrEmpty(updateDetails?.basic_details?.about_company_desc))
+                                _iATSsyncUTS.SaveCompanyDescUnicode(CompanyID ?? 0, updateDetails?.basic_details?.about_company_desc, LoggedInUserId);
+                            #endregion
 
-                        #region Update  Culture With Unicode Characters
-                        if (!string.IsNullOrEmpty(updateDetails?.basic_details?.culture))
-                            _iATSsyncUTS.SaveCultureDetailUnicode(CompanyID ?? 0, updateDetails?.basic_details?.culture, LoggedInUserId);
-                        #endregion
+                            #region Update  Culture With Unicode Characters
+                            if (!string.IsNullOrEmpty(updateDetails?.basic_details?.culture))
+                                _iATSsyncUTS.SaveCultureDetailUnicode(CompanyID ?? 0, updateDetails?.basic_details?.culture, LoggedInUserId);
+                            #endregion
+                        }
 
                     }
 
@@ -1069,6 +1079,9 @@ namespace UTSATSAPI.Controllers
             }
         }
 
+        #endregion
+
+        #region CalendarEvents
         #endregion
 
         #endregion
