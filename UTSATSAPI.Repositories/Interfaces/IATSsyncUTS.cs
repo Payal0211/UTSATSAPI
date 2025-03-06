@@ -38,6 +38,8 @@ namespace UTSATSAPI.Repositories.Interfaces
         Task<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS(string param);
         Task<GenSalesHiringRequest> GetHiringRequestbyNumber(string hiringRequestNumber);
 
+        Task<List<Sproc_CurrencyExchangeRate_Result>> GetCurrencyExchangeRate_Results(string paramString);
+
         #region  Maintain UtsAts logs
         long InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records);
         void UpdateUtsAtsApiDetails(long APIRecordInsertedID, string Message);

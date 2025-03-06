@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Collections;
+using System.Drawing;
 using System.Text;
 using UTSATSAPI.Helpers;
 using UTSATSAPI.Helpers.Common;
@@ -1084,6 +1085,73 @@ namespace UTSATSAPI.Controllers
         #region CalendarEvents
         #endregion
 
+        #region CurrencyTransaction
+
+        [HttpGet("GetCurrency")]
+        public async Task<ObjectResult> GetCurrency()
+        {
+            List<CurrencyExchangeRateViewModel> currencyExchangeRateViewModelsList = new List<CurrencyExchangeRateViewModel>();
+
+            object[] param = new object[] {1,1000,"ID","asc" };
+            string paramasString = CommonLogic.ConvertToParamString(param);
+
+            List<Sproc_CurrencyExchangeRate_Result> varCurrencyExchangeRateList = await _iATSsyncUTS.GetCurrencyExchangeRate_Results(paramasString);
+
+            foreach (var x in varCurrencyExchangeRateList)
+            {
+                CurrencyExchangeRateViewModel currencyExchangeRateViewModels = new CurrencyExchangeRateViewModel();
+                currencyExchangeRateViewModels.ID = x.ID;
+                currencyExchangeRateViewModels.CurrencyCode = x.CurrencyCode;
+                currencyExchangeRateViewModels.CurrencySign = x.CurrencySign;
+                currencyExchangeRateViewModels.ExchangeRate = x.USD_ExchangeRate;
+                currencyExchangeRateViewModels.LastUpdatedDate = Convert.ToDateTime(x.LastUpdatedDate).ToString("dd-MM-yyyy HH:mm:ss");
+                currencyExchangeRateViewModelsList.Add(currencyExchangeRateViewModels);
+            }
+
+            if (currencyExchangeRateViewModelsList.Any())
+            {                
+                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = "Success", Details = currencyExchangeRateViewModelsList });
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "No Currencies Found" });
+            }
+        }
+
+        [HttpGet("GetCurrencyINR")]
+        public async Task<ObjectResult> GetCurrencyINR()
+        {
+            List<CurrencyExchangeRateViewModel> currencyExchangeRateViewModelsList = new List<CurrencyExchangeRateViewModel>();
+
+            object[] param = new object[] { 1, 1000, "ID", "asc" };
+            string paramasString = CommonLogic.ConvertToParamString(param);
+
+            List<Sproc_CurrencyExchangeRate_Result> varCurrencyExchangeRateList = await _iATSsyncUTS.GetCurrencyExchangeRate_Results(paramasString);
+
+            foreach (var x in varCurrencyExchangeRateList)
+            {
+                CurrencyExchangeRateViewModel currencyExchangeRateViewModels = new CurrencyExchangeRateViewModel();
+                currencyExchangeRateViewModels.ID = x.ID;
+                currencyExchangeRateViewModels.CurrencyCode = x.CurrencyCode;
+                currencyExchangeRateViewModels.CurrencySign = x.CurrencySign;
+                currencyExchangeRateViewModels.ExchangeRate = x.ExchangeRate;
+                currencyExchangeRateViewModels.LastUpdatedDate = Convert.ToDateTime(x.LastUpdatedDate).ToString("dd-MM-yyyy HH:mm:ss");
+                currencyExchangeRateViewModelsList.Add(currencyExchangeRateViewModels);
+            }
+
+            if (currencyExchangeRateViewModelsList.Any())
+            {
+                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = "Success", Details = currencyExchangeRateViewModelsList });
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "No Currencies Found" });
+            }
+        }
+
+
+        #endregion
+      
         #endregion
 
         [HttpPost("GetCreditTransaction")]

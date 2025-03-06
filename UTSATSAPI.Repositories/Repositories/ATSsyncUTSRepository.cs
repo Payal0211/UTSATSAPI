@@ -169,6 +169,12 @@ namespace UTSATSAPI.Repositories.Repositories
             return genSalesHiringRequest;
         }
 
+        public async Task<List<Sproc_CurrencyExchangeRate_Result>> GetCurrencyExchangeRate_Results(string paramString)
+        {
+            List<Sproc_CurrencyExchangeRate_Result> varCurrencyExchangeRateList = await db.Set<Sproc_CurrencyExchangeRate_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_CurrencyExchangeRate, paramString)).ToListAsync();
+            return varCurrencyExchangeRateList;
+        }
+
 
         #endregion
 

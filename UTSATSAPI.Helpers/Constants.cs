@@ -63,6 +63,15 @@
             public static string Sproc_Add_Company_Transactions_With_ATS = "Sproc_Add_Company_Transactions_With_ATS";
             #endregion
 
+            #region Matchmaking
+
+            public static string Sproc_Accept_HR = "Sproc_Accept_HR";
+            public static string sproc_Talent_History_Insert = "sproc_Talent_History_Insert";
+            public static string sproc_HiringRequest_History_Insert = "sproc_HiringRequest_History_Insert";
+            public static string sproc_gen_ContactTalentPriorityupdate = "sproc_gen_ContactTalentPriorityupdate";
+
+            #endregion
+
             //#region Schedular
             //public static string Sproc_Get_ListOfHR_For_NewCandidate_Added_Email_ClientPortal = "Sproc_Get_ListOfHR_For_NewCandidate_Added_Email_ClientPortal";
             //public static string Sproc_Get_Credit_Expiry_Email_Notification_ClientPortal = "Sproc_Get_Credit_Expiry_Email_Notification_ClientPortal";
@@ -88,7 +97,7 @@
             //public static string sproc_GetClientHappynessSurveyFeedbackDetailForEmail = "sproc_GetClientHappynessSurveyFeedbackDetailForEmail";
             //public static string sproc_UTS_GetAutoCompleteHubSpotCompanies = "sproc_UTS_GetAutoCompleteHubSpotCompanies";
             //public static string sproc_UTS_GetCompanyDetails = "sproc_UTS_GetCompanyDetails";
-            
+
             //public static string sproc_UTS_GetCompanyDetailsForEdit = "sproc_UTS_GetCompanyDetailsForEditClient";
             //public static string Sproc_AM_Change_For_Company = "Sproc_AM_Change_For_Company";
             //public static string Sp_UTS_PreviewJobPost_ClientPortal = "sp_UTS_PreviewJobPost_ClientPortal";
@@ -293,12 +302,12 @@
             //public static string sproc_UTS_AddUpdateDeleteInterviewerDetails = "sproc_UTS_AddUpdateDeleteInterviewerDetails";
             //#endregion
 
-            //#region Master
+            #region Master
             //public static string Sproc_UTS_Get_PrgSkill_NotusedinMappingtables = "Sproc_UTS_Get_PrgSkill_NotusedinMappingtables";
             //public static string Sproc_prg_TempSkills_Insert = "Sproc_prg_TempSkills_Insert";
             //public static string sproc_GetReportingUsers = "sproc_GetReportingUsers";
             //public static string Sproc_Get_CountryList = "Sproc_Get_CountryList";
-            //public static string Sproc_CurrencyExchangeRate = "Sproc_CurrencyExchangeRate";
+            public static string Sproc_CurrencyExchangeRate = "Sproc_CurrencyExchangeRate";
             //public static string sproc_UpdateCurrencyExchangeRate = "sproc_UpdateCurrencyExchangeRate";
             //public static string sproc_GetUserBy_LeadType = "Sproc_GetUserBy_LeadType";
             //public static string sproc_GetTalentRoles = "sproc_GetTalentRoles";
@@ -306,7 +315,7 @@
             //public static string Sproc_GetContactTimeZone = "Sproc_GetContactTimeZone";
             //public static string Sproc_UTS_GetUserByType = "Sproc_UTS_GetUserByType";
             //public static string Sproc_UTS_GetSalesPerson = "Sproc_UTS_GetSalesPerson";
-            //#endregion
+            #endregion
 
             //#region User
             //public static string sproc_UTS_GetUsers = "sproc_UTS_GetUsers";
@@ -364,7 +373,7 @@
             //public static string Sproc_Get_SLAUpdateDetails_ForEmail = "Sproc_Get_SLAUpdateDetails_ForEmail";
             //public static string Sproc_Get_Latest_ATS_HRStatus_Details_For_Notification = "Sproc_Get_Latest_ATS_HRStatus_Details_For_Notification";
             //public static string sp_UTS_GetStandOutDetails = "sp_UTS_GetStandOutDetails";
-            //public static string Sproc_Accept_HR = "Sproc_Accept_HR";
+            
             //public static string sproc_AssignedPOCToUnAssignedHRs = "sproc_AssignedPOCToUnAssignedHRs";
             //public static string sproc_UTS_GetAllUnAssignedHRs = "sproc_UTS_GetAllUnAssignedHRs";
             //#endregion
@@ -447,7 +456,7 @@
             //public static string Sproc_GET_ALL_HR_Details_For_PHP_API = "Sproc_GET_ALL_HR_Details_For_PHP_API";
             //public static string sproc_GetSkillsAndProficiencyBasedonHR_ForPHPAPI = "sproc_GetSkillsAndProficiencyBasedonHR_ForPHPAPI";
             //#endregion
-             
+
             //#region Talentreplacement
             //public static string Sproc_Get_Hierarchy_For_Email = "Sproc_Get_Hierarchy_For_Email";
             //public static string Sproc_Get_Engagemetns_For_Replacement_BasedOn_LWD_Option = "Sproc_Get_Engagemetns_For_Replacement_BasedOn_LWD_Option";
@@ -628,7 +637,7 @@
             //public static string Sproc_Get_TrackingLead_Details_for_ClientSource = "Sproc_Get_TrackingLead_Details_for_ClientSource";
             //public static string Sproc_Get_JobPostCount_For_UTM_Tracking_Lead = "Sproc_Get_JobPostCount_For_UTM_Tracking_Lead";
             //public static string Sproc_GET_CreditPlanDetails_ClientPortal = "Sproc_GET_CreditPlanDetails_ClientPortal";
-            
+
 
             //#endregion
 

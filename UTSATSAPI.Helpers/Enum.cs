@@ -306,7 +306,7 @@ namespace UTSATSAPI.Helpers
         {
             Sales,
             Client
-        }
+        }        
 
     }
 }
