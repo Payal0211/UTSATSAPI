@@ -328,14 +328,14 @@ namespace UTSATSAPI.Helpers.Common
             }
         }
 
-        public static void DBOperator(UTSATSAPIDBConnection talentConnectContext, object model, EntityState entityState)
+        public static async Task DBOperator(UTSATSAPIDBConnection talentConnectContext, object model, EntityState entityState)
         {
             try
             {
                 if (talentConnectContext != null)
                 {
                     talentConnectContext.Entry(model).State = entityState;
-                    talentConnectContext.SaveChanges();
+                    await talentConnectContext.SaveChangesAsync();
                 }
             }
             catch (Exception)

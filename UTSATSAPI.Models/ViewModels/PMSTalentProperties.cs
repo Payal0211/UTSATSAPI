@@ -315,4 +315,10 @@ namespace UTSATSAPI.Models.ViewModels
             public string enc_id { get; set; }
         }
     }
+
+    public class PMSTalentOutput
+    {
+        public long? TalentId { get; set; }
+        public string? Message { get; set; }
+    }
 }

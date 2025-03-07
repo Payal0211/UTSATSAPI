@@ -63,12 +63,13 @@
             public static string Sproc_Add_Company_Transactions_With_ATS = "Sproc_Add_Company_Transactions_With_ATS";
             #endregion
 
-            #region Matchmaking
+            #region CommonAPI Controller SP's
 
             public static string Sproc_Accept_HR = "Sproc_Accept_HR";
             public static string sproc_Talent_History_Insert = "sproc_Talent_History_Insert";
             public static string sproc_HiringRequest_History_Insert = "sproc_HiringRequest_History_Insert";
             public static string sproc_gen_ContactTalentPriorityupdate = "sproc_gen_ContactTalentPriorityupdate";
+            public static string Sproc_Update_HrStatus_SubStatus_ClientPortal = "Sproc_Update_HrStatus_SubStatus_ClientPortal";
 
             #endregion
 

@@ -19,13 +19,13 @@ namespace UTSATSAPI.Repositories.Repositories
     public class ATSsyncUTSRepository : IATSsyncUTS
     {
         #region Variables
-        private UTSATSAPIDBConnection db;
+        private readonly UTSATSAPIDBConnection db;
         #endregion
 
         #region Constructor
         public ATSsyncUTSRepository(UTSATSAPIDBConnection _db)
         {
-            this.db = _db; 
+            db = _db; 
         }
         #endregion
 
@@ -161,11 +161,7 @@ namespace UTSATSAPI.Repositories.Repositories
 
         public async Task<GenSalesHiringRequest> GetHiringRequestbyNumber(string hiringRequestNumber)
         {
-            GenSalesHiringRequest genSalesHiringRequest = await db.GenSalesHiringRequests.Where(x => x.HrNumber == hiringRequestNumber).FirstOrDefaultAsync();
-            if (genSalesHiringRequest != null)
-            {
-                db.Entry(genSalesHiringRequest).ReloadAsync();
-            }
+            GenSalesHiringRequest? genSalesHiringRequest = await db.GenSalesHiringRequests.Where(x => x.HrNumber == hiringRequestNumber).FirstOrDefaultAsync();            
             return genSalesHiringRequest;
         }
 
@@ -179,7 +175,7 @@ namespace UTSATSAPI.Repositories.Repositories
         #endregion
 
         #region Maintain UtsAts logs
-        public long InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records)
+        public async Task<long> InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records)
         {
             GenUtsAtsApiRecord utsAtsApi_Records = new GenUtsAtsApiRecord();
 
@@ -190,18 +186,18 @@ namespace UTSATSAPI.Repositories.Repositories
             utsAtsApi_Records.CreatedByDateTime = DateTime.Now;
             utsAtsApi_Records.HrId = gen_UtsAtsApi_Records.HrId;
             db.GenUtsAtsApiRecords.Add(utsAtsApi_Records);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return utsAtsApi_Records.Id;
         }
-        public void UpdateUtsAtsApiDetails(long APIRecordInsertedID, string Message)
+        public async Task UpdateUtsAtsApiDetails(long APIRecordInsertedID, string Message)
         {
             #region Update record in gen_UtsAts_Records
-            GenUtsAtsApiRecord utsAtsApi_Records = db.GenUtsAtsApiRecords.Where(x => x.Id == APIRecordInsertedID).FirstOrDefault();
+            GenUtsAtsApiRecord? utsAtsApi_Records = await db.GenUtsAtsApiRecords.Where(x => x.Id == APIRecordInsertedID).FirstOrDefaultAsync();
             if (utsAtsApi_Records != null)
             {
                 utsAtsApi_Records.ResponseReceived = Message;
-                CommonLogic.DBOperator(db, utsAtsApi_Records, EntityState.Modified);
+                await CommonLogic.DBOperator(db, utsAtsApi_Records, EntityState.Modified);
             }
             #endregion
         }

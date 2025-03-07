@@ -68,7 +68,7 @@
         }
 
 
-        public string SendEmailForHRDeleteToInternalTeam(GenSalesHiringRequest? _SalesHiringRequest, string? userName, string? talentEmail)
+        public async Task<string> SendEmailForHRDeleteToInternalTeam(GenSalesHiringRequest? _SalesHiringRequest, string? userName, string? talentEmail)
         {
             try
             {
@@ -78,13 +78,13 @@
                 if (_SalesHiringRequest != null)
                 {
                     var ContactId = _SalesHiringRequest.ContactId;
-                    GenContact contact = _UTSATSAPIDBContext.GenContacts.Where(x => x.Id == ContactId).FirstOrDefault();
+                    GenContact? contact = await _UTSATSAPIDBContext.GenContacts.Where(x => x.Id == ContactId).FirstOrDefaultAsync();
 
                     if (contact != null)
                     {
                         ClientName = contact.FullName;
                         ClientEmail = contact.EmailId;
-                        GenCompany company = _UTSATSAPIDBContext.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefault();
+                        GenCompany? company = await _UTSATSAPIDBContext.GenCompanies.Where(x => x.Id == contact.CompanyId).FirstOrDefaultAsync();
 
                         if (company != null)
                         {

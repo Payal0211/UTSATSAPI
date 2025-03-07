@@ -40,9 +40,9 @@ namespace UTSATSAPI.Repositories.Interfaces
 
         Task<List<Sproc_CurrencyExchangeRate_Result>> GetCurrencyExchangeRate_Results(string paramString);
 
-        #region  Maintain UtsAts logs
-        long InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records);
-        void UpdateUtsAtsApiDetails(long APIRecordInsertedID, string Message);
+        #region Maintain UtsAts logs
+        Task<long> InsertUtsAtsApiDetails(GenUtsAtsApiRecord gen_UtsAtsApi_Records);
+        Task UpdateUtsAtsApiDetails(long APIRecordInsertedID, string Message);
         #endregion
     }
 }

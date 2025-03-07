@@ -23,7 +23,7 @@ namespace UTSATSAPI.Controllers
 
     [ApiController]
     [Route("ATSsyncUTS/")]
-    [ApiKeyCustom("X-API-KEY", "QXBpS2V5TWlkZGxld2FyZQ==")]
+    [CustomAuthorize("X-API-KEY", "QXBpS2V5TWlkZGxld2FyZQ==")]
 
     public class ATSsyncUTSController : ControllerBase
     {
@@ -78,7 +78,7 @@ namespace UTSATSAPI.Controllers
                     HrId = model.HrId
                 };
 
-                APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
+                APIRecordInsertedID = await _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
 
                 #region Download file from AWS Server & upload to UTS server
@@ -120,12 +120,12 @@ namespace UTSATSAPI.Controllers
                 catch (AmazonS3Exception ex)
                 {
                     Message += "[Error downloading file:" + ex.Message.ToString() + "]";
-                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 catch (Exception ex)
                 {
                     Message += "[" + ex.Message.ToString() + "]";
-                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 #endregion
 
@@ -204,18 +204,18 @@ namespace UTSATSAPI.Controllers
                 };
 
                 string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                _db.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTSAdmin_EditHrByATS, paramString));
+                await _db.Database.ExecuteSqlRawAsync(String.Format("{0} {1}", Constants.ProcConstant.Sproc_UTSAdmin_EditHrByATS, paramString));
 
                 #endregion
 
                 Message += "[Hiring request updated successfully by ATS]";
-                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
             }
             catch (Exception ex)
             {
                 Message += "[" + ex.Message.ToString() + "]";
-                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
                 throw;
             }
@@ -247,7 +247,7 @@ namespace UTSATSAPI.Controllers
                     HrId = model.hiring_request_id
                 };
 
-                APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
+                APIRecordInsertedID = await _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
 
                 #region Download file from AWS Server & upload to UTS server
@@ -289,12 +289,12 @@ namespace UTSATSAPI.Controllers
                 catch (AmazonS3Exception ex)
                 {
                     Message += "[Error downloading file:" + ex.Message.ToString() + "]";
-                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 catch (Exception ex)
                 {
                     Message += "[" + ex.Message.ToString() + "]";
-                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                    await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 }
                 #endregion
 
@@ -518,7 +518,7 @@ namespace UTSATSAPI.Controllers
                     #endregion
                 }
 
-                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
 
                 HRUpdateReponse hRUpdateReponse = new HRUpdateReponse();
                 hRUpdateReponse.hiring_request_id = model?.hiring_request_id;
@@ -530,7 +530,7 @@ namespace UTSATSAPI.Controllers
             catch (Exception ex)
             {
                 Message += string.Format("[{0}]", ex.Message.ToString());
-                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
                 throw;
             }
@@ -642,7 +642,7 @@ namespace UTSATSAPI.Controllers
                     HrId = 0
                 };
 
-                APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
+                APIRecordInsertedID = await _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion
 
                 #region Variable Assignment
@@ -984,7 +984,7 @@ namespace UTSATSAPI.Controllers
                 try
                 {
                     string ResponseJsonData = JsonConvert.SerializeObject(summary_details);
-                    _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, ResponseJsonData);
+                    await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, ResponseJsonData);
                 }
                 catch (Exception)
                 {
@@ -1046,7 +1046,7 @@ namespace UTSATSAPI.Controllers
                     HrId = hrId
                 };
 
-                APIRecordInsertedID = _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
+                APIRecordInsertedID = await _iATSsyncUTS.InsertUtsAtsApiDetails(utsAtsApi_Records);
                 #endregion               
 
                 #region SP call
@@ -1059,101 +1059,33 @@ namespace UTSATSAPI.Controllers
                 };
 
                 string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                _db.Database.ExecuteSqlRaw(String.Format("{0} {1}", Constants.ProcConstant.Sproc_RemoveMatchmakeTalentFromUTSViaATS, paramString));
+                await _db.Database.ExecuteSqlRawAsync(String.Format("{0} {1}", Constants.ProcConstant.Sproc_RemoveMatchmakeTalentFromUTSViaATS, paramString));
 
                 #endregion
 
                 #region Emails
 
                 EmailBinder emailBinder = new EmailBinder(_configuration, _db);
-                emailBinder.SendEmailForHRDeleteToInternalTeam(genSalesHiringRequest,model?.ActionDoneBy, model?.TalentEmail);
+                await emailBinder.SendEmailForHRDeleteToInternalTeam(genSalesHiringRequest, model?.ActionDoneBy, model?.TalentEmail);
 
                 #endregion
 
                 Message += "[Talent removed successfully by ATS]";
-                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
                 return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
             }
             catch (Exception ex)
             {
                 Message += "[" + ex.Message.ToString() + "]";
-                _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
-                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });
-                throw;
+                await _iATSsyncUTS.UpdateUtsAtsApiDetails(APIRecordInsertedID, Message);
+                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = Message });                
             }
         }
 
         #endregion
 
         #region CalendarEvents
-        #endregion
-
-        #region CurrencyTransaction
-
-        [HttpGet("GetCurrency")]
-        public async Task<ObjectResult> GetCurrency()
-        {
-            List<CurrencyExchangeRateViewModel> currencyExchangeRateViewModelsList = new List<CurrencyExchangeRateViewModel>();
-
-            object[] param = new object[] {1,1000,"ID","asc" };
-            string paramasString = CommonLogic.ConvertToParamString(param);
-
-            List<Sproc_CurrencyExchangeRate_Result> varCurrencyExchangeRateList = await _iATSsyncUTS.GetCurrencyExchangeRate_Results(paramasString);
-
-            foreach (var x in varCurrencyExchangeRateList)
-            {
-                CurrencyExchangeRateViewModel currencyExchangeRateViewModels = new CurrencyExchangeRateViewModel();
-                currencyExchangeRateViewModels.ID = x.ID;
-                currencyExchangeRateViewModels.CurrencyCode = x.CurrencyCode;
-                currencyExchangeRateViewModels.CurrencySign = x.CurrencySign;
-                currencyExchangeRateViewModels.ExchangeRate = x.USD_ExchangeRate;
-                currencyExchangeRateViewModels.LastUpdatedDate = Convert.ToDateTime(x.LastUpdatedDate).ToString("dd-MM-yyyy HH:mm:ss");
-                currencyExchangeRateViewModelsList.Add(currencyExchangeRateViewModels);
-            }
-
-            if (currencyExchangeRateViewModelsList.Any())
-            {                
-                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = "Success", Details = currencyExchangeRateViewModelsList });
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "No Currencies Found" });
-            }
-        }
-
-        [HttpGet("GetCurrencyINR")]
-        public async Task<ObjectResult> GetCurrencyINR()
-        {
-            List<CurrencyExchangeRateViewModel> currencyExchangeRateViewModelsList = new List<CurrencyExchangeRateViewModel>();
-
-            object[] param = new object[] { 1, 1000, "ID", "asc" };
-            string paramasString = CommonLogic.ConvertToParamString(param);
-
-            List<Sproc_CurrencyExchangeRate_Result> varCurrencyExchangeRateList = await _iATSsyncUTS.GetCurrencyExchangeRate_Results(paramasString);
-
-            foreach (var x in varCurrencyExchangeRateList)
-            {
-                CurrencyExchangeRateViewModel currencyExchangeRateViewModels = new CurrencyExchangeRateViewModel();
-                currencyExchangeRateViewModels.ID = x.ID;
-                currencyExchangeRateViewModels.CurrencyCode = x.CurrencyCode;
-                currencyExchangeRateViewModels.CurrencySign = x.CurrencySign;
-                currencyExchangeRateViewModels.ExchangeRate = x.ExchangeRate;
-                currencyExchangeRateViewModels.LastUpdatedDate = Convert.ToDateTime(x.LastUpdatedDate).ToString("dd-MM-yyyy HH:mm:ss");
-                currencyExchangeRateViewModelsList.Add(currencyExchangeRateViewModels);
-            }
-
-            if (currencyExchangeRateViewModelsList.Any())
-            {
-                return StatusCode(StatusCodes.Status200OK, new ResponseObject() { statusCode = StatusCodes.Status200OK, Message = "Success", Details = currencyExchangeRateViewModelsList });
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, new ResponseObject() { statusCode = StatusCodes.Status400BadRequest, Message = "No Currencies Found" });
-            }
-        }
-
-
-        #endregion
+        #endregion        
       
         #endregion
 

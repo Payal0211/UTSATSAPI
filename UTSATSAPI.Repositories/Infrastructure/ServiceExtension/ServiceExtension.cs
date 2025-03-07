@@ -19,14 +19,24 @@ namespace UTSATSAPI.Repositories.Infrastructure.ServiceExtension
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUniversalProcRunner, UniversalProcRunnerRepository>();
 
-            services.AddDbContextPool<UTSATSAPIDBConnection>(options =>
+            //services.AddDbContextPool<UTSATSAPIDBConnection>(options =>
+            //{
+            //    options.UseSqlServer(configuration.GetConnectionString("UTSATSAPIDBConnection"), 
+            //        sqlOptions => sqlOptions.CommandTimeout(120)
+            //    );
+            //});
+
+            //services.AddDbContext<UTSATSAPIDBConnection>(ServiceLifetime.Transient);
+
+
+            services.AddDbContext<UTSATSAPIDBConnection>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("UTSATSAPIDBConnection"), 
+                options.UseSqlServer(configuration.GetConnectionString("UTSATSAPIDBConnection"),
                     sqlOptions => sqlOptions.CommandTimeout(120)
                 );
-            });
+            }, ServiceLifetime.Scoped);
 
-            services.AddDbContext<UTSATSAPIDBConnection>(ServiceLifetime.Transient);
+
             services.AddDbContext<InMemoryDbContext>(ServiceLifetime.Scoped,ServiceLifetime.Scoped);
             
             services.AddTransient<IUnitOfWork, UnitOfWork>();
