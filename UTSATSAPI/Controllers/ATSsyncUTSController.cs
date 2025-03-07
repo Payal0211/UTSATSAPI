@@ -8,8 +8,10 @@ using Newtonsoft.Json;
 using System.Collections;
 using System.Drawing;
 using System.Text;
+using UTSATSAPI.Attributes;
 using UTSATSAPI.Helpers;
 using UTSATSAPI.Helpers.Common;
+using UTSATSAPI.Middlewares;
 using UTSATSAPI.Models.ComplexTypes;
 using UTSATSAPI.Models.Models;
 using UTSATSAPI.Models.ViewModels;
@@ -21,6 +23,7 @@ namespace UTSATSAPI.Controllers
 
     [ApiController]
     [Route("ATSsyncUTS/")]
+    [ApiKeyCustom("X-API-KEY", "QXBpS2V5TWlkZGxld2FyZQ==")]
 
     public class ATSsyncUTSController : ControllerBase
     {

@@ -11,7 +11,7 @@ namespace UTSATSAPI.Attributes
             if (!context.HttpContext.Request.Headers.TryGetValue(ApiKey, out var apiKeyVal))
             {
                 context.HttpContext.Response.StatusCode = 401;
-                await context.HttpContext.Response.WriteAsync("Api Key not found!");
+                await context.HttpContext.Response.WriteAsync("Api Key not found from Attribute!");
             }
 
             var appSettings = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();

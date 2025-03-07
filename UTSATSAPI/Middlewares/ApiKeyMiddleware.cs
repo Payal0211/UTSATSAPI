@@ -15,7 +15,7 @@
             if (!context.Request.Headers.TryGetValue(ApiKey, out var apiKeyVal))
             {
                 context.Response.StatusCode = 401;
-                await context.Response.WriteAsync("Api Key not found!");
+                await context.Response.WriteAsync("Api Key not found from Middleware!");
             }
 
             var appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
