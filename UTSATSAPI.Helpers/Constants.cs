@@ -61,6 +61,7 @@
             public static string Sproc_EmailHRTypeChanged = "Sproc_EmailHRTypeChanged";
             public static string Sproc_Get_Candidate_Details_For_Job = "Sproc_Get_Candidate_Details_For_Job";
             public static string Sproc_Add_Company_Transactions_With_ATS = "Sproc_Add_Company_Transactions_With_ATS";
+            public static string sp_UTS_get_PasswordData = "sp_UTS_get_PasswordData";
             #endregion
 
             #region CommonAPI Controller SP's
@@ -70,6 +71,7 @@
             public static string sproc_HiringRequest_History_Insert = "sproc_HiringRequest_History_Insert";
             public static string sproc_gen_ContactTalentPriorityupdate = "sproc_gen_ContactTalentPriorityupdate";
             public static string Sproc_Update_HrStatus_SubStatus_ClientPortal = "Sproc_Update_HrStatus_SubStatus_ClientPortal";
+            public static string sproc_UpdateTalentAcceptanceDetailsFromATS = "sproc_UpdateTalentAcceptanceDetailsFromATS";
 
             #endregion
 

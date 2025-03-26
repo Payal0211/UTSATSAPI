@@ -389,16 +389,8 @@ namespace UTSATSAPI.Models.Models
         public virtual DbSet<Sproc_Add_Company_Transactions_With_ATS_Result> Sproc_Add_Company_Transactions_With_ATS_Result { get; set; } = null!;
         public virtual DbSet<Sproc_UTS_AddEdit_ATSHR_Result> Sproc_UTS_AddEdit_ATSHR_Result { get; set; } = null!;
         public virtual DbSet<Sproc_CurrencyExchangeRate_Result> Sproc_CurrencyExchangeRate_Result { get; set; } = null!;
-
-        //public virtual DbSet<sproc_ViewAllUnAssignedHRs_Result> Sproc_ViewAllUnAssignedHRs_Results { get; set; } = null!;
-
-        //public virtual DbSet<sproc_UTS_InsertContactTalentPriority> sproc_UTS_InsertContactTalentPriority { get; set; } = null!;
-
-        //public virtual DbSet<Sproc_Get_UTS_TrackingLeadDetails_Result> Sproc_Get_UTS_TrackingLeadDetails_Result { get; set; } = null!;
-        //public virtual DbSet<Sproc_Get_TrackingLead_Details_for_ClientSource_Result> Sproc_Get_TrackingLead_Details_for_ClientSource_Result { get; set; } = null!;
-
-        //public virtual DbSet<Sproc_HR_POC_ClientPortal_Result> Sproc_HR_POC_ClientPortal_Result { get; set; } = null!;
-
+        public virtual DbSet<sp_UTS_get_PasswordData_Result> sp_UTS_get_PasswordData_Result { get; set; } = null!;
+       
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

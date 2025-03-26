@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Mail;
 using UTSATSAPI.Helpers.Common;
 using Amazon;
+using UTSATSAPI.Models.Models;
+using UTSATSAPI.Models.ComplexTypes;
+using Microsoft.EntityFrameworkCore;
 
 namespace UTSATSAPI.Helpers
 {
@@ -17,6 +20,8 @@ namespace UTSATSAPI.Helpers
         private bool exceptionEmailNameHasComma = false;
         private static MailMessage mailMessage;
         private static SmtpClient smtpClient;
+
+        UTSATSAPIDBConnection _UTSATSAPIDBContext;
         private string awsAccessKeyId { get; set; }
         private string awsSecretAccessKey { get; set; }
         private string environment { get; set; }
@@ -52,14 +57,17 @@ namespace UTSATSAPI.Helpers
         #endregion
 
         #region Constructor
-        public EmailOperator(IConfiguration configuration)
+        public EmailOperator(IConfiguration configuration, UTSATSAPIDBConnection UTSATSAPIDBContext)
         {
             _configuration = configuration;
+            _UTSATSAPIDBContext = UTSATSAPIDBContext;
+
             ccEmails = _configuration["app_settings:CCEmailId"].ToString();
             ccNames = _configuration["app_settings:CCEmailName"].ToString();
 
             smtpEmailName = _configuration["app_settings:SMTPEmailName"].ToString();
-            smtpPasswordName = _configuration["app_settings:SMTPPasswordName"].ToString();
+            // To-do take password from DB
+            smtpPasswordName = GetPasswordByKey(smtpEmailName); // _configuration["app_settings:SMTPPasswordName"].ToString();
             smtpClientName = _configuration["app_settings:SMTPClientName"].ToString();
             smtpSSLName = Convert.ToBoolean(_configuration["app_settings:SMTPSSLName"].ToString());
             smtpPortName = Convert.ToInt16(_configuration["app_settings:SMTPPortName"].ToString());
@@ -721,6 +729,23 @@ namespace UTSATSAPI.Helpers
             {
 
             }
+        }
+        #endregion
+
+        #region Database Calls
+        private string GetPasswordByKey(string key)
+        {
+            object[] param = new object[] { key };
+
+            string paramasString = CommonLogic.ConvertToParamString(param);
+
+            sp_UTS_get_PasswordData_Result? data = _UTSATSAPIDBContext.Set<sp_UTS_get_PasswordData_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.sp_UTS_get_PasswordData, paramasString)).AsEnumerable().FirstOrDefault();
+
+            if (data != null)
+            {
+                return data.Value ?? "";
+            }
+            return "";
         }
         #endregion
     }

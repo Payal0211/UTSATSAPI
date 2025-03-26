@@ -111,18 +111,21 @@ namespace UTSATSAPI.Controllers
                     }
                 }
 
-                if (varSalesHiringRequest != null && !Convert.ToBoolean(varSalesHiringRequest.IsAccepted))
+                if (varSalesHiringRequest != null)
                 {
-                    object[] param = new object[]
+                    if (!Convert.ToBoolean(varSalesHiringRequest.IsAccepted))
                     {
-                       reverseMatchmakingViewModel.HRID,
-                       1,
-                       LoggedInUserID,
-                       "HR Auto Accept"
-                    };
+                        object[] param = new object[]
+                        {
+                           reverseMatchmakingViewModel.HRID,
+                           1,
+                           LoggedInUserID,
+                           "HR Auto Accept"
+                        };
 
-                    string paramString = CommonLogic.ConvertToParamStringWithNull(param);
-                    await _dbContext.Database.ExecuteSqlRawAsync(String.Format("{0} {1}", Constants.ProcConstant.Sproc_Accept_HR, paramString));
+                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                        await _dbContext.Database.ExecuteSqlRawAsync(String.Format("{0} {1}", Constants.ProcConstant.Sproc_Accept_HR, paramString));
+                    }
 
                     result = await InsertReverseMatchmakingAsync(reverseMatchmakingViewModel);
                 }
@@ -206,7 +209,7 @@ namespace UTSATSAPI.Controllers
             _dbContext.GenTalents.Update(talent);
             await _dbContext.SaveChangesAsync();
 
-            InsertHistoryForTalent(Action_Of_TalentHistory.Talent_Status_Selected, talent.Id, false, userRequest?.Id ?? atsUserId, reverseMatchmakingViewModel.HRID);
+            await InsertHistoryForTalent(Action_Of_TalentHistory.Talent_Status_Selected, talent.Id, false, userRequest?.Id ?? atsUserId, reverseMatchmakingViewModel.HRID);
 
             var contactTalentPriority = await _dbContext.GenContactTalentPriorities
                 .AsNoTracking()
@@ -256,9 +259,114 @@ namespace UTSATSAPI.Controllers
                 await _dbContext.SaveChangesAsync();
             }
 
-            InsertHistoryForTalent(Action_Of_TalentHistory.ATS_ReverseMatchMaking, talent.Id, false, userRequest?.Id ?? atsUserId, reverseMatchmakingViewModel.HRID);
+            await InsertHistoryForTalent(Action_Of_TalentHistory.ATS_ReverseMatchMaking, talent.Id, false, userRequest?.Id ?? atsUserId, reverseMatchmakingViewModel.HRID);
+
+            var RM_TalentData = await _dbContext.GenContactTalentPriorities
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.TalentId == talent.Id && x.HiringRequestId == reverseMatchmakingViewModel.HRID);
+
+            if (RM_TalentData == null)
+            {
+                return "Error";
+            }
+            else
+            {
+                long varEmpID = 0, utsTalentId = 0;
+                var talentObj = await _dbContext.GenTalents
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.AtsTalentId == reverseMatchmakingViewModel.ATS_TalentID);
+
+                var hiringRequestObj = await _dbContext.GenSalesHiringRequests
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.Id == reverseMatchmakingViewModel.HRID);
+
+                var hiringRequestDetailObj = await _dbContext.GenSalesHiringRequestDetails
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.HiringRequestId == hiringRequestObj.Id);
+
+                if (!string.IsNullOrEmpty(reverseMatchmakingViewModel.CreatedByID))
+                {
+                    var varUsrUser = await _dbContext.UsrUsers
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(x => x.EmployeeId == reverseMatchmakingViewModel.CreatedByID);
+
+                    if (varUsrUser == null)
+                    {
+                        var varUsrUserDarshanID = await _dbContext.UsrUsers
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(x => x.EmployeeId == "UP0012");
+
+                        if (varUsrUserDarshanID != null)
+                        {
+                            varEmpID = varUsrUserDarshanID.Id;
+                        }
+                    }
+                    else
+                    {
+                        varEmpID = varUsrUser.Id;
+                    }
+                }
+                else
+                {
+                    varEmpID = talentObj.Id;
+                    utsTalentId = talentObj.Id;
+                }
+
+                var contactTalentPriorityObj = await _dbContext.GenContactTalentPriorities
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.HiringRequestId == hiringRequestObj.Id && x.HiringRequestDetailId == hiringRequestDetailObj.Id && x.TalentId == talentObj.Id);
+
+                if (hiringRequestDetailObj != null && contactTalentPriorityObj != null)
+                {
+                    var shortListedTalentObj = await _dbContext.GenShortlistedTalents
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(x => x.TalentId == talentObj.Id && x.HiringRequestId == hiringRequestObj.Id && x.HiringRequestDetailId == hiringRequestDetailObj.Id);
+
+                    if (shortListedTalentObj != null)
+                    {
+                        object[] param = new object[]
+                        {
+                            shortListedTalentObj.Id,
+                            talentObj.Id,
+                            contactTalentPriorityObj.Id,
+                            hiringRequestDetailObj.Id,
+                            reverseMatchmakingViewModel.shift,
+                            reverseMatchmakingViewModel.availibility,
+                            reverseMatchmakingViewModel.notice
+                        };
+
+                        string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+                        await _dbContext.Database.ExecuteSqlRawAsync(String.Format("{0} {1}", Constants.ProcConstant.sproc_UpdateTalentAcceptanceDetailsFromATS, paramString));
+
+                        // Insert history for hiring request
+                        var history = new HiringRequestInsertHistoryModel
+                        {
+                            HiringRequestId = shortListedTalentObj.HiringRequestId.Value,
+                            TalentId = shortListedTalentObj.TalentId.Value,
+                            LoggedInUserId = varEmpID,
+                            HRAcceptedDateTime = DateTime.UtcNow.ToString("MM-dd-yyyy HH:mm:ss"),
+                            IsManagedByTalent = utsTalentId > 0
+                        };
+
+                        await InsertHistoryForHiringRequest(history, Action_Of_History.HRPost_Acceptance, AppActionDoneBy.ATS);                      
+
+                        var historyEntry2 = new HiringRequestInsertHistoryModel
+                        {  
+                            HiringRequestId = hiringRequestObj.Id,
+                            TalentId = talentObj.Id,
+                            LoggedInUserId = varEmpID,
+                            ContactTalentPriorityId = contactTalentPriorityObj.Id
+                        };
+
+                        await InsertHistoryForHiringRequest(historyEntry2, Action_Of_History.Profile_Waiting_For_Feedback, AppActionDoneBy.ATS);
+
+                        return "Success";
+                    }
+                }
+            }
+
             return "Success";
-        }
+        } 
 
         #endregion
 
@@ -421,7 +529,7 @@ namespace UTSATSAPI.Controllers
                     ContactTalentPriorityId = gen_ContactTalent.Id
                 };
 
-                InsertHistoryForHiringRequest(history, Action_Of_History.Talent_Fees_Update, AppActionDoneBy.ATS);
+                await InsertHistoryForHiringRequest(history, Action_Of_History.Talent_Fees_Update, AppActionDoneBy.ATS);
 
                 return "Success";
             }
@@ -801,7 +909,7 @@ namespace UTSATSAPI.Controllers
                     TalentID = PMS_TalentInsertedID;
 
                     //Insert History for Talent : Added By Rinku
-                    InsertHistoryForTalent(Action_Of_TalentHistory.ATS_OnBoardingActive, PMS_TalentInsertedID, false, Convert.ToInt64(_PMSTalent.CreatedById), 0);
+                    await InsertHistoryForTalent(Action_Of_TalentHistory.ATS_OnBoardingActive, PMS_TalentInsertedID, false, Convert.ToInt64(_PMSTalent.CreatedById), 0);
 
                     #region Insert POC Data in gen_TalentPointofContact Table
                     GenTalentPointofContact _TalentPointofContact = new GenTalentPointofContact();
@@ -1284,16 +1392,38 @@ namespace UTSATSAPI.Controllers
                 await _dbContext.SaveChangesAsync();
             }
         }
-        private void InsertHistoryForTalent(Action_Of_TalentHistory action_Of_TalentHistory, long TalentID, bool IsTalent, long LoggedInUserId, long HiringRequestId)
+        private async Task InsertHistoryForTalent(Action_Of_TalentHistory action_Of_TalentHistory, long TalentID, bool IsTalent, long LoggedInUserId, long HiringRequestId)
         {
-            string sql = string.Format(Constants.ProcConstant.sproc_Talent_History_Insert, action_Of_TalentHistory, TalentID, IsTalent, LoggedInUserId, HiringRequestId);
+            object[] param = new object[]
+            {
+                action_Of_TalentHistory, TalentID, IsTalent, LoggedInUserId, HiringRequestId
+            };
 
-            _dbContext.Database.ExecuteSqlRawAsync(sql);
+            string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+            await _dbContext.Database.ExecuteSqlRawAsync(String.Format("{0} {1}", Constants.ProcConstant.sproc_Talent_History_Insert, paramString));
         }
-        private void InsertHistoryForHiringRequest(HiringRequestInsertHistoryModel model, Action_Of_History action_Of_History, AppActionDoneBy appActionDoneBy)
-        {
-            string sql = string.Format(Constants.ProcConstant.sproc_HiringRequest_History_Insert, action_Of_History, model.HiringRequestId, model.TalentId, model.CreatedFrom, model.LoggedInUserId, model.ContactTalentPriorityId, model.InterviewMasterId, model.HRAcceptedDateTime, model.OnBoardId, model.IsManagedByClient, model.IsManagedByTalent, model.SalesUserId, model.OldSalesUserId, (int)appActionDoneBy);
-            _dbContext.Database.ExecuteSqlRawAsync(sql);
+        private async Task InsertHistoryForHiringRequest(HiringRequestInsertHistoryModel model, Action_Of_History action_Of_History, AppActionDoneBy appActionDoneBy)
+        {           
+            object[] param = new object[]
+            {
+                action_Of_History, 
+                model.HiringRequestId, 
+                model.TalentId, 
+                model.CreatedFrom, 
+                model.LoggedInUserId, 
+                model.ContactTalentPriorityId, 
+                model.InterviewMasterId, 
+                model.HRAcceptedDateTime, 
+                model.OnBoardId, 
+                model.IsManagedByClient, 
+                model.IsManagedByTalent, 
+                model.SalesUserId, 
+                model.OldSalesUserId, 
+                (int)appActionDoneBy
+            };
+
+            string paramString = CommonLogic.ConvertToParamStringWithNull(param);
+            await _dbContext.Database.ExecuteSqlRawAsync(String.Format("{0} {1}", Constants.ProcConstant.sproc_HiringRequest_History_Insert, paramString));
         }
     }
 }

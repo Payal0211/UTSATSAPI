@@ -54,7 +54,7 @@
 
         public void BindEmailForError(List<string> toEmail, List<string> toEmailName, string subject, string body = "")
         {
-            EmailOperator emailOperator = new EmailOperator(_configuration);
+            EmailOperator emailOperator = new EmailOperator(_configuration, _UTSATSAPIDBContext);
 
             #region SetParam
             emailOperator.SetToEmail(toEmail);
@@ -122,7 +122,7 @@
                     sbBody.Append("</div>");
 
                     #region Variable
-                    EmailOperator emailOperator = new EmailOperator(_configuration);
+                    EmailOperator emailOperator = new EmailOperator(_configuration, _UTSATSAPIDBContext);
                     #endregion
 
                     emailOperator.SetToEmailWithComma(ccEmail, ccEmailName);
