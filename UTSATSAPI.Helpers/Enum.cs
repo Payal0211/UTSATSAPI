@@ -306,7 +306,18 @@ namespace UTSATSAPI.Helpers
         {
             Sales,
             Client
-        }        
+        }
+
+        public enum Action_Of_Company_History
+        {
+            Create_Company,
+            Update_Company,
+            Update_Company_Details_From_Preview,
+            Send_Resend_Invite,
+            Added_New_Client,
+            Added_New_Client_Update,
+            Update_Client
+        }
 
     }
 }

@@ -390,6 +390,7 @@ namespace UTSATSAPI.Models.Models
         public virtual DbSet<Sproc_UTS_AddEdit_ATSHR_Result> Sproc_UTS_AddEdit_ATSHR_Result { get; set; } = null!;
         public virtual DbSet<Sproc_CurrencyExchangeRate_Result> Sproc_CurrencyExchangeRate_Result { get; set; } = null!;
         public virtual DbSet<sp_UTS_get_PasswordData_Result> sp_UTS_get_PasswordData_Result { get; set; } = null!;
+        public virtual DbSet<Sproc_Insert_CompanyActionHistory_Result> Sproc_Insert_CompanyActionHistory_Result { get; set; } = null!;
        
         #endregion
 

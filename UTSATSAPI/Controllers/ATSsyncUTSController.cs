@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+using DocumentFormat.OpenXml.ExtendedProperties;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,7 @@ namespace UTSATSAPI.Controllers
 
         #region Public Methods
 
+        // For PPJ but we do not have that so this region of no use, ATS is calling this but we are not inserting in our DB.
         #region Add/Edit HR
 
         [HttpPost("EditHRThroughATS")]
@@ -588,6 +590,7 @@ namespace UTSATSAPI.Controllers
         }
         #endregion
 
+        // Now new companies added in ATS are not reflected in UTS, only Edit method used
         #region Add/Edit Company
 
         [HttpPost("AddEditCompanyThroughATS")]
@@ -742,6 +745,29 @@ namespace UTSATSAPI.Controllers
                 // If new company is coming for insertion from ATS then stop the insertion else allow.
                 if (CompanyID > 0)
                 {
+                    #region Maintain Company History
+
+                    string actionName = Action_Of_Company_History.Update_Company.ToString();                  
+
+                    object[] companyHistoryParam = new object[]
+                    {
+                        actionName,
+                        CompanyID,
+                        null,
+                        LoggedInUserId,
+                        null,
+                        null,
+                        null,
+                        null,
+                        (short)AppActionDoneBy.ATS
+                    };
+
+                    string companyHistoryParamString = CommonLogic.ConvertToParamStringWithNull(companyHistoryParam);
+
+                    long companyHistoryInsertedID = _iATSsyncUTS.Sproc_Insert_CompanyActionHistory(companyHistoryParamString);
+
+
+                    #endregion
 
                     #region 2) Update Funding Details -- Sproc_Add_Company_Funding_Details
 
@@ -971,6 +997,21 @@ namespace UTSATSAPI.Controllers
                     }
                     #endregion
 
+                    #region 11) Save History Data in table
+
+                    object[] historyParam = new object[]
+                    {
+                       CompanyID,
+                       (short)AppActionDoneBy.ATS,
+                       companyHistoryInsertedID
+                    };
+
+                    string historyParamString = CommonLogic.ConvertToParamStringWithNull(historyParam);
+
+                    _iATSsyncUTS.InsertCompanyHistory(historyParamString);
+
+                    #endregion
+
                 }
 
                 #region return summary object
@@ -1001,10 +1042,12 @@ namespace UTSATSAPI.Controllers
 
         #endregion
 
+        // Now new companies added in ATS are not reflected in UTS, so this region of no use
         #region CreditTransaction
 
         #endregion
 
+        // Delete a specific talent from a specific HR.
         #region DeleteTalents
 
         [HttpPost("RemoveTalentsFromUTSViaATS")]

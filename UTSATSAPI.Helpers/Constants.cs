@@ -55,6 +55,9 @@
 
             public static string Sproc_Update_Company_HiringTypePricing = "Sproc_Update_Company_HiringTypePricing";
             public static string Sproc_Get_Company_HiringTypePricing = "Sproc_Get_Company_HiringTypePricing";
+
+            public static string SPROC_Gen_Company_History = "SPROC_Gen_Company_History";
+            public static string Sproc_Insert_CompanyActionHistory = "Sproc_Insert_CompanyActionHistory";
             #endregion
 
             #region Email

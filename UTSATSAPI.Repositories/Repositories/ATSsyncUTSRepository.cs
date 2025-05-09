@@ -171,6 +171,24 @@ namespace UTSATSAPI.Repositories.Repositories
             return varCurrencyExchangeRateList;
         }
 
+        public long Sproc_Insert_CompanyActionHistory(string paramstring)
+        {
+            Sproc_Insert_CompanyActionHistory_Result result = db.Set<Sproc_Insert_CompanyActionHistory_Result>().FromSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.Sproc_Insert_CompanyActionHistory, paramstring)).AsEnumerable().FirstOrDefault();
+            if (result != null)
+            {
+                return result.InsertedID;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public void InsertCompanyHistory(string paramstring)
+        {
+            db.Database.ExecuteSqlRaw(string.Format("{0} {1}", Constants.ProcConstant.SPROC_Gen_Company_History, paramstring));
+        }
+
 
         #endregion
 
