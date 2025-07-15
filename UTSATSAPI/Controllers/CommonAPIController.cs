@@ -49,7 +49,7 @@ namespace UTSATSAPI.Controllers
             string projectUrlApi = _iConfiguration["ProjectURL_API"];
             string endPoint = projectUrlApi + "ReverseMatchmaking";
             string result = string.Empty;
-            string GspacePayload= string.Empty
+            string GspacePayload = string.Empty;
 
             try
             {
@@ -158,7 +158,8 @@ namespace UTSATSAPI.Controllers
                                StringBuilder sb = new();
                 sb.Append("ATS to UTS ReverseMatchmaking,\\n");
                 sb.Append("*To URL:* " + endPoint + "\\n");
-                sb.Append("*Payload:* " + GspacePayload + "\\n");  
+                sb.Append("*Payload:* " + GspacePayload + "\\n");           
+                
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
                 if (webRequest != null)
