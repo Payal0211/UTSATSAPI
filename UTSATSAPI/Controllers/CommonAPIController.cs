@@ -158,7 +158,7 @@ namespace UTSATSAPI.Controllers
 
                     var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
                     StringBuilder sb = new();
-                    sb.AppendLine("ATS to UTS : ReverseMatchmaking,");
+                    sb.AppendLine("*To UTS:* ReverseMatchmaking ");
                     sb.AppendLine("*To URL:* " + endPoint);
                     sb.AppendLine("*Payload:* " + GspacePayload);
 
@@ -424,7 +424,7 @@ namespace UTSATSAPI.Controllers
         public async Task<IActionResult> GetPayRate()
         {
             string apiType = "GetPayRate";
-            string endPoint = $"{_iConfiguration["ProjectURL_API"]}{apiType}";
+            string endPoint =  $"{_iConfiguration["ProjectURL_API"]}{apiType}";
             string result = string.Empty;
             string GspacePayload = string.Empty;
 
@@ -483,7 +483,7 @@ namespace UTSATSAPI.Controllers
 
                     var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
                     StringBuilder sb = new();
-                    sb.AppendLine("ATS to UTS : GetPayRate,");
+                    sb.AppendLine("*To UTS :* GetPayRate ");
                     sb.AppendLine("*To URL:* " + endPoint);
                     sb.AppendLine("*Payload:* " + GspacePayload);
 
@@ -701,7 +701,7 @@ namespace UTSATSAPI.Controllers
 
                     var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
                     StringBuilder sb = new();
-                    sb.AppendLine("ATS to UTS : GetAllTalentDetails,");
+                    sb.AppendLine("*To UTS:* GetAllTalentDetails ");
                     sb.AppendLine("*To URL:* " + endPoint);
                     sb.AppendLine("*Payload:* " + GspacePayload);
 
