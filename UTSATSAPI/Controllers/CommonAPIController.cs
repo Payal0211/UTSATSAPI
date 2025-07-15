@@ -193,7 +193,7 @@ namespace UTSATSAPI.Controllers
             catch (Exception ex)
             {
                 result = ex.Message;
-            }          
+            }            
 
              return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
         }
