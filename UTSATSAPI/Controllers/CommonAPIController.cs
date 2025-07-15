@@ -156,7 +156,7 @@ namespace UTSATSAPI.Controllers
 
                 var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
                 StringBuilder sb = new();
-                sb.AppendLine("ATS to UTS : GetPayRate,");
+                sb.AppendLine("ATS to UTS : ReverseMatchmaking,");
                 sb.AppendLine("*To URL:* " + endPoint);
                 sb.AppendLine("*Payload:* " + GspacePayload);
 
@@ -687,7 +687,7 @@ namespace UTSATSAPI.Controllers
 
                 var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
                 StringBuilder sb = new();
-                sb.AppendLine("ATS to UTS : GetPayRate,");
+                sb.AppendLine("ATS to UTS : GetAllTalentDetails,");
                 sb.AppendLine("*To URL:* " + endPoint);
                 sb.AppendLine("*Payload:* " + GspacePayload);
 
