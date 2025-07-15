@@ -418,12 +418,14 @@ namespace UTSATSAPI.Controllers
             string apiType = "GetPayRate";
             string endPoint = $"{_iConfiguration["ProjectURL_API"]}{apiType}";
             string result = string.Empty;
+            string GspacePayload = string.Empty;
 
             try
             {
                 // Read request body
                 using var reader = new StreamReader(Request.Body);
                 string body = await reader.ReadToEndAsync();
+                GspacePayload = body;
 
                 var contractualDpViewModel = JsonConvert.DeserializeObject<ContractualDpViewModel>(body);
                 if (contractualDpViewModel == null)
@@ -464,6 +466,40 @@ namespace UTSATSAPI.Controllers
             catch (Exception ex)
             {
                 result = ex.Message;
+            }
+            if (result != "")
+            {
+                GspacePayload = GspacePayload + result;
+                var uri = _iConfiguration["chatgoogleapis"].ToString();
+                StringBuilder sb = new();
+                sb.Append("ATS to UTS : GetPayRate,\\n");
+                sb.Append("*To URL:* " + endPoint + "\\n");
+                sb.Append("*Payload:* " + GspacePayload + "\\n");
+
+
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
+                if (webRequest != null)
+                {
+                    webRequest.Method = "POST";
+                    webRequest.Timeout = 500000;
+                    webRequest.ContentType = "application/json";
+                    webRequest.Credentials = CredentialCache.DefaultCredentials;
+
+                    using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    {
+                        string text = "{text:\"" + sb.ToString() + "\"}";
+
+                        requestWriter.Write(text);
+                        requestWriter.Flush();
+                        requestWriter.Close();
+                    }
+                }
+
+                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+
+                Stream resStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(resStream);
+                string ResponseJson = reader.ReadToEnd();
             }
 
             return Unauthorized(new { status = 401, ErrorMessage = result });
@@ -589,12 +625,15 @@ namespace UTSATSAPI.Controllers
             string apiType = "GetAllTalentDetails";
             string endPoint = $"{_iConfiguration["ProjectURL_API"]}{apiType}";
             string result = string.Empty;
+            string GspacePayload = string.Empty;
 
             try
             {
                 // Read request body
                 using var reader = new StreamReader(Request.Body);
                 string body = await reader.ReadToEndAsync();
+
+                GspacePayload = body;
 
                 PMSTalentProperties? pMSTalent = JsonConvert.DeserializeObject<PMSTalentProperties>(body);
                 if (pMSTalent == null)
@@ -639,6 +678,40 @@ namespace UTSATSAPI.Controllers
                 result = ex.Message;
             }
 
+            if (result != "")
+            {
+                GspacePayload = GspacePayload + result;
+                var uri = _iConfiguration["chatgoogleapis"].ToString();               
+                StringBuilder sb = new();
+                sb.Append("ATS to UTS : GetAllTalentDetails,\\n");
+                sb.Append("*To URL:* " + endPoint + "\\n");
+                sb.Append("*Payload:* " + GspacePayload + "\\n");
+
+
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
+                if (webRequest != null)
+                {
+                    webRequest.Method = "POST";
+                    webRequest.Timeout = 500000;
+                    webRequest.ContentType = "application/json";
+                    webRequest.Credentials = CredentialCache.DefaultCredentials;
+
+                    using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    {
+                        string text = "{text:\"" + sb.ToString() + "\"}";
+
+                        requestWriter.Write(text);
+                        requestWriter.Flush();
+                        requestWriter.Close();
+                    }
+                }
+
+                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+
+                Stream resStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(resStream);
+                string ResponseJson = reader.ReadToEnd();
+            }
             return Unauthorized(new { status = 401, ErrorMessage = result });
         }
 
