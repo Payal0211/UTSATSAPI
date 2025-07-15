@@ -19,6 +19,9 @@ using DocumentFormat.OpenXml.InkML;
 using UTSATSAPI.Middlewares;
 using UTSATSAPI.Models.ComplexTypes;
 using UTSATSAPI.Repositories.Interfaces;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace UTSATSAPI.Controllers
 {
@@ -46,12 +49,14 @@ namespace UTSATSAPI.Controllers
             string projectUrlApi = _iConfiguration["ProjectURL_API"];
             string endPoint = projectUrlApi + "ReverseMatchmaking";
             string result = string.Empty;
+            string GspacePayload= string.Empty
 
             try
             {
                 // Read request body
                 using var reader = new StreamReader(Request.Body);
                 string body = await reader.ReadToEndAsync();
+                GspacePayload = body;
 
                 var reverseMatchmakingViewModel = JsonConvert.DeserializeObject<ReverseMatchmakingViewModel>(body);
                 if (reverseMatchmakingViewModel == null)
@@ -144,6 +149,40 @@ namespace UTSATSAPI.Controllers
             catch (Exception ex)
             {
                 result = ex.Message;
+            }
+            if(result != "")
+            {
+                GspacePayload = GspacePayload + result;
+                var uri = _iConfiguration["chatgoogleapis"].ToString();
+                var varProjectURL_API = _iConfiguration["AdminUTSFeedbackURL"].ToString();
+                               StringBuilder sb = new();
+                sb.Append("ATS to UTS ReverseMatchmaking,\\n");
+                sb.Append("*To URL:* " + endPoint + "\\n");
+                sb.Append("*Payload:* " + GspacePayload + "\\n");  
+
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
+                if (webRequest != null)
+                {
+                    webRequest.Method = "POST";
+                    webRequest.Timeout = 500000;
+                    webRequest.ContentType = "application/json";
+                    webRequest.Credentials = CredentialCache.DefaultCredentials;
+
+                    using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    {
+                        string text = "{text:\"" + sb.ToString() + "\"}";
+
+                        requestWriter.Write(text);
+                        requestWriter.Flush();
+                        requestWriter.Close();
+                    }
+                }
+
+                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
+
+                Stream resStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(resStream);
+                string ResponseJson = reader.ReadToEnd();
             }
 
             return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
@@ -645,11 +684,11 @@ namespace UTSATSAPI.Controllers
                     {
                         _PMSTalent.DirectlyWorkedInternationalClients = TalentProfileData.basicDetails.worked_with_international_client.ToLower().Trim() == "yes" ? true : false;
                     }
-                    var TalentAssociatedWithUplersDetails = await _dbContext.PrgTalentAssociatedWithUplers.Where(x => x.AssociatedWithUplers.ToLower().Trim() == TalentProfileData.basicDetails.availability.ToLower().Trim()).FirstOrDefaultAsync();
-                    if (TalentAssociatedWithUplersDetails != null)
-                    {
-                        _PMSTalent.AssociatedwithUplersId = TalentAssociatedWithUplersDetails.Id;
-                    }
+                    //var TalentAssociatedWithUplersDetails = await _dbContext.PrgTalentAssociatedWithUplers.Where(x => x.AssociatedWithUplers.ToLower().Trim() == TalentProfileData.basicDetails.availability.ToLower().Trim()).FirstOrDefaultAsync();
+                    //if (TalentAssociatedWithUplersDetails != null)
+                    //{
+                    //    _PMSTalent.AssociatedwithUplersId = TalentAssociatedWithUplersDetails.Id;
+                    //}
 
                     var TalentJoiningDetails = await _dbContext.PrgTalentJoinnings.Where(x => x.Joinning == TalentProfileData.basicDetails.joining_period).FirstOrDefaultAsync();
                     if (TalentJoiningDetails != null)
