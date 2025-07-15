@@ -150,44 +150,51 @@ namespace UTSATSAPI.Controllers
             {
                 result = ex.Message;
             }
-            if (!string.IsNullOrEmpty(result))
+            try
             {
-                GspacePayload += result;
-
-                var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
-                StringBuilder sb = new();
-                sb.AppendLine("ATS to UTS : ReverseMatchmaking,");
-                sb.AppendLine("*To URL:* " + endPoint);
-                sb.AppendLine("*Payload:* " + GspacePayload);
-
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
-                if (webRequest != null)
+                if (!string.IsNullOrEmpty(result))
                 {
-                    webRequest.Method = "POST";
-                    webRequest.Timeout = 5000;
-                    webRequest.ContentType = "application/json";
+                    GspacePayload += result;
 
-                    var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+                    var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
+                    StringBuilder sb = new();
+                    sb.AppendLine("ATS to UTS : ReverseMatchmaking,");
+                    sb.AppendLine("*To URL:* " + endPoint);
+                    sb.AppendLine("*Payload:* " + GspacePayload);
 
-                    using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
+                    if (webRequest != null)
                     {
-                        streamWriter.Write(messageJson);
-                        streamWriter.Flush();
+                        webRequest.Method = "POST";
+                        webRequest.Timeout = 5000;
+                        webRequest.ContentType = "application/json";
+
+                        var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+
+                        using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
+                        {
+                            streamWriter.Write(messageJson);
+                            streamWriter.Flush();
+                        }
+
+                        // 🔥 This sends the request
+                        using (var response = (HttpWebResponse)webRequest.GetResponse())
+                        {
+                            // Optionally, read the response
+                            using var reader = new StreamReader(response.GetResponseStream());
+                            var responseText = reader.ReadToEnd();
+                            // Log or debug if needed
+                        }
                     }
 
-                    // 🔥 This sends the request
-                    using (var response = (HttpWebResponse)webRequest.GetResponse())
-                    {
-                        // Optionally, read the response
-                        using var reader = new StreamReader(response.GetResponseStream());
-                        var responseText = reader.ReadToEnd();
-                        // Log or debug if needed
-                    }
                 }
             }
+            catch (Exception ex)
+            { 
+                result = ex.Message;
+            }
 
-
-            return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
+             return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
         }
         private async Task<string> InsertReverseMatchmakingAsync(ReverseMatchmakingViewModel reverseMatchmakingViewModel)
         {
@@ -468,42 +475,48 @@ namespace UTSATSAPI.Controllers
             {
                 result = ex.Message;
             }
-            if (!string.IsNullOrEmpty(result))
+            try
             {
-                GspacePayload += result;
-
-                var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
-                StringBuilder sb = new();
-                sb.AppendLine("ATS to UTS : GetPayRate,");
-                sb.AppendLine("*To URL:* " + endPoint);
-                sb.AppendLine("*Payload:* " + GspacePayload);
-
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
-                if (webRequest != null)
+                if (!string.IsNullOrEmpty(result))
                 {
-                    webRequest.Method = "POST";
-                    webRequest.Timeout = 5000;
-                    webRequest.ContentType = "application/json";
+                    GspacePayload += result;
 
-                    var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+                    var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
+                    StringBuilder sb = new();
+                    sb.AppendLine("ATS to UTS : GetPayRate,");
+                    sb.AppendLine("*To URL:* " + endPoint);
+                    sb.AppendLine("*Payload:* " + GspacePayload);
 
-                    using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
+                    if (webRequest != null)
                     {
-                        streamWriter.Write(messageJson);
-                        streamWriter.Flush();
-                    }
+                        webRequest.Method = "POST";
+                        webRequest.Timeout = 5000;
+                        webRequest.ContentType = "application/json";
 
-                    // 🔥 This sends the request
-                    using (var response = (HttpWebResponse)webRequest.GetResponse())
-                    {
-                        // Optionally, read the response
-                        using var reader = new StreamReader(response.GetResponseStream());
-                        var responseText = reader.ReadToEnd();
-                        // Log or debug if needed
+                        var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+
+                        using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
+                        {
+                            streamWriter.Write(messageJson);
+                            streamWriter.Flush();
+                        }
+
+                        // 🔥 This sends the request
+                        using (var response = (HttpWebResponse)webRequest.GetResponse())
+                        {
+                            // Optionally, read the response
+                            using var reader = new StreamReader(response.GetResponseStream());
+                            var responseText = reader.ReadToEnd();
+                            // Log or debug if needed
+                        }
                     }
                 }
             }
-
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
 
             return Unauthorized(new { status = 401, ErrorMessage = result });
         }
@@ -680,41 +693,47 @@ namespace UTSATSAPI.Controllers
             {
                 result = ex.Message;
             }
-
-            if (!string.IsNullOrEmpty(result))
+            try
             {
-                GspacePayload += result;
-
-                var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
-                StringBuilder sb = new();
-                sb.AppendLine("ATS to UTS : GetAllTalentDetails,");
-                sb.AppendLine("*To URL:* " + endPoint);
-                sb.AppendLine("*Payload:* " + GspacePayload);
-
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
-                if (webRequest != null)
+                if (!string.IsNullOrEmpty(result))
                 {
-                    webRequest.Method = "POST";
-                    webRequest.Timeout = 5000;
-                    webRequest.ContentType = "application/json";
+                    GspacePayload += result;
 
-                    var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+                    var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
+                    StringBuilder sb = new();
+                    sb.AppendLine("ATS to UTS : GetAllTalentDetails,");
+                    sb.AppendLine("*To URL:* " + endPoint);
+                    sb.AppendLine("*Payload:* " + GspacePayload);
 
-                    using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
+                    if (webRequest != null)
                     {
-                        streamWriter.Write(messageJson);
-                        streamWriter.Flush();
-                    }
+                        webRequest.Method = "POST";
+                        webRequest.Timeout = 5000;
+                        webRequest.ContentType = "application/json";
 
-                    // 🔥 This sends the request
-                    using (var response = (HttpWebResponse)webRequest.GetResponse())
-                    {
-                        // Optionally, read the response
-                        using var reader = new StreamReader(response.GetResponseStream());
-                        var responseText = reader.ReadToEnd();
-                        // Log or debug if needed
+                        var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+
+                        using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
+                        {
+                            streamWriter.Write(messageJson);
+                            streamWriter.Flush();
+                        }
+
+                        // 🔥 This sends the request
+                        using (var response = (HttpWebResponse)webRequest.GetResponse())
+                        {
+                            // Optionally, read the response
+                            using var reader = new StreamReader(response.GetResponseStream());
+                            var responseText = reader.ReadToEnd();
+                            // Log or debug if needed
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
             }
 
             return Unauthorized(new { status = 401, ErrorMessage = result });
