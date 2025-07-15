@@ -150,41 +150,42 @@ namespace UTSATSAPI.Controllers
             {
                 result = ex.Message;
             }
-            if(result != "")
+            if (!string.IsNullOrEmpty(result))
             {
-                GspacePayload = GspacePayload + result;
-                var uri = _iConfiguration["chatgoogleapis"].ToString();
-                var varProjectURL_API = _iConfiguration["AdminUTSFeedbackURL"].ToString();
-                               StringBuilder sb = new();
-                sb.Append("ATS to UTS ReverseMatchmaking,\\n");
-                sb.Append("*To URL:* " + endPoint + "\\n");
-                sb.Append("*Payload:* " + GspacePayload + "\\n");           
-                
+                GspacePayload += result;
+
+                var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
+                StringBuilder sb = new();
+                sb.AppendLine("ATS to UTS : GetPayRate,");
+                sb.AppendLine("*To URL:* " + endPoint);
+                sb.AppendLine("*Payload:* " + GspacePayload);
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
                 if (webRequest != null)
                 {
                     webRequest.Method = "POST";
-                    webRequest.Timeout = 500000;
+                    webRequest.Timeout = 5000;
                     webRequest.ContentType = "application/json";
-                    webRequest.Credentials = CredentialCache.DefaultCredentials;
 
-                    using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+
+                    using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
                     {
-                        string text = "{text:\"" + sb.ToString() + "\"}";
+                        streamWriter.Write(messageJson);
+                        streamWriter.Flush();
+                    }
 
-                        requestWriter.Write(text);
-                        requestWriter.Flush();
-                        requestWriter.Close();
+                    // 🔥 This sends the request
+                    using (var response = (HttpWebResponse)webRequest.GetResponse())
+                    {
+                        // Optionally, read the response
+                        using var reader = new StreamReader(response.GetResponseStream());
+                        var responseText = reader.ReadToEnd();
+                        // Log or debug if needed
                     }
                 }
-
-                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-
-                Stream resStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(resStream);
-                string ResponseJson = reader.ReadToEnd();
             }
+
 
             return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
         }
@@ -467,40 +468,42 @@ namespace UTSATSAPI.Controllers
             {
                 result = ex.Message;
             }
-            if (result != "")
+            if (!string.IsNullOrEmpty(result))
             {
-                GspacePayload = GspacePayload + result;
-                var uri = _iConfiguration["chatgoogleapis"].ToString();
-                StringBuilder sb = new();
-                sb.Append("ATS to UTS : GetPayRate,\\n");
-                sb.Append("*To URL:* " + endPoint + "\\n");
-                sb.Append("*Payload:* " + GspacePayload + "\\n");
+                GspacePayload += result;
 
+                var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
+                StringBuilder sb = new();
+                sb.AppendLine("ATS to UTS : GetPayRate,");
+                sb.AppendLine("*To URL:* " + endPoint);
+                sb.AppendLine("*Payload:* " + GspacePayload);
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
                 if (webRequest != null)
                 {
                     webRequest.Method = "POST";
-                    webRequest.Timeout = 500000;
+                    webRequest.Timeout = 5000;
                     webRequest.ContentType = "application/json";
-                    webRequest.Credentials = CredentialCache.DefaultCredentials;
 
-                    using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+
+                    using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
                     {
-                        string text = "{text:\"" + sb.ToString() + "\"}";
+                        streamWriter.Write(messageJson);
+                        streamWriter.Flush();
+                    }
 
-                        requestWriter.Write(text);
-                        requestWriter.Flush();
-                        requestWriter.Close();
+                    // 🔥 This sends the request
+                    using (var response = (HttpWebResponse)webRequest.GetResponse())
+                    {
+                        // Optionally, read the response
+                        using var reader = new StreamReader(response.GetResponseStream());
+                        var responseText = reader.ReadToEnd();
+                        // Log or debug if needed
                     }
                 }
-
-                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-
-                Stream resStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(resStream);
-                string ResponseJson = reader.ReadToEnd();
             }
+
 
             return Unauthorized(new { status = 401, ErrorMessage = result });
         }
@@ -678,40 +681,42 @@ namespace UTSATSAPI.Controllers
                 result = ex.Message;
             }
 
-            if (result != "")
+            if (!string.IsNullOrEmpty(result))
             {
-                GspacePayload = GspacePayload + result;
-                var uri = _iConfiguration["chatgoogleapis"].ToString();               
-                StringBuilder sb = new();
-                sb.Append("ATS to UTS : GetAllTalentDetails,\\n");
-                sb.Append("*To URL:* " + endPoint + "\\n");
-                sb.Append("*Payload:* " + GspacePayload + "\\n");
+                GspacePayload += result;
 
+                var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
+                StringBuilder sb = new();
+                sb.AppendLine("ATS to UTS : GetPayRate,");
+                sb.AppendLine("*To URL:* " + endPoint);
+                sb.AppendLine("*Payload:* " + GspacePayload);
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
                 if (webRequest != null)
                 {
                     webRequest.Method = "POST";
-                    webRequest.Timeout = 500000;
+                    webRequest.Timeout = 5000;
                     webRequest.ContentType = "application/json";
-                    webRequest.Credentials = CredentialCache.DefaultCredentials;
 
-                    using (var requestWriter = new StreamWriter(webRequest.GetRequestStream()))
+                    var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+
+                    using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
                     {
-                        string text = "{text:\"" + sb.ToString() + "\"}";
+                        streamWriter.Write(messageJson);
+                        streamWriter.Flush();
+                    }
 
-                        requestWriter.Write(text);
-                        requestWriter.Flush();
-                        requestWriter.Close();
+                    // 🔥 This sends the request
+                    using (var response = (HttpWebResponse)webRequest.GetResponse())
+                    {
+                        // Optionally, read the response
+                        using var reader = new StreamReader(response.GetResponseStream());
+                        var responseText = reader.ReadToEnd();
+                        // Log or debug if needed
                     }
                 }
-
-                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-
-                Stream resStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(resStream);
-                string ResponseJson = reader.ReadToEnd();
             }
+
             return Unauthorized(new { status = 401, ErrorMessage = result });
         }
 
