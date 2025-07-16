@@ -50,6 +50,7 @@ namespace UTSATSAPI.Controllers
             string endPoint = projectUrlApi + "ReverseMatchmaking";
             string result = string.Empty;
             string GspacePayload = string.Empty;
+            string Gspaceresult = string.Empty;
 
             try
             {
@@ -140,62 +141,63 @@ namespace UTSATSAPI.Controllers
                 }
 
                 await UpdateApiRecord(APIRecordInsertedID, result);
-
-                try
-                {
-                    if (!string.IsNullOrEmpty(result))
-                    {
-                        GspacePayload += result;
-
-                        var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
-                        StringBuilder sb = new();
-                        sb.AppendLine("*To UTS:* ReverseMatchmaking ");
-                        sb.AppendLine("*To URL:* " + endPoint);
-                        sb.AppendLine("*Payload:* " + GspacePayload);
-
-                        HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
-                        if (webRequest != null)
-                        {
-                            webRequest.Method = "POST";
-                            webRequest.Timeout = 5000;
-                            webRequest.ContentType = "application/json";
-
-                            var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
-
-                            using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
-                            {
-                                streamWriter.Write(messageJson);
-                                streamWriter.Flush();
-                            }
-
-                            // 🔥 This sends the request
-                            using (var response = (HttpWebResponse)webRequest.GetResponse())
-                            {
-                                // Optionally, read the response
-                                using var Ireader = new StreamReader(response.GetResponseStream());
-                                var responseText = Ireader.ReadToEnd();
-                                // Log or debug if needed
-                            }
-                        }
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    result = ex.Message;
-                }
-
-                if (result == "Success")
-                {
-                    return Ok(new { status = 200, Message = result });
-                }
+                
             }
             catch (Exception ex)
             {
                 result = ex.Message;
-            }            
+            }
 
-             return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
+            try
+            {
+                if (!string.IsNullOrEmpty(result))
+                {
+                    GspacePayload += result;
+
+                    var uri = _iConfiguration["chatgoogleapis"]; // Make sure this is the full webhook URL
+                    StringBuilder sb = new();
+                    sb.AppendLine("*To UTS:* ReverseMatchmaking ");
+                    sb.AppendLine("*To URL:* " + endPoint);
+                    sb.AppendLine("*Payload:* " + GspacePayload);
+
+                    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(uri);
+                    if (webRequest != null)
+                    {
+                        webRequest.Method = "POST";
+                        webRequest.Timeout = 5000;
+                        webRequest.ContentType = "application/json";
+
+                        var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+
+                        using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
+                        {
+                            streamWriter.Write(messageJson);
+                            streamWriter.Flush();
+                        }
+
+                        // 🔥 This sends the request
+                        using (var response = (HttpWebResponse)webRequest.GetResponse())
+                        {
+                            // Optionally, read the response
+                            using var Ireader = new StreamReader(response.GetResponseStream());
+                            var responseText = Ireader.ReadToEnd();
+                            // Log or debug if needed
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Gspaceresult = ex.Message;
+                result += Gspaceresult;
+            }
+
+            if (result == "Success")
+            {
+                return Ok(new { status = 200, Message = result });
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
         }
         private async Task<string> InsertReverseMatchmakingAsync(ReverseMatchmakingViewModel reverseMatchmakingViewModel)
         {
