@@ -22,6 +22,7 @@ namespace UTSATSAPI.Models.ViewModels
 
     public class HRTalentDetail
     {
+              
         public long CTPID { get; set; }
         public long UTS_TalentID { get; set; }
         public long ATS_TalentID { get; set; }
@@ -48,5 +49,14 @@ namespace UTSATSAPI.Models.ViewModels
         public string IsVideoResume { get; set; }
         public string VideoVetting { get; set; }
         public string TalentResume { get; set; }
+
+        public TalentCTC_Breakdown CTCBreakdown { get; set; }  // Make sure JSON uses "CTCBreakdown"
+
+    }
+    public class TalentCTC_Breakdown
+    {
+        public decimal? ctc_fixed { get; set; }
+        public decimal? ctc_variable { get; set; }
+        public decimal? ctc_stock { get; set; }
     }
 }

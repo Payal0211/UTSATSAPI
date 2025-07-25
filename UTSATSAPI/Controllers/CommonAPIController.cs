@@ -72,7 +72,7 @@ namespace UTSATSAPI.Controllers
                     ToApiUrl = endPoint,
                     PayloadToSend = body,
                     CreatedById = 0,
-                    CreatedByDateTime = DateTime.UtcNow,
+                    CreatedByDateTime = DateTime.Now,
                     HrId = reverseMatchmakingViewModel.HRID
                 };
 
@@ -167,7 +167,9 @@ namespace UTSATSAPI.Controllers
                         webRequest.Timeout = 5000;
                         webRequest.ContentType = "application/json";
 
-                        var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+                        //var messageJson = $"{{\"text\": \"{sb.ToString().Replace("\"", "\\\"")}\"}}";
+                        var payloadObj = new { text = sb.ToString() };
+                        var messageJson = JsonConvert.SerializeObject(payloadObj);
 
                         using (var streamWriter = new StreamWriter(webRequest.GetRequestStream()))
                         {
@@ -192,12 +194,26 @@ namespace UTSATSAPI.Controllers
                 Gspaceresult = ex.Message;
                 result += Gspaceresult;
             }
-
             if (result == "Success")
             {
-                return Ok(new { status = 200, Message = result });
+                return Ok(new { status = 200, Message = "Success" });
             }
-            return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
+
+            else if (result.Contains("Talent Inactive") || result.Contains("HR not Accepted"))
+            {
+                return Unauthorized(new { status = 401, Message = result });
+            }
+            else
+            {
+                return StatusCode(500, new { status = 500, ErrorMessage = "Internal server error." });
+            }
+
+
+            //if (result == "Success")
+            //{
+            //    return Ok(new { status = 200, Message = result });
+            //}
+            //return StatusCode(StatusCodes.Status500InternalServerError, new { status = 500, ErrorMessage = result });
         }
         private async Task<string> InsertReverseMatchmakingAsync(ReverseMatchmakingViewModel reverseMatchmakingViewModel)
         {
@@ -451,7 +467,7 @@ namespace UTSATSAPI.Controllers
                     ToApiUrl = endPoint,
                     PayloadToSend = body,
                     CreatedById = 0,
-                    CreatedByDateTime = DateTime.UtcNow,
+                    CreatedByDateTime = DateTime.Now,
                     HrId = contractualDpViewModel.HRID
                 };
 
@@ -538,6 +554,7 @@ namespace UTSATSAPI.Controllers
                 decimal? HrCost = 0, DporNRPercentage = 0, TalentExpected_fee = 0, ExchangeRate_UTS = 0, TalentCurrenct_fee = 0, DPAmount = 0, UplersFee = 0, UplersFeeAmount = 0;
                 string CreatedByDateTime = "", HRTypeText = "", Talent_Expected_fee_yearly = "", Talent_current_fee_yearly = "";
                 string AISummary = "", IsVideoResume = "", VideoVetting = "", TalentResume = "";
+                decimal? CurrentCTC_fixed = 0, CurrentCTC_variable = 0, CurrentCTC_stock = 0;
 
 
                 GenContactTalentPriority? gen_ContactTalent = null;
@@ -569,6 +586,20 @@ namespace UTSATSAPI.Controllers
                     IsVideoResume = item.IsVideoResume;
                     VideoVetting = item.VideoVetting;
                     TalentResume = item.TalentResume;
+
+                    if (item.CTCBreakdown != null)
+                    {
+                       
+                            if (item.CTCBreakdown.ctc_fixed != null)
+                                CurrentCTC_fixed = item.CTCBreakdown.ctc_fixed;
+
+                            if (item.CTCBreakdown.ctc_variable != null)
+                                CurrentCTC_variable = item.CTCBreakdown.ctc_variable;
+
+                            if (item.CTCBreakdown.ctc_stock != null)
+                                CurrentCTC_stock = item.CTCBreakdown.ctc_stock;
+                        
+                    }
                 }
 
                 // Find Talent Data
@@ -612,6 +643,7 @@ namespace UTSATSAPI.Controllers
                         YearsOfExperience, NoticePeriod, AgreedShift, PreferredAvailability,
                         ATS_TalentID, Convert.ToInt32(userType.Id), contractualDpView.CreatedByDateTime,
                         AISummary, IsVideoResume, VideoVetting, TalentResume
+                        ,CurrentCTC_fixed,CurrentCTC_variable,CurrentCTC_stock
                    };
 
                 string paramString = CommonLogic.ConvertToParamStringWithNull(param);
@@ -669,7 +701,7 @@ namespace UTSATSAPI.Controllers
                     ToApiUrl = endPoint,
                     PayloadToSend = body,
                     CreatedById = 0,
-                    CreatedByDateTime = DateTime.UtcNow,
+                    CreatedByDateTime = DateTime.Now,
                     HrId = 0
                 };
 
